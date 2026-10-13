@@ -1,0 +1,39 @@
+name: Copiar registro de marcas
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: registro
+  cancel-in-progress: false
+
+jobs:
+  copiar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bajar el registro de Firestore
+        run: python3 scripts/exportar_registro.py /tmp/registro
+      - name: Guardar en la rama "registro"
+        run: |
+          git config user.name "registro-bot"
+          git config user.email "registro-bot@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin registro >/dev/null; then
+            git fetch --depth 1 origin registro
+            git switch registro
+          else
+            git switch --orphan registro
+            git rm -rf --quiet . || true
+          fi
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp /tmp/registro/* .
+          printf '# Registro de marcas del Radar\n\nCopia automática (cada 15 minutos) del registro de Firestore.\n\n- `registro.csv`: todas las marcas, para abrir en Excel.\n- `eventos.jsonl`: lo mismo, un evento por línea.\n- `marcas.json`: estado actual de los envíos y novedades quitadas.\n' > README.md
+          git add -A
+          if git diff --cached --quiet; then echo "Sin cambios"; exit 0; fi
+          git commit -m "Registro $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin registro

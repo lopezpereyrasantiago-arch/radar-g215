@@ -1,0 +1,719 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script><script src="../assets/config.js"></script><script src="../assets/g215.js" data-base="../" data-pagina="memoria"></script><link rel="icon" href="../assets/icono.svg" type="image/svg+xml"><meta name="robots" content="noindex"></head><body>
+<title>Memoria de Licitaciones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Hermana del Radar: mismas tintas. Tablero de consulta: filtros arriba, pestañas, tablas densas con tiras de puntos. */
+:root{
+  --ground:#F1F4F2; --surface:#FFFFFF; --sunk:#E7ECE9; --ink:#18221F; --muted:#56655F; --line:#D3DAD4;
+  --accent:#1D5C78; --accent-ink:#FFFFFF; --accent-soft:#DCEAF0; --ocre:#8E6118; --ocre-soft:#F4E8D2;
+  --ok:#2F7A4B; --ok-soft:#DDEFE3; --warn:#A5561B; --warn-soft:#F7E3D3; --dot:#2F7792; --dot-soft:rgba(47,119,146,.28);
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#111715; --surface:#1A2220; --sunk:#232D2A; --ink:#E4EAE6; --muted:#9AA8A2; --line:#2F3B37;
+  --accent:#7DB8D3; --accent-ink:#0C2029; --accent-soft:#1D3440; --ocre:#D9A954; --ocre-soft:#3A2F1C;
+  --ok:#7CC796; --ok-soft:#1E3526; --warn:#E59A5E; --warn-soft:#3B2A1C; --dot:#7DBCD6; --dot-soft:rgba(125,188,214,.32);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --ground:#111715; --surface:#1A2220; --sunk:#232D2A; --ink:#E4EAE6; --muted:#9AA8A2; --line:#2F3B37;
+  --accent:#7DB8D3; --accent-ink:#0C2029; --accent-soft:#1D3440; --ocre:#D9A954; --ocre-soft:#3A2F1C;
+  --ok:#7CC796; --ok-soft:#1E3526; --warn:#E59A5E; --warn-soft:#3B2A1C; --dot:#7DBCD6; --dot-soft:rgba(125,188,214,.32);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--ground)}
+body{color:var(--ink);font:15px/1.5 var(--body);padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(30px,5vw,44px);line-height:1;margin:6px 0 0;letter-spacing:-.01em;text-wrap:balance}
+.hright{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.meta{font:13px/1.45 var(--mono);color:var(--muted);text-align:right}
+.meta b{color:var(--ink);font-weight:500}
+.btn{appearance:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--body);border-radius:8px;padding:9px 13px;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.5;cursor:default}
+.hbtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.kpi{background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi .l{font:500 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.kpi .v{font:500 24px/1.15 var(--mono);font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12.5px;color:var(--muted)}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.f{display:flex;flex-direction:column;gap:3px;min-width:0}
+.f label{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+select,input[type=search],input[type=month],input[type=text]{font:14px var(--body);color:var(--ink);background:var(--ground);border:1px solid var(--line);border-radius:6px;padding:7px 9px;min-width:0;max-width:100%}
+.tog{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);padding-bottom:6px}
+
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tab{appearance:none;cursor:pointer;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);font:700 15px/1 var(--display);font-stretch:88%;padding:10px 12px 9px;letter-spacing:.01em}
+.tab[aria-selected="true"]{color:var(--ink);border-color:var(--accent)}
+.tab span{font:400 12px var(--mono);margin-left:5px;color:var(--muted)}
+
+.panel{display:flex;flex-direction:column;gap:14px}
+.ptools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ptools .h{font-size:13.5px;color:var(--muted);flex:1 1 260px;max-width:80ch}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:nowrap;position:sticky;top:0;background:var(--surface)}
+th.s{cursor:pointer}
+th.s:hover{color:var(--ink)}
+th.s[aria-sort]::after{content:" ↓";color:var(--accent)}
+th.s[aria-sort="ascending"]::after{content:" ↑"}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+th.n{text-align:right}
+tr.click{cursor:pointer}
+tr.click:hover td{background:var(--sunk)}
+tr.me td{background:var(--accent-soft)}
+td .sub{font-size:12.5px;color:var(--muted)}
+.pill{display:inline-block;font:500 11px/1 var(--mono);padding:4px 6px;border-radius:4px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.pill.of{background:var(--ok-soft);color:var(--ok)}
+.pill.po{background:var(--accent-soft);color:var(--accent)}
+.pill.sec{background:var(--warn-soft);color:var(--warn)}
+.pill.win{background:var(--ocre-soft);color:var(--ocre)}
+.pill.small{background:var(--sunk);color:var(--muted)}
+.neg{color:var(--ok)} .pos{color:var(--warn)}
+.empty{padding:26px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:10px}
+.strip{display:block}
+.strip text{font:10px var(--mono);fill:var(--muted)}
+.note{font-size:13.5px;color:var(--muted);max-width:85ch}
+
+/* ficha de empresa */
+.ficha{display:flex;flex-direction:column;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.ficha h2{font:800 clamp(22px,3vw,30px)/1.1 var(--display);font-stretch:82%;margin:0;text-wrap:balance}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 18px}
+.fgrid dt{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.fgrid dd{margin:0;font:500 18px var(--mono);font-variant-numeric:tabular-nums}
+
+/* calculadora */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.calc h3,.sec h3{font:700 14px var(--display);text-transform:uppercase;letter-spacing:.07em;margin:0;color:var(--muted)}
+.calc .ins{display:flex;flex-direction:column;gap:10px;min-width:0}
+.read{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.read div{background:var(--ground);border-radius:8px;padding:8px 10px}
+.read .l{font:500 10.5px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.read .v{font:500 17px var(--mono);font-variant-numeric:tabular-nums}
+.read .m{font:12px var(--mono);color:var(--muted)}
+.curve text{font:11px var(--mono);fill:var(--muted)}
+.method{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.method section{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.method h3{font:700 15px var(--display);margin:0 0 6px}
+.method p,.method li{font-size:14px;margin:0 0 6px}
+.method code{font:13px var(--mono);background:var(--sunk);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+.ofl{display:flex;flex-direction:column;gap:2px;font-size:13px}
+.ofl .r{display:flex;justify-content:space-between;gap:12px}
+/* empresas y contactos */
+.csum{display:flex;flex-wrap:wrap;gap:6px}
+.chip{appearance:none;cursor:pointer;font:500 12.5px/1 var(--body);border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:7px 11px}
+.chip b{font:500 12.5px var(--mono);color:var(--ink);margin-left:4px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip[aria-pressed="true"] b{color:var(--accent-ink)}
+.cl{display:flex;flex-direction:column;gap:6px;min-width:230px}
+.ci{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.35}
+.ci .t{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.ci .d{font:12px var(--mono);color:var(--muted)}
+.ci .lic{color:var(--ink)}
+.ci .resp{color:var(--ok)}
+.pill.gen{background:var(--accent-soft);color:var(--accent)}
+.pill.esp{background:var(--ok-soft);color:var(--ok)}
+.pill.err{background:var(--warn-soft);color:var(--warn)}
+.cc{display:flex;flex-direction:column;gap:2px;font-size:13px;min-width:170px}
+.cc a{overflow-wrap:anywhere}
+.nx{font:600 13px var(--body);white-space:nowrap}
+.nx.mail{color:var(--accent)} .nx.tel{color:var(--ocre)} .nx.busc{color:var(--muted)} .nx.ok{color:var(--ok)}
+.linkbtn{appearance:none;border:0;background:none;padding:0;color:var(--accent);font:13px var(--body);cursor:pointer;text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:8px;font-size:14px;z-index:20}
+@media (max-width:720px){
+  .calc{grid-template-columns:1fr}
+  .meta{text-align:left}.hright{align-items:flex-start}.hbtns{justify-content:flex-start}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Obra pública · Base histórica de aperturas y adjudicaciones</div>
+      <h1>Memoria de Licitaciones</h1>
+    </div>
+    <div class="hright">
+      <div class="hbtns">
+        <a class="btn" href="../radar/" target="_blank" rel="noopener">← Radar de licitaciones</a>
+        <button class="btn" id="themeBtn" type="button"></button>
+        <button class="btn primary" id="xlsBtn" type="button" disabled>Exportar a Excel</button>
+      </div>
+      <div class="meta" id="meta">Cargando la base…</div>
+    </div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="filters" id="filters">
+    <div class="f"><label for="fDesde">Desde</label><input type="month" id="fDesde"></div>
+    <div class="f"><label for="fHasta">Hasta</label><input type="month" id="fHasta"></div>
+    <div class="f"><label for="fJur">Jurisdicción</label><select id="fJur"></select></div>
+    <div class="f"><label for="fMun">Partido / comuna / ciudad</label><select id="fMun"></select></div>
+    <div class="f"><label for="fRub">Rubro</label><select id="fRub"></select></div>
+    <label class="tog"><input type="checkbox" id="fSec" checked> Incluir fuentes secundarias</label>
+    <label class="tog"><input type="checkbox" id="fIcc" checked> Ajustar por costo de construcción</label>
+  </div>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" data-t="empresas" aria-selected="true">Empresas<span id="c-empresas"></span></button>
+    <button class="tab" role="tab" data-t="contactos" aria-selected="false">Empresas y contactos<span id="c-contactos"></span></button>
+    <button class="tab" role="tab" data-t="precios" aria-selected="false">Precios<span id="c-precios"></span></button>
+    <button class="tab" role="tab" data-t="lic" aria-selected="false">Licitaciones<span id="c-lic"></span></button>
+    <button class="tab" role="tab" data-t="fuentes" aria-selected="false">Fuentes oficiales<span id="c-fuentes"></span></button>
+    <button class="tab" role="tab" data-t="registro" aria-selected="false">Registro<span id="c-registro"></span></button>
+    <button class="tab" role="tab" data-t="metodo" aria-selected="false">Método</button>
+  </nav>
+
+  <main id="out"><div class="empty">Cargando la base histórica…</div></main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf1=new Intl.NumberFormat('es-AR',{maximumFractionDigits:1});
+const nf0=new Intl.NumberFormat('es-AR',{maximumFractionDigits:0});
+const RUBROS=["Energía","Vial y transporte","Agua y saneamiento","Hidráulica","Arquitectura y edificios públicos","Vivienda y urbanismo","Ambiental y residuos","Consultoría e ingeniería","Otros"];
+function money(v,cur){ if(v==null) return '—'; const p=cur==='USD'?'USD ':'$ ';
+  if(Math.abs(v)>=1e9) return p+nf1.format(v/1e9)+' mil M'; if(Math.abs(v)>=1e6) return p+nf1.format(v/1e6)+' M'; return p+nf0.format(v); }
+const pct=(d,dec=1)=>d==null||!isFinite(d)?'—':(d>0?'+':'')+(d*100).toFixed(dec).replace('.',',')+' %';
+const pctc=d=>d==null?'—':`<span class="${d<0?'neg':d>0?'pos':''}">${pct(d)}</span>`;
+const fdate=s=>s?s.slice(0,10).split('-').reverse().join('/'):'—';
+function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2400);}
+
+/* ---------- normalización de empresas (misma regla que la rutina) ---------- */
+const plain=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const SUF=new Set(['sa','s','a','srl','sas','saic','saicfi','sacif','saci','sacifia','sacfi','scs','se','ltda','cia','y','de','la','el']);
+let ALIAS={centroconstrucciones:'cecosa'};
+const DISPLAY_FIX={cecosa:'Centro Construcciones S.A. (ex CECOSA)'};
+function normEmp(s){
+  let t=plain(s).replace(/\([^)]*\)/g,' ');
+  t=t.replace(/^\s*(ut|ute|utes|union transitoria( de empresas)?|consorcio)\b[\s:.-]*/,'');
+  t=t.replace(/\b(u\.t\.?|ute?)\s*$/,' ').replace(/^\s*(empresa\s+)?constructora\s+/,'');
+  const k=(t.match(/[a-z0-9]+/g)||[]).filter(w=>!SUF.has(w)).join('');
+  return ALIAS[k]||k;
+}
+function miembros(nombre){
+  let t=String(nombre||'').trim();
+  t=t.replace(/\s*\((?:con |grupo).*$/i,'');
+  t=t.replace(/^\s*(UTE?|Consorcio)\s+/i,'');
+  const m=t.match(/^"[^"]*"\s*\((.*)\)\s*$/); if(m) t=m[1];
+  t=t.replace(/\s*\(?\b(UTE?|U\.T\.?|consorcio)\)?\s*$/i,'').replace(/\([^)]*\)/g,'');
+  const p=t.split(/\s+[-–]\s+/).map(s=>s.trim()).filter(Boolean);
+  return p.length>1?p:[nombre];
+}
+
+/* ---------- estado ---------- */
+const S={tab:'empresas',desde:'',hasta:'',jur:'',mun:'',rub:'',sec:true,icc:true,q:'',empSort:['pres','desc'],empSel:null,grp:'org_rub',licQ:'',calcG:'',calcPO:'',cq:'',cf:'todas',co:'pres',rq:'',rt:'',rw:''};
+try{Object.assign(S,JSON.parse(localStorage.getItem('memoria-lic-v1')||'{}'));S.empSel=null;}catch(e){}
+const save=()=>{try{const {tab,grp,sec,icc,empSort,cf,co}=S;localStorage.setItem('memoria-lic-v1',JSON.stringify({tab,grp,sec,icc,empSort,cf,co}))}catch(e){}};
+let R=[], ICC={}, ICCMETA={}, FUENTES=[], META={}, DB=null, CONT=[], CONTOK=false;
+
+/* ---------- índice de costo de la construcción ---------- */
+function mes(s){return s?String(s).slice(0,7):null;}
+function factor(r){ // ICC(apertura)/ICC(base)
+  if(!S.icc) return {f:1,ok:false};
+  const b=mes(r.fecha_base_po)||mes(r.fecha_publicacion), a=mes(r.fecha_apertura)||mes(r.fecha_adjudicacion);
+  if(!a||!b||a===b) return {f:1,ok:a&&b?true:false};
+  if(ICC[a]&&ICC[b]) return {f:ICC[a]/ICC[b],ok:true};
+  return {f:1,ok:false};
+}
+/* ---------- derivados por licitación ---------- */
+function derive(r){
+  const po=(r.presupuesto_oficial>0&&!r.excluir_precios)?r.presupuesto_oficial:null;
+  const fx=po?factor(r):{f:1,ok:false};
+  const ofs=(r.oferentes||[]).map(o=>{const k=normEmp(o.empresa);const mem=miembros(o.empresa).map(normEmp);
+    let d=null,ratio=null,out=false;
+    if(po&&o.monto>0){ratio=o.monto/(po*fx.f); if(ratio<0.4||ratio>2.5) out=true; else d=ratio-1;}
+    return {...o,k,mem,d,out};});
+  const g=r.ganador&&r.ganador.empresa?{...r.ganador,k:normEmp(r.ganador.empresa),mem:miembros(r.ganador.empresa).map(normEmp)}:null;
+  if(g&&!ofs.some(o=>o.k===g.k)) ofs.push({empresa:g.empresa,monto:g.monto,admitida:true,k:g.k,mem:g.mem,d:null,out:false,soloGanador:true});
+  const priced=ofs.filter(o=>o.monto>0&&o.admitida!==false).sort((a,b)=>a.monto-b.monto);
+  const decided=['adjudicada','preadjudicada','fracasada','desierta','anulada'].includes(r.estado);
+  let winLow=null, margen=null, dWin=null, dMin=null;
+  if(priced.length) dMin=priced[0].d;
+  if(g&&(r.estado==='adjudicada'||r.estado==='preadjudicada')){
+    const w=ofs.find(o=>o.k===g.k); const wm=g.monto||(w&&w.monto);
+    if(w) dWin=w.d;
+    if(wm&&priced.length>=2){ winLow=Math.abs(wm-priced[0].monto)<=0.001*wm;
+      if(winLow) margen=(priced[1].monto-wm)/wm; }
+  }
+  const fref=r.fecha_adjudicacion||r.fecha_apertura||r.fecha_publicacion||null;
+  return {...r,_po:po,_fx:fx,_ofs:ofs,_g:g,_priced:priced,_decided:decided,_winLow:winLow,_margen:margen,_dWin:dWin,_dMin:dMin,_fref:fref};
+}
+let D=[];
+function filtered(){
+  return D.filter(r=>(!S.jur||r.jurisdiccion===S.jur)&&(!S.mun||r.municipio===S.mun)&&(!S.rub||r.rubro===S.rub)
+    &&(S.sec||r.fuente_tipo!=='secundaria')
+    &&(!S.desde||(r._fref&&mes(r._fref)>=S.desde))&&(!S.hasta||(r._fref&&mes(r._fref)<=S.hasta)));
+}
+const median=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;};
+const quant=(a,q)=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),p=(s.length-1)*q,lo=Math.floor(p),hi=Math.ceil(p);return s[lo]+(s[hi]-s[lo])*(p-lo);};
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+
+/* ---------- empresas ---------- */
+function empresas(L){
+  const E={};
+  const get=(k,name)=>{const e=E[k]||(E[k]={k,names:{},pres:0,dec:0,gan:0,ds:[],margs:[],jur:{},rub:{},ut:0,lics:[]}); e.names[name]=(e.names[name]||0)+1; return e;};
+  for(const r of L){
+    const seen=new Set();
+    for(const o of r._ofs){
+      const keys=o.mem.length>1?o.mem:[o.k];
+      keys.forEach((k,idx)=>{ if(!k||seen.has(k)) return; seen.add(k);
+        const nm=o.mem.length>1?miembros(o.empresa)[idx]:o.empresa;
+        const e=get(k,nm); e.pres++; if(o.mem.length>1) e.ut++;
+        e.jur[r.jurisdiccion]=(e.jur[r.jurisdiccion]||0)+1; e.rub[r.rubro]=(e.rub[r.rubro]||0)+1;
+        const won=r._g&&(r._g.k===o.k)&&(r.estado==='adjudicada'||r.estado==='preadjudicada');
+        if(r._decided) e.dec++;
+        if(won){ e.gan++; if(r._margen!=null) e.margs.push(r._margen); }
+        if(o.d!=null) e.ds.push(o.d);
+        e.lics.push({r,o,won});
+      });
+    }
+  }
+  return Object.values(E).map(e=>{
+    const nm=Object.entries(e.names).sort((a,b)=>b[1]-a[1])[0][0];
+    return {...e,name:DISPLAY_FIX[e.k]||nm,tasa:e.dec?e.gan/e.dec:null,dmed:median(e.ds),marg:mean(e.margs),
+      jurTxt:Object.entries(e.jur).sort((a,b)=>b[1]-a[1]).map(x=>x[0]).join(', '),
+      rubTxt:Object.entries(e.rub).sort((a,b)=>b[1]-a[1]).map(x=>x[0]).join(', ')};
+  });
+}
+function renderEmpresas(L){
+  const E=empresas(L); $('c-empresas').textContent=E.length;
+  if(S.empSel){ const e=E.find(x=>x.k===S.empSel); if(e) return fichaEmpresa(e); S.empSel=null; }
+  const q=plain(S.q);
+  const [col,dir]=S.empSort;
+  const val=e=>({name:e.name,pres:e.pres,gan:e.gan,tasa:e.tasa??-1,dmed:e.dmed??9,marg:e.marg??-1,jur:e.jurTxt})[col];
+  const list=E.filter(e=>!q||plain(e.name+' '+e.jurTxt).includes(q)).sort((a,b)=>{const x=val(a),y=val(b);const c=typeof x==='string'?x.localeCompare(y,'es'):x-y;return dir==='asc'?c:-c;});
+  const th=(c,t,n)=>`<th class="s${n?' n':''}" data-s="${c}"${col===c?` aria-sort="${dir==='asc'?'ascending':'descending'}"`:''}>${t}</th>`;
+  $('out').innerHTML=`<div class="panel">
+    <div class="ptools"><input type="search" id="eq" placeholder="Buscar empresa…" value="${esc(S.q)}" aria-label="Buscar empresa" style="flex:1 1 240px">
+      <span class="h">Cada integrante de una UT suma la presentación y, si la UT gana, la licitación ganada. La tasa de éxito se calcula sobre las licitaciones ya resueltas. Tocá una empresa para ver su historial.</span></div>
+    ${list.length?`<div class="tw"><table>
+      <tr>${th('name','Empresa')}${th('pres','Presentaciones',1)}${th('gan','Ganadas',1)}${th('tasa','Tasa de éxito',1)}${th('dmed','Oferta vs. oficial',1)}${th('marg','Margen al ganar',1)}${th('jur','Dónde se presenta')}</tr>
+      ${list.slice(0,400).map(e=>`<tr class="click${e.k==='cecosa'?' me':''}" data-k="${esc(e.k)}">
+        <td><b>${esc(e.name)}</b>${e.ut?`<div class="sub">${e.ut} en UT</div>`:''}</td>
+        <td class="n">${e.pres}</td><td class="n">${e.gan||'—'}</td>
+        <td class="n">${e.tasa==null?'<span class="sub">sin resueltas</span>':pct(e.tasa,0).replace('+','')+`<div class="sub">de ${e.dec}</div>`}</td>
+        <td class="n">${e.dmed==null?'—':pctc(e.dmed)+`<div class="sub">${e.ds.length} oferta${e.ds.length>1?'s':''}</div>`}</td>
+        <td class="n">${e.marg==null?'—':pct(e.marg)}</td>
+        <td><span class="sub">${esc(e.jurTxt)}</span></td></tr>`).join('')}
+    </table></div>`:'<div class="empty">Ninguna empresa coincide con la búsqueda o los filtros.</div>'}
+  </div>`;
+  $('eq').oninput=e=>{S.q=e.target.value; const p=e.target.selectionStart; render(); const n=$('eq'); if(n){n.focus(); n.setSelectionRange(p,p);} };
+  $('out').querySelectorAll('th.s').forEach(t=>t.onclick=()=>{const c=t.dataset.s; S.empSort=[c,S.empSort[0]===c&&S.empSort[1]==='desc'?'asc':'desc']; save(); render();});
+  $('out').querySelectorAll('tr.click').forEach(t=>t.onclick=()=>{S.empSel=t.dataset.k; render(); window.scrollTo(0,0);});
+}
+function fichaEmpresa(e){
+  const L=[...e.lics].sort((a,b)=>String(b.r._fref||'').localeCompare(String(a.r._fref||'')));
+  $('out').innerHTML=`<div class="panel"><div class="ptools"><button class="btn" id="eback" type="button">← Todas las empresas</button></div>
+  <div class="ficha"><div><div class="eyebrow">Historial de la empresa</div><h2>${esc(e.name)}</h2></div>
+    <dl class="fgrid">
+      <div><dt>Presentaciones</dt><dd>${e.pres}</dd></div>
+      <div><dt>Ganadas</dt><dd>${e.gan}</dd></div>
+      <div><dt>Tasa de éxito</dt><dd>${e.tasa==null?'—':pct(e.tasa,0).replace('+','')}</dd></div>
+      <div><dt>Oferta mediana vs. oficial</dt><dd>${pctc(e.dmed)}</dd></div>
+      <div><dt>Margen medio al ganar</dt><dd>${e.marg==null?'—':pct(e.marg)}</dd></div>
+      <div><dt>En UT</dt><dd>${e.ut}</dd></div>
+    </dl>
+    <div class="note"><b>Jurisdicciones:</b> ${esc(e.jurTxt)}<br><b>Rubros:</b> ${esc(e.rubTxt)}</div>
+  </div>
+  <div class="tw"><table><tr><th>Fecha</th><th>Licitación</th><th class="n">Su oferta</th><th class="n">vs. oficial</th><th>Resultado</th></tr>
+  ${L.map(({r,o,won})=>`<tr><td class="n">${fdate(r._fref)}</td>
+    <td><b>${esc(r.objeto)}</b><div class="sub">${esc(r.jurisdiccion)}${r.municipio?' · '+esc(r.municipio):''} · ${esc(r.organismo||'')}${o.mem.length>1?' · como '+esc(o.empresa):''}</div></td>
+    <td class="n">${o.monto?money(o.monto,r.moneda):'—'}</td><td class="n">${pctc(o.d)}</td>
+    <td>${won?'<span class="pill win">Ganó</span>':r._decided?(r._g?`<span class="pill">Ganó ${esc(r._g.empresa)}</span>`:`<span class="pill">${esc(r.estado)}</span>`):'<span class="pill">Sin resolver</span>'}${o.admitida===false?' <span class="pill sec">No admitida</span>':''}</td></tr>`).join('')}
+  </table></div></div>`;
+  $('eback').onclick=()=>{S.empSel=null; render();};
+}
+
+/* ---------- empresas y contactos ---------- */
+const CFILT=[
+  ['todas','Todas',c=>true],
+  ['contactadas','Contactadas',c=>c._sent],
+  ['general','Contacto general',c=>c._cs.some(x=>x.tipo==='general')],
+  ['especifico','Por licitación',c=>c._cs.some(x=>x.tipo==='especifico')],
+  ['respondieron','Respondieron',c=>c._resp],
+  ['escribir','Para escribir',c=>c._next==='mail'],
+  ['llamar','Para llamar',c=>c._next==='tel'],
+  ['sinmedio','Sin medio de contacto',c=>c._next==='busc'],
+];
+const RESP_EST=/respondi|reuni|cotizaci|no interesado|atendi/i;
+function contactos(){
+  const stats={}; empresas(D).forEach(e=>{stats[e.k]=e;});
+  return CONT.map(c=>{
+    const cs=mergeLive(c).sort((a,b)=>fkey(b.fecha).localeCompare(fkey(a.fecha)));
+    const keys=[c.empresa,...String(c.otros_nombres||'').split(';')].map(s=>s&&normEmp(s)).filter(Boolean);
+    const st=keys.map(k=>stats[k]).find(Boolean)||null;
+    const sent=cs.some(x=>/enviado|respondi|reuni|cotizaci|interesado|atendi/i.test(x.estado||''));
+    const resp=cs.some(x=>x.respuesta||RESP_EST.test(x.estado||''));
+    const bounced=cs.length&&/error|rebot/i.test(cs[0].estado||'');
+    let next;
+    if(resp) next='seg'; else if(sent&&!bounced) next='esperar';
+    else if(c.email&&!bounced) next='mail'; else if(c.telefono) next='tel'; else next='busc';
+    return {...c,_cs:cs,_st:st,_sent:sent,_resp:resp,_next:next,_pres:st?st.pres:(c.ofertas||0),_gan:st?st.gan:(c.ganadas||0),
+      _last:cs.length?fkey(cs[0].fecha):'',_txt:plain([c.empresa,c.otros_nombres,c.ciudad,c.jurisdicciones,c.email,c.licitaciones,...cs.map(x=>x.licitacion||'')].join(' '))};
+  });
+}
+function fkey(f){ if(!f) return ''; const m=String(f).match(/^(\d{2})\/(\d{2})\/(\d{4})$/); return m?`${m[3]}-${m[2]}-${m[1]}`:String(f); }
+const NEXT={mail:['Escribir por mail','mail'],tel:['Llamar','tel'],busc:['Buscar contacto','busc'],esperar:['Esperar respuesta','ok'],seg:['Hacer seguimiento','ok']};
+function estPill(e){ const t=String(e||''); return /error|rebot/i.test(t)?`<span class="pill err">${esc(t)}</span>`:RESP_EST.test(t)?`<span class="pill win">${esc(t)}</span>`:`<span class="pill">${esc(t)}</span>`; }
+function renderContactos(){
+  if(!CONTOK){ $('out').innerHTML='<div class="empty">Todavía no hay directorio de empresas cargado. La rutina diaria del Radar lo carga en su próxima corrida.</div>'; return; }
+  const all=contactos();
+  const base=all.filter(c=>!S.jur||String(c.jurisdicciones||'').split(/,\s*/).includes(S.jur));
+  $('c-contactos').textContent=all.length;
+  const f=CFILT.find(x=>x[0]===S.cf)||CFILT[0]; const q=plain(S.cq);
+  const list=base.filter(f[2]).filter(c=>!q||c._txt.includes(q)).sort((a,b)=>
+    S.co==='reciente'?(b._last.localeCompare(a._last)||b._pres-a._pres):S.co==='nombre'?a.empresa.localeCompare(b.empresa,'es'):(b._pres-a._pres||b._gan-a._gan||a.empresa.localeCompare(b.empresa,'es')));
+  const chips=CFILT.map(([k,t,fn])=>`<button class="chip" type="button" data-cf="${k}" aria-pressed="${S.cf===k}">${t}<b>${base.filter(fn).length}</b></button>`).join('');
+  $('out').innerHTML=`<div class="panel">
+    <div class="csum" role="group" aria-label="Filtrar por estado de contacto">${chips}</div>
+    <div class="ptools"><input type="search" id="cq" placeholder="Buscar empresa, ciudad, email o licitación…" value="${esc(S.cq)}" aria-label="Buscar empresa" style="flex:1 1 260px">
+      <div class="f"><label for="co">Ordenar</label><select id="co"><option value="pres"${S.co==='pres'?' selected':''}>Más presentaciones</option><option value="reciente"${S.co==='reciente'?' selected':''}>Contacto más reciente</option><option value="nombre"${S.co==='nombre'?' selected':''}>Nombre</option></select></div>
+      <span class="h">Directorio de G215: contacto institucional de cada oferente y cada vez que se le escribió, con el tipo de contacto (presentación general o por una licitación puntual) y la respuesta si la hubo. Lo actualiza la rutina diaria del Radar. El filtro de jurisdicción de arriba también aplica acá.</span></div>
+    ${list.length?`<div class="tw"><table>
+      <tr><th>Empresa</th><th>Contacto</th><th class="n">Pres.</th><th class="n">Ganó</th><th>Contacto de G215</th><th>Próximo paso</th></tr>
+      ${list.slice(0,600).map(c=>`<tr>
+        <td style="min-width:210px"><b>${esc(c.empresa)}</b>${c.otros_nombres?`<div class="sub">También: ${esc(c.otros_nombres)}</div>`:''}<div class="sub">${esc([c.ciudad,c.jurisdicciones].filter(Boolean).join(' · '))}</div>
+          ${c.licitaciones?`<div class="sub" style="margin-top:4px">${String(c.licitaciones).split(' | ').map(esc).join('<br>')}</div>`:''}
+          ${c._st?`<button class="linkbtn" type="button" data-k="${esc(c._st.k)}">Ver historial de ofertas</button>`:''}</td>
+        <td><div class="cc">${c.email?`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`:'<span class="sub">sin email</span>'}${c.emails_extra?`<span class="sub">${esc(c.emails_extra)}</span>`:''}
+          ${c.telefono?`<span>${esc(c.telefono)}</span>`:''}${c.web?`<a href="${esc(/^https?:/i.test(c.web)?c.web:'https://'+c.web)}" target="_blank" rel="noopener">${esc(String(c.web).replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}</a>`:''}</div></td>
+        <td class="n">${c._pres||'—'}</td><td class="n">${c._gan||'—'}</td>
+        <td>${c._cs.length?`<div class="cl">${c._cs.map(x=>`<div class="ci"><div class="t"><span class="d">${esc(x.fecha)}</span>${x.tipo==='especifico'?'<span class="pill esp">Por licitación</span>':'<span class="pill gen">General</span>'}${estPill(x.estado)}${x.casilla_compartida?' <span class="pill small">casilla compartida</span>':''}${x._live?' <span class="pill small">desde el Radar, en vivo</span>':''}</div>
+            ${x.tipo==='especifico'&&x.licitacion?`<div class="lic">${esc(x.licitacion)}</div>`:''}
+            ${x.respuesta?`<div class="resp">Respuesta${x.fecha_respuesta?' del '+esc(x.fecha_respuesta):''}: ${esc(x.respuesta)}</div>`:''}
+            ${x.email&&x.email!==c.email?`<div class="sub">a ${esc(x.email)}</div>`:''}</div>`).join('')}</div>`
+          :`<span class="pill">${c._next==='busc'?'Sin medio de contacto':'Sin contactar'}</span>`}</td>
+        <td><span class="nx ${NEXT[c._next][1]}">${NEXT[c._next][0]}</span></td></tr>`).join('')}
+    </table></div>${list.length>600?`<div class="note">Se muestran las primeras 600 de ${list.length}. Usá la búsqueda o los filtros para acotar.</div>`:''}`:'<div class="empty">Ninguna empresa coincide con la búsqueda o el filtro.</div>'}
+  </div>`;
+  $('out').querySelectorAll('[data-cf]').forEach(b=>b.onclick=()=>{S.cf=b.dataset.cf; save(); render();});
+  $('cq').oninput=e=>{S.cq=e.target.value; const p=e.target.selectionStart; render(); const n=$('cq'); if(n){n.focus(); n.setSelectionRange(p,p);} };
+  $('co').onchange=e=>{S.co=e.target.value; save(); render();};
+  $('out').querySelectorAll('.linkbtn[data-k]').forEach(b=>b.onclick=()=>{S.tab='empresas'; S.empSel=b.dataset.k; save(); render(); window.scrollTo(0,0);});
+}
+
+/* ---------- precios ---------- */
+const GRP={org_rub:{t:'Organismo y rubro',f:r=>(r.organismo||'Sin organismo')+' · '+r.rubro},org:{t:'Organismo',f:r=>r.organismo||'Sin organismo'},rub:{t:'Rubro',f:r=>r.rubro},jur:{t:'Jurisdicción',f:r=>r.jurisdiccion},jur_rub:{t:'Jurisdicción y rubro',f:r=>r.jurisdiccion+' · '+r.rubro}};
+function grupos(L){
+  const G={};
+  for(const r of L){ const ds=r._ofs.filter(o=>o.d!=null); if(!ds.length) continue;
+    const k=GRP[S.grp].f(r); const g=G[k]||(G[k]={k,lics:[],ds:[],dmin:[],dwin:[],nof:[],wl:[],marg:[]});
+    g.lics.push(r); ds.forEach(o=>g.ds.push(o.d)); g.nof.push(r._priced.length);
+    if(r._dMin!=null&&r._priced.length>=2) g.dmin.push(r._dMin);
+    if(r._dWin!=null) g.dwin.push(r._dWin); if(r._winLow!=null) g.wl.push(r._winLow?1:0); if(r._margen!=null) g.marg.push(r._margen);
+  }
+  return Object.values(G).sort((a,b)=>b.lics.length-a.lics.length||b.ds.length-a.ds.length);
+}
+function strip(g){
+  const W=170,H=26,lo=-0.4,hi=0.4,x=d=>8+(Math.max(lo,Math.min(hi,d))-lo)/(hi-lo)*(W-16);
+  const dots=[];
+  g.lics.forEach(r=>r._ofs.forEach(o=>{ if(o.d==null) return; const w=r._g&&r._g.k===o.k;
+    dots.push(`<circle cx="${x(o.d).toFixed(1)}" cy="${w?9:15}" r="${w?4.5:3.5}" fill="${w?'var(--ocre)':'var(--dot-soft)'}" stroke="${w?'var(--surface)':'var(--dot)'}" stroke-width="${w?2:1}"><title>${esc(o.empresa)}: ${pct(o.d)}${w?' (ganó)':''}</title></circle>`);}));
+  return `<svg class="strip" width="${W}" height="${H+10}" viewBox="0 0 ${W} ${H+10}" role="img" aria-label="Ofertas respecto del presupuesto oficial">
+    <line x1="8" x2="${W-8}" y1="${H-2}" y2="${H-2}" stroke="var(--line)"/><line x1="${x(0)}" x2="${x(0)}" y1="2" y2="${H}" stroke="var(--muted)" stroke-dasharray="2 2"/>
+    ${dots.join('')}<text x="8" y="${H+9}">−40%</text><text x="${x(0)-4}" y="${H+9}">0</text><text x="${W-36}" y="${H+9}">+40%</text></svg>`;
+}
+function renderPrecios(L){
+  const G=grupos(L); $('c-precios').textContent=G.reduce((s,g)=>s+g.lics.length,0);
+  const opts=Object.entries(GRP).map(([k,v])=>`<option value="${k}"${S.grp===k?' selected':''}>${v.t}</option>`).join('');
+  const calcable=G.filter(g=>g.dmin.length>=3);
+  if(!calcable.some(g=>g.k===S.calcG)) S.calcG=calcable[0]?calcable[0].k:'';
+  $('out').innerHTML=`<div class="panel">
+    <div class="ptools"><div class="f"><label for="grp">Agrupar por</label><select id="grp">${opts}</select></div>
+      <span class="h">Cada punto es una oferta, medida contra el presupuesto oficial${S.icc?' ajustado por el costo de la construcción':''}. El punto ocre es el ganador. Debajo de 5 licitaciones la muestra es chica: tomala como referencia, no como regla.</span></div>
+    ${G.length?`<div class="tw"><table>
+      <tr><th>Grupo</th><th class="n">Licitaciones</th><th class="n">Ofertas</th><th>Distribución</th><th class="n">Mediana</th><th class="n">P25 a P75</th><th class="n">Oferta más baja</th><th class="n">Ganador</th><th class="n">Oferentes</th><th class="n">Ganó la más baja</th><th class="n">Margen al 2º</th></tr>
+      ${G.map(g=>`<tr><td><b>${esc(g.k)}</b>${g.lics.length<5?' <span class="pill small">muestra chica</span>':''}</td>
+        <td class="n">${g.lics.length}</td><td class="n">${g.ds.length}</td><td>${strip(g)}</td>
+        <td class="n">${pctc(median(g.ds))}</td><td class="n">${pct(quant(g.ds,.25))}<br>${pct(quant(g.ds,.75))}</td>
+        <td class="n">${pctc(median(g.dmin))}</td><td class="n">${pctc(median(g.dwin))}</td>
+        <td class="n">${nf1.format(mean(g.nof)||0)}</td><td class="n">${g.wl.length?Math.round(mean(g.wl)*100)+' %':'—'}</td>
+        <td class="n">${g.marg.length?pct(median(g.marg)):'—'}</td></tr>`).join('')}
+    </table></div>`:'<div class="empty">Con estos filtros no hay licitaciones con presupuesto oficial y ofertas con monto. Ampliá el período o la jurisdicción.</div>'}
+    ${calcable.length?calcHTML(calcable):`<div class="note">La calculadora de oferta necesita al menos 3 licitaciones del mismo grupo con presupuesto oficial y 2 o más ofertas con monto. Probá agrupar por rubro o por jurisdicción.</div>`}
+  </div>`;
+  $('grp').onchange=e=>{S.grp=e.target.value; save(); render();};
+  if(calcable.length) wireCalc(calcable);
+}
+function calcHTML(C){
+  return `<div class="calc"><div class="ins">
+    <h3>Calculadora de oferta</h3>
+    <div class="f"><label for="cg">Grupo de referencia</label><select id="cg">${C.map(g=>`<option${g.k===S.calcG?' selected':''}>${esc(g.k)}</option>`).join('')}</select></div>
+    <div class="f"><label for="cpo">Presupuesto oficial de tu licitación (opcional)</label><input type="text" id="cpo" inputmode="decimal" placeholder="Ej. 5.400.000.000" value="${esc(S.calcPO)}"></div>
+    <div class="read" id="cread"></div>
+    <div class="note" id="cnote"></div>
+  </div><div id="ccurve" style="min-width:0"></div></div>`;
+}
+function wireCalc(C){
+  const draw=()=>{
+    const g=C.find(x=>x.k===S.calcG)||C[0]; const dm=g.dmin; const n=dm.length;
+    const P=d=>dm.filter(v=>v>d).length/n; // probabilidad empírica de quedar primero
+    const po=parseFloat(String(S.calcPO).replace(/\./g,'').replace(',','.'));
+    const at=p=>{ // mayor desvío d con P(d) >= p
+      let best=null; for(let d=0.5;d>=-0.6;d-=0.0025){ if(P(d)>=p){best=d;break;} } return best; };
+    const R3=[0.5,0.7,0.9].map(p=>({p,d:at(p)}));
+    $('cread').innerHTML=R3.map(x=>`<div><div class="l">${Math.round(x.p*100)} % de chance</div><div class="v">${x.d==null?'—':pct(x.d)}</div><div class="m">${x.d!=null&&po>0?money(po*(1+x.d),'ARS'):'&nbsp;'}</div></div>`).join('');
+    $('cnote').innerHTML=`Basado en ${n} licitaciones de “${esc(g.k)}”. Muestra con qué desvío respecto del presupuesto oficial tu oferta habría quedado más baja que todas las demás en esa proporción de casos. Supone que gana la oferta más baja admitida; en este grupo eso pasó en ${g.wl.length?Math.round(mean(g.wl)*100)+' %':'— (sin dato)'} de las adjudicaciones.${n<8?' <b>Muestra chica:</b> usalo como orientación.':''}`;
+    // curva
+    const W=520,H=230,ml=44,mr=12,mt=12,mb=34,lo=-0.4,hi=0.3;
+    const X=d=>ml+(d-lo)/(hi-lo)*(W-ml-mr), Y=p=>mt+(1-p)*(H-mt-mb);
+    let path=''; for(let d=lo;d<=hi+1e-9;d+=0.005){ path+=(path?'L':'M')+X(d).toFixed(1)+','+Y(P(d)).toFixed(1); }
+    const xt=[-0.4,-0.3,-0.2,-0.1,0,0.1,0.2,0.3], yt=[0,0.25,0.5,0.75,1];
+    const pts=dm.filter(v=>v>=lo&&v<=hi).map(v=>`<circle cx="${X(v).toFixed(1)}" cy="${H-mb+8}" r="3" fill="var(--dot-soft)" stroke="var(--dot)"><title>Oferta más baja: ${pct(v)}</title></circle>`).join('');
+    $('ccurve').innerHTML=`<svg class="curve" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Probabilidad de ser la oferta más baja según el desvío">
+      ${yt.map(p=>`<line x1="${ml}" x2="${W-mr}" y1="${Y(p)}" y2="${Y(p)}" stroke="var(--line)"/><text x="${ml-6}" y="${Y(p)+4}" text-anchor="end">${p*100} %</text>`).join('')}
+      ${xt.map(d=>`<text x="${X(d)}" y="${H-6}" text-anchor="middle">${d===0?'0':(d>0?'+':'−')+Math.abs(d*100)+'%'}</text>`).join('')}
+      <line x1="${X(0)}" x2="${X(0)}" y1="${mt}" y2="${H-mb}" stroke="var(--muted)" stroke-dasharray="3 3"/>
+      <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${R3.filter(x=>x.d!=null&&x.d>=lo&&x.d<=hi).map(x=>`<circle cx="${X(x.d)}" cy="${Y(P(x.d))}" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"><title>${Math.round(x.p*100)} %: ${pct(x.d)}</title></circle>`).join('')}
+      ${pts}</svg><div class="note">Eje horizontal: oferta respecto del presupuesto oficial. Vertical: proporción de licitaciones en las que esa oferta habría sido la más baja. Los puntos de abajo son la oferta más baja de cada licitación del grupo.</div>`;
+  };
+  $('cg').onchange=e=>{S.calcG=e.target.value; draw();};
+  $('cpo').oninput=e=>{S.calcPO=e.target.value; draw();};
+  draw();
+}
+
+/* ---------- licitaciones ---------- */
+function renderLic(L){
+  $('c-lic').textContent=L.length;
+  const q=plain(S.licQ);
+  const list=L.filter(r=>!q||plain([r.objeto,r.organismo,r.numero,r.municipio,...(r.oferentes||[]).map(o=>o.empresa)].join(' ')).includes(q))
+    .sort((a,b)=>String(b._fref||'').localeCompare(String(a._fref||'')));
+  $('out').innerHTML=`<div class="panel">
+    <div class="ptools"><input type="search" id="lq" placeholder="Buscar obra, organismo, número o empresa…" value="${esc(S.licQ)}" aria-label="Buscar licitación" style="flex:1 1 260px">
+    <span class="h">De la más reciente a la más antigua. La fuente marcada como secundaria es prensa: la rutina diaria intenta confirmarla en la fuente oficial.</span></div>
+    ${list.length?`<div class="tw"><table><tr><th>Fecha</th><th>Licitación</th><th class="n">Presupuesto oficial</th><th>Ofertas</th><th>Resultado</th><th>Fuente</th></tr>
+    ${list.slice(0,500).map(r=>`<tr><td class="n">${fdate(r._fref)}</td>
+      <td style="min-width:240px"><b>${esc(r.objeto)}</b><div class="sub">${esc(r.jurisdiccion)}${r.municipio?' · '+esc(r.municipio):''} · ${esc(r.organismo||'')}${r.numero?' · '+esc(r.numero):''}</div></td>
+      <td class="n">${r.presupuesto_oficial?money(r.presupuesto_oficial,r.moneda)+(r.po_aprox?'<div class="sub">aprox.</div>':''):'—'}</td>
+      <td style="min-width:220px">${r._ofs.length?`<div class="ofl">${r._ofs.slice().sort((a,b)=>(a.monto||9e18)-(b.monto||9e18)).map(o=>`<div class="r"><span>${r._g&&r._g.k===o.k?'<b>':''}${esc(o.empresa)}${r._g&&r._g.k===o.k?'</b>':''}${o.admitida===false?' <span class="pill sec">no admitida</span>':''}</span><span class="n" style="font-family:var(--mono)">${o.monto?money(o.monto,r.moneda):'—'}${o.d!=null?' · '+pct(o.d):''}</span></div>`).join('')}</div>`:'<span class="sub">Sin oferentes publicados</span>'}</td>
+      <td>${r._g?`<span class="pill win">${esc(r.estado)}</span><div class="sub">${esc(r._g.empresa)}</div>`:`<span class="pill">${esc(r.estado)}</span>`}</td>
+      <td>${r.fuente_url?`<a href="${esc(r.fuente_url)}" target="_blank" rel="noopener">abrir</a>`:'—'}<div>${r.fuente_tipo==='secundaria'?'<span class="pill sec">secundaria</span>':r.fuente_tipo==='prensa_oficial'?'<span class="pill po">prensa oficial</span>':'<span class="pill of">oficial</span>'}</div></td></tr>`).join('')}
+    </table></div>`:'<div class="empty">No hay licitaciones con estos filtros.</div>'}</div>`;
+  $('lq').oninput=e=>{S.licQ=e.target.value; const p=e.target.selectionStart; render(); const n=$('lq'); if(n){n.focus(); n.setSelectionRange(p,p);} };
+}
+
+/* ---------- fuentes ---------- */
+function renderFuentes(){
+  const F=[...FUENTES].sort((a,b)=>(b.prioridad?1:0)-(a.prioridad?1:0)||a.jurisdiccion.localeCompare(b.jurisdiccion,'es'));
+  $('c-fuentes').textContent=F.reduce((s,f)=>s+(f.fuentes||[]).length,0);
+  const st={responde:'<span class="pill of">responde</span>',bloquea:'<span class="pill sec">bloquea</span>',parcial:'<span class="pill po">parcial</span>',sin_probar:'<span class="pill">sin probar</span>'};
+  $('out').innerHTML=`<div class="panel"><div class="ptools"><span class="h">Catálogo que usa la rutina diaria: entra primero por estas URL oficiales y deja la prensa como último recurso. Cada corrida actualiza si la fuente respondió.</span></div>
+  ${F.length?F.map(j=>`<div class="sec" style="display:flex;flex-direction:column;gap:8px"><h3>${esc(j.jurisdiccion)}${j.prioridad?' · prioritaria':''}</h3><div class="tw"><table>
+    <tr><th>Fuente</th><th>Qué publica</th><th>Estado</th><th class="n">Verificada</th></tr>
+    ${(j.fuentes||[]).map(f=>`<tr><td style="min-width:200px"><b>${esc(f.nombre)}</b><div class="sub" style="overflow-wrap:anywhere">${f.url?`<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.url)}</a>`:''}</div></td>
+      <td style="min-width:220px"><span class="sub">${esc(f.publica||'')}</span>${f.tipo==='secundaria'?' <span class="pill sec">secundaria</span>':''}</td>
+      <td>${st[f.estado]||esc(f.estado||'')}</td><td class="n">${fdate(f.verificado)}</td></tr>`).join('')}</table></div></div>`).join(''):'<div class="empty">El catálogo de fuentes todavía no se cargó.</div>'}</div>`;
+}
+
+/* ---------- método ---------- */
+function renderMetodo(){
+  const ks=Object.keys(ICC).sort();
+  $('out').innerHTML=`<div class="method">
+  <section><h3>Desvío de oferta</h3><p><code>d = oferta / (PO × F) − 1</code></p><p>PO es el presupuesto oficial. F ajusta el PO a la fecha de apertura: <code>F = ICC(mes de apertura) / ICC(mes base del PO)</code>. Si el pliego no dice el mes base se usa el de publicación. Si falta algún mes del índice, F = 1 y el desvío queda nominal.</p><p>Se descartan como implausibles las ofertas con <code>oferta/(PO×F)</code> fuera de 0,4 a 2,5 (suele ser un presupuesto por renglón comparado contra una oferta total, o un error de carga).</p></section>
+  <section><h3>Tasa de éxito y margen</h3><p><code>tasa = ganadas / presentaciones en licitaciones resueltas</code> (adjudicadas, preadjudicadas, fracasadas o desiertas).</p><p><code>margen al ganar = (2ª oferta − oferta ganadora) / oferta ganadora</code>, solo cuando ganó la oferta más baja: es lo que el ganador dejó sobre la mesa.</p><p>En una UT cada integrante suma la presentación y la victoria.</p></section>
+  <section><h3>Calculadora de oferta</h3><p><code>P(ganar | d) = proporción de licitaciones del grupo con d_mín &gt; d</code>, donde d_mín es el desvío de la oferta más baja admitida.</p><p>Supuestos: gana la más baja admitida; las licitaciones del grupo son comparables; la competencia futura se parece a la pasada. No modela la calificación técnica ni la cantidad de oferentes.</p></section>
+  <section><h3>Índice de costo de la construcción</h3><p>${esc(ICCMETA.fuente||'ICC del INDEC, nivel general.')}</p><p>${ks.length?`Meses cargados: ${ks[0]} a ${ks[ks.length-1]} (${ks.length}).`:'Todavía no hay meses cargados: los desvíos son nominales.'} ${esc(ICCMETA.nota||'')}</p></section>
+  <section><h3>Datos y fuentes</h3><p>Cada licitación lleva su fuente y su tipo: oficial (boletín, portal de compras, actas), prensa oficial (portales de prensa de gobiernos) o secundaria (diarios). Las secundarias se pueden excluir con el filtro de arriba.</p><p>Las empresas se identifican por su nombre normalizado (sin tildes, signos ni S.A./S.R.L.). Centro Construcciones S.A. y CECOSA S.A. se cuentan como la misma empresa.</p><p>La fecha de cada licitación es la de adjudicación, o si no la de apertura, o si no la de publicación.</p></section>
+  <section><h3>Cómo se alimenta</h3><p>La rutina diaria del Radar agrega acá cada apertura y adjudicación que releva, con todos los oferentes y sus montos. Lo cargado no se borra: se completa.</p><p>${esc(META.nota||'')}</p></section>
+  </div>`;
+}
+
+/* ---------- render general ---------- */
+function kpis(L){
+  const priced=L.filter(r=>r._priced.length>=2&&r._po);
+  const emp=new Set(); L.forEach(r=>r._ofs.forEach(o=>(o.mem.length>1?o.mem:[o.k]).forEach(k=>emp.add(k))));
+  const ds=[]; priced.forEach(r=>{ if(r._dWin!=null) ds.push(r._dWin); });
+  const off=L.filter(r=>r.fuente_tipo!=='secundaria').length;
+  $('kpis').innerHTML=[
+    ['Licitaciones',L.length,`${L.filter(r=>r._g).length} con ganador`],
+    ['Con precios comparables',priced.length,'PO y 2 o más ofertas'],
+    ['Empresas',emp.size,'oferentes distintos'],
+    ['Ganador vs. oficial',ds.length?pct(median(ds)):'—',ds.length?`mediana de ${ds.length}`:'sin datos'],
+    ['Fuente oficial',L.length?Math.round(off/L.length*100)+' %':'—','oficial o prensa oficial'],
+  ].map(([l,v,s])=>`<div class="kpi"><span class="l">${l}</span><span class="v">${v}</span><span class="s">${s}</span></div>`).join('');
+}
+function selects(){
+  const opt=(arr,v,all)=>`<option value="">${all}</option>`+arr.map(x=>`<option${x===v?' selected':''}>${esc(x)}</option>`).join('');
+  const jurs=[...new Set(D.map(r=>r.jurisdiccion))].sort((a,b)=>a==='Nación'?-1:b==='Nación'?1:a.localeCompare(b,'es'));
+  $('fJur').innerHTML=opt(jurs,S.jur,'Todas');
+  const muns=[...new Set(D.filter(r=>!S.jur||r.jurisdiccion===S.jur).map(r=>r.municipio).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+  if(S.mun&&!muns.includes(S.mun)) S.mun='';
+  $('fMun').innerHTML=opt(muns,S.mun,muns.length?'Todos':'Sin datos');
+  $('fRub').innerHTML=opt(RUBROS.filter(x=>D.some(r=>r.rubro===x)),S.rub,'Todos');
+  $('fDesde').value=S.desde; $('fHasta').value=S.hasta; $('fSec').checked=S.sec; $('fIcc').checked=S.icc;
+}
+function render(){
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.t===S.tab));
+  if(!R.length){ return; }
+  D=R.map(derive);
+  const L=filtered(); kpis(L);
+  if(CONTOK) $('c-contactos').textContent=CONT.length;
+  ({empresas:renderEmpresas,contactos:renderContactos,precios:renderPrecios,lic:renderLic,fuentes:renderFuentes,metodo:renderMetodo,registro:renderRegistro})[S.tab](L);
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{S.tab=t.dataset.t; S.empSel=null; save(); render();});
+$('fDesde').onchange=e=>{S.desde=e.target.value; render();};
+$('fHasta').onchange=e=>{S.hasta=e.target.value; render();};
+$('fJur').onchange=e=>{S.jur=e.target.value; selects(); render();};
+$('fMun').onchange=e=>{S.mun=e.target.value; render();};
+$('fRub').onchange=e=>{S.rub=e.target.value; render();};
+$('fSec').onchange=e=>{S.sec=e.target.checked; save(); render();};
+$('fIcc').onchange=e=>{S.icc=e.target.checked; save(); render();};
+
+
+/* ---------- G215 versión pública: Enviados del Radar en vivo + Registro ---------- */
+let ENVLIVE=[], EVENTOS=[], EVOK=false, EVERR=false;
+const fmtD=f=>{ const m=String(f||'').match(/^(\d{4})-(\d{2})-(\d{2})/); return m?`${m[3]}/${m[2]}/${m[1]}`:String(f||''); };
+function mergeLive(c){
+  const base=(c.contactos||[]).slice(); if(!ENVLIVE.length) return base;
+  const em=String(c.email||'').toLowerCase(), extra=String(c.emails_extra||'').toLowerCase();
+  const keys=new Set([c.empresa,...String(c.otros_nombres||'').split(';')].map(x=>x&&normEmp(x)).filter(Boolean));
+  ENVLIVE.forEach(d=>{ const lic=String((d.data&&d.data.licitacion)||'');
+    ((d.data&&d.data.registros)||[]).forEach(r=>{ if(r.tipo!=='enviado') return;
+      const re=String(r.email||'').toLowerCase();
+      const hit=(re&&(re===em||(extra&&extra.includes(re))))||(r.empresa&&keys.has(normEmp(r.empresa)));
+      if(!hit) return;
+      const dup=base.some(x=>String(x.email||c.email||'').toLowerCase()===re&&(String(x.licitacion||'')===lic||fkey(x.fecha)===String(r.fecha||'').slice(0,10)));
+      if(dup) return;
+      base.push({fecha:fmtD(r.fecha),tipo:'especifico',licitacion:lic,estado:'Enviado',email:r.email,_live:true}); }); });
+  return base;
+}
+function liveRender(tab){
+  if(S.tab!==tab) return;
+  const a=document.activeElement; if(a&&$('out').contains(a)&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+  const y=window.scrollY; render(); window.scrollTo(0,y);
+}
+const EVT={enviado:'Marcó enviado',correo_abierto:'Abrió el correo',borrador:'Preparó borrador',envio_destildado:'Destildó un envío',novedad_quitada:'Quitó la novedad',novedad_restaurada:'Restauró la novedad',importado:'Marca importada de Claude'};
+function evFecha(e){ try{ if(e.ts&&e.ts.toDate) return e.ts.toDate(); }catch(x){} return e.cuando?new Date(e.cuando):null; }
+const fdt=d=>d?d.toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—';
+function evFiltrados(){
+  const q=plain(S.rq||'');
+  return EVENTOS.map(d=>d.data||{}).filter(e=>(!S.rt||e.tipo===S.rt)&&(!S.rw||e.quien===S.rw)&&(!q||plain([e.quien,e.licitacion,e.objeto,e.empresa,e.email,e.jurisdiccion,e.detalle].join(' ')).includes(q)));
+}
+function renderRegistro(){
+  $('c-registro').textContent=EVENTOS.length||'';
+  if(!EVOK){ $('out').innerHTML=`<div class="empty">${EVERR?'No se pudo conectar con el registro. Recargá la página.':'Cargando el registro…'}</div>`; return; }
+  const L=evFiltrados();
+  const tipos=[...new Set(EVENTOS.map(d=>d.data&&d.data.tipo).filter(Boolean))];
+  const quienes=[...new Set(EVENTOS.map(d=>d.data&&d.data.quien).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+  $('out').innerHTML=`<div class="panel">
+    <div class="ptools"><input type="search" id="rq" placeholder="Buscar persona, licitación, empresa o email…" value="${esc(S.rq||'')}" aria-label="Buscar en el registro" style="flex:1 1 240px">
+      <div class="f"><label for="rt">Acción</label><select id="rt"><option value="">Todas</option>${tipos.map(t=>`<option value="${esc(t)}"${S.rt===t?' selected':''}>${esc(EVT[t]||t)}</option>`).join('')}</select></div>
+      <div class="f"><label for="rw">Quién</label><select id="rw"><option value="">Todos</option>${quienes.map(t=>`<option${S.rw===t?' selected':''}>${esc(t)}</option>`).join('')}</select></div>
+      <button class="btn" id="rx" type="button">Exportar registro</button>
+      <span class="h">Cada marca que se hace en el Radar queda acá con quién la hizo y cuándo, en el momento. El registro no se puede borrar ni editar desde la página. Los filtros de arriba no aplican a esta pestaña.</span></div>
+    ${L.length?`<div class="tw"><table><tr><th>Fecha y hora</th><th>Quién</th><th>Acción</th><th>Licitación</th><th>Empresa</th><th>Detalle</th></tr>
+      ${L.slice(0,1000).map(e=>`<tr><td class="n">${fdt(evFecha(e))}</td><td><b>${esc(e.quien)}</b></td>
+        <td><span class="pill ${/enviado|importado/.test(e.tipo)?'win':/destild|restaur/.test(e.tipo)?'sec':''}">${esc(EVT[e.tipo]||e.tipo)}</span></td>
+        <td style="min-width:220px">${esc(e.objeto||e.licitacion||'')}<div class="sub">${esc([e.jurisdiccion,e.licitacion&&e.objeto?e.licitacion:''].filter(Boolean).join(' · '))}</div></td>
+        <td style="min-width:170px">${esc(e.empresa||'')}${e.email?`<div class="sub">${esc(e.email)}</div>`:''}</td>
+        <td><span class="sub">${esc(e.detalle||'')}</span></td></tr>`).join('')}
+    </table></div>${L.length>1000?`<div class="note">Se muestran los 1000 más recientes de ${L.length}. Exportá para verlos todos.</div>`:''}`
+    :`<div class="empty">${EVENTOS.length?'Ningún evento coincide con la búsqueda.':'Todavía no hay marcas registradas. Cuando alguien tilde "Enviado" o "Quitar novedad" en el Radar, aparece acá.'}</div>`}
+  </div>`;
+  $('rq').oninput=e=>{S.rq=e.target.value; const p=e.target.selectionStart; render(); const n=$('rq'); if(n){n.focus(); n.setSelectionRange(p,p);} };
+  $('rt').onchange=e=>{S.rt=e.target.value; render();};
+  $('rw').onchange=e=>{S.rw=e.target.value; render();};
+  $('rx').onclick=exportRegistro;
+}
+async function exportRegistro(){
+  if(typeof XLSX==='undefined'){ toast('No se pudo cargar el generador de Excel. Recargá la página.'); return; }
+  const rows=evFiltrados().map(e=>({Fecha_hora:fdt(evFecha(e)),Quien:e.quien||'',Accion:EVT[e.tipo]||e.tipo||'',Licitacion:e.licitacion||'',Objeto:e.objeto||'',Jurisdiccion:e.jurisdiccion||'',Empresa:e.empresa||'',Email:e.email||'',Detalle:e.detalle||'',Id_licitacion:e.lic_id||''}));
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),'Registro');
+  const dl=await window.claude.use('downloads'); await dl.save({filename:'registro-marcas-radar.xlsx',data:XLSX.write(wb,{type:'array',bookType:'xlsx'})}); toast('Registro exportado');
+}
+
+/* ---------- Excel ---------- */
+async function exportXls(){
+  let dl=null; try{ dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null; }catch(e){ dl=null; }
+  const L=filtered();
+  if(typeof XLSX==='undefined'){ toast('No se pudo cargar el generador de Excel. Recargá la página.'); return; }
+  const lic=L.map(r=>({Fecha:r._fref||'',Jurisdiccion:r.jurisdiccion,Municipio:r.municipio||'',Organismo:r.organismo||'',Numero:r.numero||'',Objeto:r.objeto,Rubro:r.rubro,
+    Moneda:r.moneda,Presupuesto_oficial:r.presupuesto_oficial||'',PO_aproximado:r.po_aprox?'sí':'',Mes_base_PO:r.fecha_base_po||'',Publicacion:r.fecha_publicacion||'',Apertura:r.fecha_apertura||'',Adjudicacion:r.fecha_adjudicacion||'',
+    Estado:r.estado,Ganador:r._g?r._g.empresa:'',Monto_ganador:r._g&&r._g.monto||'',Oferentes:r._ofs.length,Ofertas_con_monto:r._priced.length,
+    Ganador_vs_PO:r._dWin??'',Ganó_la_más_baja:r._winLow==null?'':(r._winLow?'sí':'no'),Margen_al_2do:r._margen??'',Fuente:r.fuente_url||'',Tipo_fuente:r.fuente_tipo,Notas:r.notas||''}));
+  const of=[]; L.forEach(r=>r._ofs.forEach(o=>of.push({Fecha:r._fref||'',Jurisdiccion:r.jurisdiccion,Organismo:r.organismo||'',Objeto:r.objeto,Rubro:r.rubro,Empresa:o.empresa,Clave_empresa:o.k,
+    Moneda:r.moneda,Oferta:o.monto||'',Presupuesto_oficial:r.presupuesto_oficial||'',Factor_ICC:r._fx.f,Desvio_vs_PO:o.d??'',Admitida:o.admitida===false?'no':o.admitida===true?'sí':'',Ganó:r._g&&r._g.k===o.k?'sí':''})));
+  const em=empresas(L).sort((a,b)=>b.pres-a.pres).map(e=>({Empresa:e.name,Presentaciones:e.pres,Resueltas:e.dec,Ganadas:e.gan,Tasa_exito:e.tasa??'',Desvio_mediano:e.dmed??'',Ofertas_con_desvio:e.ds.length,Margen_medio_al_ganar:e.marg??'',En_UT:e.ut,Jurisdicciones:e.jurTxt,Rubros:e.rubTxt}));
+  const pr=grupos(L).map(g=>({Grupo:g.k,Agrupado_por:GRP[S.grp].t,Licitaciones:g.lics.length,Ofertas:g.ds.length,Mediana:median(g.ds),P25:quant(g.ds,.25),P75:quant(g.ds,.75),Oferta_mas_baja_mediana:median(g.dmin)??'',Ganador_mediana:median(g.dwin)??'',Oferentes_promedio:mean(g.nof),Gano_la_mas_baja:g.wl.length?mean(g.wl):'',Margen_al_2do_mediana:g.marg.length?median(g.marg):''}));
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(lic),'Licitaciones');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(of),'Ofertas');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(em),'Empresas');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(pr),'Precios');
+  if(CONTOK){
+    const NX={mail:'Escribir por mail',tel:'Llamar',busc:'Buscar contacto',esperar:'Esperar respuesta',seg:'Hacer seguimiento'};
+    const ct=contactos().sort((a,b)=>b._pres-a._pres).map(c=>({Empresa:c.empresa,Otros_nombres:c.otros_nombres||'',Email:c.email||'',Telefono:c.telefono||'',Web:c.web||'',Ciudad:c.ciudad||'',Jurisdicciones:c.jurisdicciones||'',
+      Presentaciones:c._pres,Ganadas:c._gan,Licitaciones:c.licitaciones||'',Contactada:c._sent?'sí':'no',
+      Contactos:c._cs.map(x=>`${x.fecha} ${x.tipo==='especifico'?'Por licitación: '+(x.licitacion||''):'General'} (${x.estado||''})${x.respuesta?' — respuesta: '+x.respuesta:''}`).join(' | '),
+      Proximo_paso:NX[c._next]}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ct),'Contactos');
+  }
+  if(EVENTOS.length){ XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(EVENTOS.map(d=>d.data||{}).map(e=>({Fecha_hora:fdt(evFecha(e)),Quien:e.quien||'',Accion:EVT[e.tipo]||e.tipo||'',Licitacion:e.licitacion||'',Objeto:e.objeto||'',Empresa:e.empresa||'',Email:e.email||'',Detalle:e.detalle||''}))),'Registro'); }
+  const buf=XLSX.write(wb,{type:'array',bookType:'xlsx'});
+  if(!dl){ toast('La descarga solo funciona abriendo la página desde claude.ai.'); return; }
+  try{ await dl.save({filename:'memoria-licitaciones.xlsx',data:buf}); toast('Excel listo'); }
+  catch(e){ if(e&&e.code!=='declined') toast('No se pudo guardar el archivo ('+(e&&e.code||'error')+').'); }
+}
+$('xlsBtn').onclick=exportXls;
+
+/* ---------- carga desde la base ---------- */
+async function load(){
+  let db=null; try{ db=window.claude&&window.claude.use?await window.claude.use('db'):null; }catch(e){ db=null; }
+  if(!db){ $('meta').textContent='Sin conexión con la base'; $('out').innerHTML='<div class="empty">No se pudo leer la base histórica. Recargá la página.</div>'; return; }
+  DB=db;
+  try{
+    const [lic,cfg,fu]=await Promise.all([db.collection('licitaciones').limit(1000).get(),db.doc('config/indices').get(),db.collection('fuentes').limit(100).get()]);
+    R=lic.docs.map(d=>({id:d.id,...d.data()}));
+    if(cfg.exists){ const c=cfg.data(); ICC=c.icc||{}; ICCMETA=c; }
+    FUENTES=fu.docs.map(d=>d.data());
+    const m=await db.doc('config/meta').get(); if(m.exists) META=m.data();
+    const a=await db.doc('config/alias').get(); if(a.exists&&a.data().pares) a.data().pares.forEach(([x,y])=>{ALIAS[x]=y;});
+    try{ const ct=await db.collection('contactos').limit(200).get();
+      CONT=ct.docs.map(d=>d.data()).sort((x,y)=>(x.lote||0)-(y.lote||0)).flatMap(d=>Array.isArray(d.items)?d.items:[]);
+      CONTOK=CONT.length>0; }catch(e){ CONTOK=false; }
+  }catch(e){ $('meta').textContent='No se pudo leer la base ('+(e&&e.code||'error')+')'; return; }
+  if(!R.length){ $('meta').textContent='Base vacía'; $('out').innerHTML='<div class="empty">La base todavía no tiene licitaciones. La rutina diaria del Radar las carga en su próxima corrida.</div>'; return; }
+  const fr=R.map(r=>r.fecha_adjudicacion||r.fecha_apertura||r.fecha_publicacion).filter(Boolean).sort();
+  $('meta').innerHTML=`<b>${R.length}</b> licitaciones · ${fdate(fr[0])} al ${fdate(fr[fr.length-1])}<br>Actualizada ${fdate(META.actualizado)}`;
+  $('xlsBtn').disabled=false;
+  D=R.map(derive); selects(); render();
+  if(db.live){
+    db.live('envios',docs=>{ ENVLIVE=docs; liveRender('contactos'); });
+    db.live('eventos',docs=>{ EVENTOS=docs; EVOK=true; if(S.tab==='registro') liveRender('registro'); else $('c-registro').textContent=docs.length||''; },{orderBy:'ts',dir:'desc',limit:3000})
+      .then(u=>{ if(!u){ EVERR=true; liveRender('registro'); } });
+  }
+}
+
+/* ---------- modo día / oscuro ---------- */
+const root=document.documentElement, mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+try{const th=localStorage.getItem('radar-theme'); if(th==='dark'||th==='light') root.setAttribute('data-theme',th);}catch(e){}
+const isDark=()=>{const a=root.getAttribute('data-theme'); return a?a==='dark':!!(mq&&mq.matches);};
+const paint=()=>{$('themeBtn').textContent=isDark()?'☀ Modo día':'☾ Modo oscuro';};
+$('themeBtn').onclick=()=>{const n=isDark()?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('radar-theme',n)}catch(e){} paint();};
+if(mq&&mq.addEventListener) mq.addEventListener('change',paint);
+paint(); render(); load();
+})();
+</script>
+
+</body></html>

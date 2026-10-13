@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Radar de Licitaciones</title>
+<link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ground:#F1F4F2;--surface:#FFFFFF;--ink:#18221F;--muted:#56655F;--line:#D3DAD4;--accent:#1D5C78;--ocre:#8E6118;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;--body:"Source Sans 3","Segoe UI",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root{--ground:#111715;--surface:#1A2220;--ink:#E4EAE6;--muted:#9AA8A2;--line:#2F3B37;--accent:#7DB8D3;--ocre:#D9A954}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.5 var(--body);padding:28px 16px 48px}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:800 clamp(30px,6vw,46px)/1 var(--display);font-stretch:78%;margin:6px 0 0;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+a.c{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:inset 0 -3px 0 var(--accent)}
+a.c.m{box-shadow:inset 0 -3px 0 var(--ocre)}
+a.c:hover{border-color:var(--ink)}
+a.c b{font:700 22px/1.15 var(--display);font-stretch:85%}
+a.c span{color:var(--muted);font-size:15px}
+p{color:var(--muted);margin:0;max-width:70ch;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="eyebrow">G215 S.A. · Obra pública</div><h1>Radar de Licitaciones</h1></header>
+  <div class="cards">
+    <a class="c" href="radar/"><b>Radar de licitaciones →</b><span>Llamados vigentes, aperturas y adjudicaciones con sus oferentes y contactos. Se actualiza todos los días hábiles.</span></a>
+    <a class="c m" href="memoria/"><b>Memoria de licitaciones →</b><span>Base histórica: empresas, precios contra el presupuesto oficial, contactos y el registro de cada marca.</span></a>
+  </div>
+  <p>Las marcas "Enviado" y "Quitar novedad" se guardan para todos y se ven al instante en los dos tableros. Cada una queda en el registro con quién la hizo y cuándo.</p>
+</div>
+</body>
+</html>

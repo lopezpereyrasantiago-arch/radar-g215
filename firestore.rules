@@ -1,0 +1,56 @@
+rules_version = '2';
+// Reglas de Firestore del Radar y la Memoria de Licitaciones (G215).
+// - Cualquiera con el link puede LEER las marcas y el registro.
+// - Las marcas ("envios" y "novedades_vistas") se pueden crear y cambiar con formato validado.
+// - El registro ("eventos") solo admite AGREGAR: nadie puede editarlo ni borrarlo desde la web.
+// - Todo lo demás está cerrado.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function txt(v, n) { return v is string && v.size() <= n; }
+    function txtOpt(d, k, n) { return !(k in d) || d[k] == null || txt(d[k], n); }
+
+    match /envios/{id} {
+      allow read: if true;
+      allow create, update: if id.size() <= 120
+        && request.resource.data.keys().hasOnly(['licitacion', 'jurisdiccion', 'objeto', 'actualizado', 'registros'])
+        && request.resource.data.registros is list
+        && request.resource.data.registros.size() <= 300
+        && txtOpt(request.resource.data, 'licitacion', 300)
+        && txtOpt(request.resource.data, 'jurisdiccion', 120)
+        && txtOpt(request.resource.data, 'objeto', 400)
+        && txtOpt(request.resource.data, 'actualizado', 40);
+      allow delete: if false;
+    }
+
+    match /novedades_vistas/{id} {
+      allow read: if true;
+      allow create, update: if id.size() <= 120
+        && request.resource.data.keys().hasOnly(['clave', 'objeto', 'fecha'])
+        && txt(request.resource.data.clave, 200)
+        && txtOpt(request.resource.data, 'objeto', 400)
+        && txtOpt(request.resource.data, 'fecha', 40);
+      allow delete: if true;
+    }
+
+    match /eventos/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(
+            ['ts', 'cuando', 'quien', 'tipo', 'coleccion', 'lic_id', 'licitacion', 'jurisdiccion', 'objeto', 'empresa', 'email', 'detalle', 'pagina'])
+        && request.resource.data.ts == request.time
+        && txt(request.resource.data.quien, 80) && request.resource.data.quien.size() > 0
+        && txt(request.resource.data.tipo, 40)
+        && txtOpt(request.resource.data, 'cuando', 40)
+        && txtOpt(request.resource.data, 'coleccion', 40)
+        && txtOpt(request.resource.data, 'lic_id', 120)
+        && txtOpt(request.resource.data, 'licitacion', 300)
+        && txtOpt(request.resource.data, 'jurisdiccion', 120)
+        && txtOpt(request.resource.data, 'objeto', 400)
+        && txtOpt(request.resource.data, 'empresa', 300)
+        && txtOpt(request.resource.data, 'email', 200)
+        && txtOpt(request.resource.data, 'detalle', 500)
+        && txtOpt(request.resource.data, 'pagina', 40);
+      allow update, delete: if false;
+    }
+  }
+}
