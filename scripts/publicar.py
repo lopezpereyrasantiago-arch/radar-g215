@@ -9,7 +9,7 @@ Uso:
                Si su código cambió desde la última publicación, se regenera memoria/index.html.
 --memoria-dir  carpeta con la base de la Memoria bajada con ArtifactData (list con out_dir):
                <dir>/licitaciones/*.json, <dir>/contactos/*.json, <dir>/fuentes/*.json, <dir>/config/*.json
-               (y <dir>/empresas/*.json si existe). Genera data/memoria.json.
+               Genera data/memoria.json (la colección "empresas" no se publica).
 Después hay que hacer git add/commit/push.
 """
 import argparse, json, pathlib, re, sys, datetime, hashlib, subprocess, tempfile
@@ -78,7 +78,8 @@ def memoria_html(src, estado, avisos):
 def memoria(carpeta):
     base = pathlib.Path(carpeta)
     cols = {}
-    for nombre in ['licitaciones', 'contactos', 'fuentes', 'config', 'empresas']:
+    # 'empresas' (BCRA, autoridades) no se publica: la página no la usa.
+    for nombre in ['licitaciones', 'contactos', 'fuentes', 'config']:
         dd = base / nombre
         if not dd.is_dir():
             continue
