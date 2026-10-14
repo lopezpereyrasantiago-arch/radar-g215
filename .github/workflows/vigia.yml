@@ -1,0 +1,52 @@
+name: Vigía de la versión pública
+
+# Control independiente de la tarea de Claude: si a las 14:00 y a las 18:00
+# (hora de Argentina, días hábiles) la versión pública no tiene datos de hoy,
+# abre un aviso (issue) en el repositorio. GitHub lo manda por mail y como
+# notificación de la app de GitHub. Cuando los datos vuelven a estar al día,
+# cierra el aviso solo.
+
+on:
+  schedule:
+    - cron: '0 17 * * 1-5'
+    - cron: '0 21 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  vigilar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comparar la fecha de los datos con hoy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          HOY=$(TZ=America/Argentina/Buenos_Aires date +%Y-%m-%d)
+          GEN=$(python3 -c "import json;print((json.load(open('data/estado.json')).get('radar') or {}).get('generado') or '')")
+          TITULO="VERSIÓN PÚBLICA SIN ACTUALIZAR"
+          ABIERTO=$(gh issue list --state open --search "\"$TITULO\" in:title" --json number --jq '.[0].number')
+          if [ "${GEN:0:10}" = "$HOY" ]; then
+            echo "Al día: datos generados $GEN"
+            if [ -n "$ABIERTO" ]; then
+              gh issue close "$ABIERTO" --comment "Resuelto: la versión pública ya tiene datos de hoy ($GEN)."
+            fi
+            exit 0
+          fi
+          CUERPO="La versión pública del Radar sigue con datos del **${GEN:-desconocido}** y hoy es **$HOY** ($(TZ=America/Argentina/Buenos_Aires date +%H:%M) hs).
+
+          Qué revisar:
+          1. Que la computadora estuvo prendida a las 10 con Chrome abierto.
+          2. Que Chrome tiene la sesión de GitHub iniciada con lopezpereyrasantiago-arch.
+          3. El aviso de la corrida de hoy en Claude (tarea \"Radar de Licitaciones\").
+
+          Para publicar a mano: pedile a Claude en el chat de la corrida \"publicá la versión pública\", o subí el ZIP que manda Claude en Add file > Upload files."
+          if [ -n "$ABIERTO" ]; then
+            gh issue comment "$ABIERTO" --body "$CUERPO"
+          else
+            gh issue create --title "$TITULO" --body "$CUERPO" --assignee lopezpereyrasantiago-arch
+          fi
+          exit 1
