@@ -3,12 +3,13 @@
 Uso:
   python3 scripts/publicar.py --radar /ruta/radar-licitaciones.html --memoria-dir /ruta/export/memoria
 
---radar        el mismo HTML que se publicó en el artefacto del Radar. Solo se toma su bloque
-               <script id="data">; el resto de radar/index.html (versión pública) no se toca.
+--radar        el mismo HTML que se publicó en el artefacto del Radar. Se toman sus bloques
+               <script id="data"> y <script id="personas"> (personas de LinkedIn por empresa);
+               el resto de radar/index.html (versión pública) no se toca salvo que cambie el código.
 --memoria-html (opcional) el HTML actual del artefacto "Memoria de Licitaciones" (Artifact action read).
                Si su código cambió desde la última publicación, se regenera memoria/index.html.
 --memoria-dir  carpeta con la base de la Memoria bajada con ArtifactData (list con out_dir):
-               <dir>/licitaciones/*.json, <dir>/contactos/*.json, <dir>/fuentes/*.json, <dir>/config/*.json
+               <dir>/licitaciones/*.json, <dir>/contactos/*.json, <dir>/personas/*.json, <dir>/fuentes/*.json, <dir>/config/*.json
                Genera data/memoria.json (la colección "empresas" no se publica).
 Después hay que hacer git add/commit/push.
 """
@@ -16,20 +17,31 @@ import argparse, json, pathlib, re, sys, datetime, hashlib, subprocess, tempfile
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 TAG = '<script id="data" type="application/json">'
+TAG_PERS = '<script id="personas" type="application/json">'
 
 
-def bloque(html):
-    i = html.find(TAG)
+def bloque(html, tag=TAG, obligatorio=True):
+    i = html.find(tag)
     if i < 0:
-        sys.exit('No encontré el bloque de datos <script id="data"> en el HTML.')
-    j = html.find('</script>', i + len(TAG))
-    return i + len(TAG), j
+        if obligatorio:
+            sys.exit(f'No encontré el bloque {tag} en el HTML.')
+        return None
+    j = html.find('</script>', i + len(tag))
+    return i + len(tag), j
+
+
+def sin_bloques(html):
+    """El HTML sin el contenido de los bloques de datos (data y personas): lo que queda es el código."""
+    for tag in (TAG_PERS, TAG):
+        r = bloque(html, tag, obligatorio=(tag == TAG))
+        if r:
+            html = html[:r[0]] + html[r[1]:]
+    return html
 
 
 def huella(html, sin_datos=False):
     if sin_datos:
-        a, b = bloque(html)
-        html = html[:a] + html[b:]
+        html = sin_bloques(html)
     return hashlib.sha256(html.encode('utf-8')).hexdigest()[:16]
 
 
@@ -60,8 +72,20 @@ def radar(src, estado, avisos):
     t = dst.read_text(encoding='utf-8')
     c, e = bloque(t)
     t = t[:c] + datos + t[e:]
+    npers = 0
+    rp, tp = bloque(s, TAG_PERS, False), bloque(t, TAG_PERS, False)
+    if rp and tp:
+        pers = s[rp[0]:rp[1]]
+        t = t[:tp[0]] + pers + t[tp[1]:]
+        try:
+            npers = sum(len(i.get('personas', [])) for i in json.loads(pers.replace('<\\/', '</') or '{}').get('items', []))
+        except ValueError:
+            avisos.append('El bloque de personas del Radar no es JSON válido.')
+    elif rp and not tp:
+        avisos.append('El Radar de Claude trae personas de LinkedIn pero la versión pública no tiene dónde ponerlas: '
+                      'hay que pedirle a Claude que actualice scripts/armar_radar.py.')
     dst.write_text(t, encoding='utf-8')
-    return {'items': len(d.get('items', [])), 'generado': d.get('generado'), 'codigo_actualizado': codigo_nuevo and estado.get('radar_codigo') == h}
+    return {'items': len(d.get('items', [])), 'personas': npers, 'generado': d.get('generado'), 'codigo_actualizado': codigo_nuevo and estado.get('radar_codigo') == h}
 
 
 def memoria_html(src, estado, avisos):
@@ -79,7 +103,8 @@ def memoria(carpeta):
     base = pathlib.Path(carpeta)
     cols = {}
     # 'empresas' (BCRA, autoridades) no se publica: la página no la usa.
-    for nombre in ['licitaciones', 'contactos', 'fuentes', 'config']:
+    # 'personas' (LinkedIn por empresa) sí: la versión pública tiene que ser igual a la de Claude.
+    for nombre in ['licitaciones', 'contactos', 'personas', 'fuentes', 'config']:
         dd = base / nombre
         if not dd.is_dir():
             continue

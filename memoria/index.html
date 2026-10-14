@@ -134,6 +134,21 @@ td .sub{font-size:12.5px;color:var(--muted)}
 .cc a{overflow-wrap:anywhere}
 .nx{font:600 13px var(--body);white-space:nowrap}
 .nx.mail{color:var(--accent)} .nx.tel{color:var(--ocre)} .nx.busc{color:var(--muted)} .nx.ok{color:var(--ok)}
+.fc{font-size:12px;color:var(--muted);line-height:1.35;max-width:300px;overflow-wrap:anywhere}
+.fc .fk{font-weight:600}
+details.pp{margin-top:6px;font-size:13px}
+details.pp summary{cursor:pointer;color:var(--accent);font:600 13px var(--body);list-style:none;display:inline-flex;align-items:center;gap:6px}
+details.pp summary::-webkit-details-marker{display:none}
+details.pp summary::before{content:"▸";font-size:11px;transition:transform .15s}
+details.pp[open] summary::before{transform:rotate(90deg)}
+.ppl{display:flex;flex-direction:column;gap:8px;margin-top:6px;padding:8px 10px;background:var(--ground);border-radius:8px;max-width:420px}
+.pe{font:700 12px var(--display);text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
+.pr{font:500 10.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:2px}
+.pi{display:flex;flex-direction:column;gap:1px;line-height:1.3;padding:2px 0}
+.pi a{font-weight:600;text-decoration:none}
+.pi a:hover{text-decoration:underline}
+.pi .c{color:var(--muted);font-size:12.5px}
+.pf{font:11px var(--mono);color:var(--muted)}
 .linkbtn{appearance:none;border:0;background:none;padding:0;color:var(--accent);font:13px var(--body);cursor:pointer;text-decoration:underline}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:8px;font-size:14px;z-index:20}
 @media (max-width:720px){
@@ -224,7 +239,7 @@ function miembros(nombre){
 const S={tab:'empresas',desde:'',hasta:'',jur:'',mun:'',rub:'',sec:true,icc:true,q:'',empSort:['pres','desc'],empSel:null,grp:'org_rub',licQ:'',calcG:'',calcPO:'',cq:'',cf:'todas',co:'pres',rq:'',rt:'',rw:''};
 try{Object.assign(S,JSON.parse(localStorage.getItem('memoria-lic-v1')||'{}'));S.empSel=null;}catch(e){}
 const save=()=>{try{const {tab,grp,sec,icc,empSort,cf,co}=S;localStorage.setItem('memoria-lic-v1',JSON.stringify({tab,grp,sec,icc,empSort,cf,co}))}catch(e){}};
-let R=[], ICC={}, ICCMETA={}, FUENTES=[], META={}, DB=null, CONT=[], CONTOK=false;
+let R=[], ICC={}, ICCMETA={}, FUENTES=[], META={}, DB=null, CONT=[], CONTOK=false, PERS=[], PID={}, PKEY={};
 
 /* ---------- índice de costo de la construcción ---------- */
 function mes(s){return s?String(s).slice(0,7):null;}
@@ -354,6 +369,7 @@ const CFILT=[
   ['escribir','Para escribir',c=>c._next==='mail'],
   ['llamar','Para llamar',c=>c._next==='tel'],
   ['sinmedio','Sin medio de contacto',c=>c._next==='busc'],
+  ['personas','Con personas en LinkedIn',c=>c._ps.length>0],
 ];
 const RESP_EST=/respondi|reuni|cotizaci|no interesado|atendi/i;
 function contactos(){
@@ -362,6 +378,7 @@ function contactos(){
     const cs=mergeLive(c).sort((a,b)=>fkey(b.fecha).localeCompare(fkey(a.fecha)));
     const keys=[c.empresa,...String(c.otros_nombres||'').split(';')].map(s=>s&&normEmp(s)).filter(Boolean);
     const st=keys.map(k=>stats[k]).find(Boolean)||null;
+    const ps=personasDe(c,keys);
     const sent=cs.some(x=>/enviado|respondi|reuni|cotizaci|interesado|atendi/i.test(x.estado||''));
     const resp=cs.some(x=>x.respuesta||RESP_EST.test(x.estado||''));
     const bounced=cs.length&&/error|rebot/i.test(cs[0].estado||'');
@@ -369,8 +386,37 @@ function contactos(){
     if(resp) next='seg'; else if(sent&&!bounced) next='esperar';
     else if(c.email&&!bounced) next='mail'; else if(c.telefono) next='tel'; else next='busc';
     return {...c,_cs:cs,_st:st,_sent:sent,_resp:resp,_next:next,_pres:st?st.pres:(c.ofertas||0),_gan:st?st.gan:(c.ganadas||0),
-      _last:cs.length?fkey(cs[0].fecha):'',_txt:plain([c.empresa,c.otros_nombres,c.ciudad,c.jurisdicciones,c.email,c.licitaciones,...cs.map(x=>x.licitacion||'')].join(' '))};
+      _ps:ps,_last:cs.length?fkey(cs[0].fecha):'',_txt:plain([c.empresa,c.otros_nombres,c.ciudad,c.jurisdicciones,c.email,c.licitaciones,...cs.map(x=>x.licitacion||''),...ps.flatMap(p=>(p.personas||[]).map(x=>x.nombre+' '+x.cargo))].join(' '))};
   });
+}
+/* personas de cada empresa (LinkedIn): colección "personas", aparte del directorio que regenera la rutina */
+const ROLES=['Licitaciones / oficina técnica','Ambiente / HSE / calidad','Comercial / nuevos negocios','Gerencia / dirección'];
+function indexPersonas(){
+  PID={}; PKEY={};
+  PERS.forEach(it=>{ (it.ids||[]).forEach(id=>{(PID[id]||(PID[id]=[])).push(it);});
+    [it.empresa,...(it.filas||[])].forEach(n=>{const k=normEmp(n); if(k&&!(PKEY[k]||[]).includes(it)) (PKEY[k]||(PKEY[k]=[])).push(it);}); });
+}
+function personasDe(c,keys){
+  const out=[]; const add=it=>{ if(it&&!out.includes(it)) out.push(it); };
+  (PID[c.id]||[]).forEach(add);
+  [...keys,...miembros(c.empresa).map(normEmp)].forEach(k=>(PKEY[k]||[]).forEach(add));
+  return out;
+}
+const linkOk=u=>/^https:\/\/(www\.)?linkedin\.com\//i.test(String(u||''));
+function personasHTML(ps){
+  const n=ps.reduce((s,p)=>s+(p.personas||[]).length,0); if(!n) return '';
+  const ord=r=>{const i=ROLES.indexOf(r); return i<0?9:i;};
+  const bloque=p=>{ const G={}; (p.personas||[]).forEach(x=>{(G[x.rol||'Otros']||(G[x.rol||'Otros']=[])).push(x);});
+    return Object.keys(G).sort((a,b)=>ord(a)-ord(b)).map(r=>`<div><div class="pr">${esc(r)} · ${G[r].length}</div>${G[r].map(x=>`<div class="pi">${linkOk(x.perfil)?`<a href="${esc(x.perfil)}" target="_blank" rel="noopener">${esc(x.nombre)}</a>`:`<b>${esc(x.nombre)}</b>`}<span class="c">${esc(x.cargo||'')}</span>${x.verificar?`<span><span class="pill err">Verificar: ${esc(String(x.verificar).replace(/^s[ií]\s*:\s*/i,''))}</span></span>`:''}</div>`).join('')}</div>`).join(''); };
+  return `<details class="pp"><summary>${n} persona${n>1?'s':''} en LinkedIn</summary><div class="ppl">${ps.map(p=>`${ps.length>1?`<div class="pe">${esc(p.empresa)}</div>`:''}${bloque(p)}`).join('')}<div class="pf">${esc(ps[0].fuente||'LinkedIn')}. Cargo según el perfil público; confirmar antes de escribir.</div></div></details>`;
+}
+function fuenteHTML(f){
+  const t=String(f||'').trim(); if(!t) return '';
+  const m=t.match(/https?:\/\/[^\s)<>"';,]+/);
+  const corto=t.length>150?t.slice(0,148).replace(/\s+\S*$/,'')+'…':t;
+  const link=m?` <a href="${esc(m[0])}" target="_blank" rel="noopener">${esc(m[0].replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'').slice(0,60))}</a>`:'';
+  const txt=m&&t.replace(m[0],'').replace(/[\s()·,;:-]+/g,' ').trim().length<3?'':esc(corto);
+  return `<div class="fc" title="${esc(t)}"><span class="fk">Fuente del contacto:</span> ${txt}${link}</div>`;
 }
 function fkey(f){ if(!f) return ''; const m=String(f).match(/^(\d{2})\/(\d{2})\/(\d{4})$/); return m?`${m[3]}-${m[2]}-${m[1]}`:String(f); }
 const NEXT={mail:['Escribir por mail','mail'],tel:['Llamar','tel'],busc:['Buscar contacto','busc'],esperar:['Esperar respuesta','ok'],seg:['Hacer seguimiento','ok']};
@@ -386,17 +432,17 @@ function renderContactos(){
   const chips=CFILT.map(([k,t,fn])=>`<button class="chip" type="button" data-cf="${k}" aria-pressed="${S.cf===k}">${t}<b>${base.filter(fn).length}</b></button>`).join('');
   $('out').innerHTML=`<div class="panel">
     <div class="csum" role="group" aria-label="Filtrar por estado de contacto">${chips}</div>
-    <div class="ptools"><input type="search" id="cq" placeholder="Buscar empresa, ciudad, email o licitación…" value="${esc(S.cq)}" aria-label="Buscar empresa" style="flex:1 1 260px">
+    <div class="ptools"><input type="search" id="cq" placeholder="Buscar empresa, ciudad, email, licitación o persona…" value="${esc(S.cq)}" aria-label="Buscar empresa" style="flex:1 1 260px">
       <div class="f"><label for="co">Ordenar</label><select id="co"><option value="pres"${S.co==='pres'?' selected':''}>Más presentaciones</option><option value="reciente"${S.co==='reciente'?' selected':''}>Contacto más reciente</option><option value="nombre"${S.co==='nombre'?' selected':''}>Nombre</option></select></div>
-      <span class="h">Directorio de G215: contacto institucional de cada oferente y cada vez que se le escribió, con el tipo de contacto (presentación general o por una licitación puntual) y la respuesta si la hubo. Lo actualiza la rutina diaria del Radar. El filtro de jurisdicción de arriba también aplica acá.</span></div>
+      <span class="h">Directorio de G215: contacto institucional de cada oferente y cada vez que se le escribió, con el tipo de contacto (presentación general o por una licitación puntual) y la respuesta si la hubo. Lo actualiza la rutina diaria del Radar. Debajo de cada empresa, las personas encontradas en LinkedIn por rol (licitaciones, ambiente, comercial, gerencia), y en la columna Contacto, de dónde salió cada dato. El filtro de jurisdicción de arriba también aplica acá.</span></div>
     ${list.length?`<div class="tw"><table>
       <tr><th>Empresa</th><th>Contacto</th><th class="n">Pres.</th><th class="n">Ganó</th><th>Contacto de G215</th><th>Próximo paso</th></tr>
       ${list.slice(0,600).map(c=>`<tr>
         <td style="min-width:210px"><b>${esc(c.empresa)}</b>${c.otros_nombres?`<div class="sub">También: ${esc(c.otros_nombres)}</div>`:''}<div class="sub">${esc([c.ciudad,c.jurisdicciones].filter(Boolean).join(' · '))}</div>
           ${c.licitaciones?`<div class="sub" style="margin-top:4px">${String(c.licitaciones).split(' | ').map(esc).join('<br>')}</div>`:''}
-          ${c._st?`<button class="linkbtn" type="button" data-k="${esc(c._st.k)}">Ver historial de ofertas</button>`:''}</td>
+          ${c._st?`<button class="linkbtn" type="button" data-k="${esc(c._st.k)}">Ver historial de ofertas</button>`:''}${personasHTML(c._ps)}</td>
         <td><div class="cc">${c.email?`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`:'<span class="sub">sin email</span>'}${c.emails_extra?`<span class="sub">${esc(c.emails_extra)}</span>`:''}
-          ${c.telefono?`<span>${esc(c.telefono)}</span>`:''}${c.web?`<a href="${esc(/^https?:/i.test(c.web)?c.web:'https://'+c.web)}" target="_blank" rel="noopener">${esc(String(c.web).replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}</a>`:''}</div></td>
+          ${c.telefono?`<span>${esc(c.telefono)}</span>`:''}${c.web?`<a href="${esc(/^https?:/i.test(c.web)?c.web:'https://'+c.web)}" target="_blank" rel="noopener">${esc(String(c.web).replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}</a>`:''}${fuenteHTML(c.fuente_contacto)}${c.fecha_busqueda?`<span class="sub">Buscado el ${esc(fdate(String(c.fecha_busqueda)))}</span>`:''}</div></td>
         <td class="n">${c._pres||'—'}</td><td class="n">${c._gan||'—'}</td>
         <td>${c._cs.length?`<div class="cl">${c._cs.map(x=>`<div class="ci"><div class="t"><span class="d">${esc(x.fecha)}</span>${x.tipo==='especifico'?'<span class="pill esp">Por licitación</span>':'<span class="pill gen">General</span>'}${estPill(x.estado)}${x.casilla_compartida?' <span class="pill small">casilla compartida</span>':''}${x._live?' <span class="pill small">desde el Radar, en vivo</span>':''}</div>
             ${x.tipo==='especifico'&&x.licitacion?`<div class="lic">${esc(x.licitacion)}</div>`:''}
@@ -666,10 +712,15 @@ async function exportXls(){
     const ct=contactos().sort((a,b)=>b._pres-a._pres).map(c=>({Empresa:c.empresa,Otros_nombres:c.otros_nombres||'',Email:c.email||'',Telefono:c.telefono||'',Web:c.web||'',Ciudad:c.ciudad||'',Jurisdicciones:c.jurisdicciones||'',
       Presentaciones:c._pres,Ganadas:c._gan,Licitaciones:c.licitaciones||'',Contactada:c._sent?'sí':'no',
       Contactos:c._cs.map(x=>`${x.fecha} ${x.tipo==='especifico'?'Por licitación: '+(x.licitacion||''):'General'} (${x.estado||''})${x.respuesta?' — respuesta: '+x.respuesta:''}`).join(' | '),
-      Proximo_paso:NX[c._next]}));
+      Fuente_contacto:c.fuente_contacto||'',Fecha_busqueda:c.fecha_busqueda||'',Personas_LinkedIn:c._ps.reduce((s,p)=>s+(p.personas||[]).length,0),Proximo_paso:NX[c._next]}));
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ct),'Contactos');
   }
   if(EVENTOS.length){ XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(EVENTOS.map(d=>d.data||{}).map(e=>({Fecha_hora:fdt(evFecha(e)),Quien:e.quien||'',Accion:EVT[e.tipo]||e.tipo||'',Licitacion:e.licitacion||'',Objeto:e.objeto||'',Empresa:e.empresa||'',Email:e.email||'',Detalle:e.detalle||''}))),'Registro'); }
+  if(PERS.length){
+    const pe=[]; PERS.forEach(it=>(it.personas||[]).forEach(x=>pe.push({Empresa:it.empresa,Rol:x.rol||'',Nombre:x.nombre||'',Cargo:x.cargo||'',Perfil:x.perfil||'',Verificar:x.verificar||'',Fuente:it.fuente||''})));
+    pe.sort((a,b)=>a.Empresa.localeCompare(b.Empresa,'es')||ROLES.indexOf(a.Rol)-ROLES.indexOf(b.Rol));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(pe),'Personas');
+  }
   const buf=XLSX.write(wb,{type:'array',bookType:'xlsx'});
   if(!dl){ toast('La descarga solo funciona abriendo la página desde claude.ai.'); return; }
   try{ await dl.save({filename:'memoria-licitaciones.xlsx',data:buf}); toast('Excel listo'); }
@@ -692,6 +743,9 @@ async function load(){
     try{ const ct=await db.collection('contactos').limit(200).get();
       CONT=ct.docs.map(d=>d.data()).sort((x,y)=>(x.lote||0)-(y.lote||0)).flatMap(d=>Array.isArray(d.items)?d.items:[]);
       CONTOK=CONT.length>0; }catch(e){ CONTOK=false; }
+    try{ const pp=await db.collection('personas').limit(50).get();
+      PERS=pp.docs.map(d=>d.data()).sort((x,y)=>(x.lote||0)-(y.lote||0)).flatMap(d=>Array.isArray(d.items)?d.items:[]); }catch(e){ PERS=[]; }
+    indexPersonas();
   }catch(e){ $('meta').textContent='No se pudo leer la base ('+(e&&e.code||'error')+')'; return; }
   if(!R.length){ $('meta').textContent='Base vacía'; $('out').innerHTML='<div class="empty">La base todavía no tiene licitaciones. La rutina diaria del Radar las carga en su próxima corrida.</div>'; return; }
   const fr=R.map(r=>r.fecha_adjudicacion||r.fecha_apertura||r.fecha_publicacion).filter(Boolean).sort();
