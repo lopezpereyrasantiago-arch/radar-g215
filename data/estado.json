@@ -2,8 +2,8 @@
  "radar": {
   "items": 508,
   "personas": 142,
-  "generado": "2026-10-15T11:14:00-03:00",
-  "codigo_actualizado": false
+  "generado": "2026-10-16T10:25:00-03:00",
+  "codigo_actualizado": true
  },
  "memoria": {
   "licitaciones": 331,
@@ -12,8 +12,8 @@
   "fuentes": 25,
   "config": 3
  },
- "publicado": "2026-10-15T14:15:49+00:00",
- "radar_codigo": "a5fe0274b099c428",
+ "publicado": "2026-10-16T13:13:22+00:00",
+ "radar_codigo": "fb6331a336704eb5",
  "memoria_codigo": "1fc1672aeda51a21",
  "avisos": [],
  "memoria_html": {
