@@ -2,210 +2,210 @@
  "envios": [
   {
    "id": "l10vxh93-1d26c3f",
+   "licitacion": "Licitación Pública Nacional e Internacional N° 10241-0094-LPU25",
    "registros": [
     {
-     "via": "outlook",
      "email": "eleprint@eleprintsa.com.ar",
+     "empresa": "Consorcio CITIC Construction - Ranken Railway Construction - Supercemento - Eleprint - Panedile",
      "fecha": "2026-10-09",
      "tipo": "abierto",
-     "empresa": "Consorcio CITIC Construction - Ranken Railway Construction - Supercemento - Eleprint - Panedile"
+     "via": "outlook"
     },
     {
      "email": "info@broggio.com.ar",
+     "empresa": "UT Roggio (Benito Roggio e Hijos) - Ghella",
      "fecha": "2026-10-09",
-     "via": "outlook",
      "tipo": "abierto",
-     "empresa": "UT Roggio (Benito Roggio e Hijos) - Ghella"
+     "via": "outlook"
     },
     {
-     "tipo": "abierto",
+     "email": "comunicaciones@roggio.com.ar",
      "empresa": "Consorcio Roggio - Ghella",
      "fecha": "2026-10-09",
-     "email": "comunicaciones@roggio.com.ar",
+     "tipo": "abierto",
      "via": "outlook"
     }
    ],
-   "actualizado": "2026-10-09T19:46:47.637Z",
-   "licitacion": "Licitación Pública Nacional e Internacional N° 10241-0094-LPU25",
    "objeto": "Ingeniería, construcción y equipamiento de la Línea F de subterráneos (Barracas - Plaza Italia), 12 estaciones: obras civiles y sistemas de infraestructura necesarios para la operación",
-   "jurisdiccion": "CABA"
+   "jurisdiccion": "CABA",
+   "actualizado": "2026-10-09T19:46:47.637Z"
   },
   {
    "id": "l113u5jm-12i90ei",
-   "objeto": "Pavimentación de hormigón de 20 cuadras de la ciudad (parte del plan de 140 cuadras)",
    "jurisdiccion": "Córdoba",
-   "actualizado": "2026-10-09T19:54:20.389Z",
-   "licitacion": "s/nro",
    "registros": [
     {
-     "fecha": "2026-10-09",
-     "empresa": "Tecnac",
      "email": "tecnacsrl@gmail.com",
+     "empresa": "Tecnac",
+     "fecha": "2026-10-09",
      "tipo": "abierto",
      "via": "outlook"
     }
-   ]
+   ],
+   "objeto": "Pavimentación de hormigón de 20 cuadras de la ciudad (parte del plan de 140 cuadras)",
+   "actualizado": "2026-10-09T19:54:20.389Z",
+   "licitacion": "s/nro"
   },
   {
    "id": "l1in06id-zinoat",
+   "actualizado": "2026-10-13T15:32:00.121Z",
    "registros": [
     {
-     "via": "outlook",
-     "fecha": "2026-10-13",
-     "empresa": "JOSÉ ELEUTERIO PITÓN S.A. – ROVIAL S.A. – OBRING S.A.",
      "email": "info@jepitonsa.com.ar",
-     "tipo": "enviado"
+     "empresa": "JOSÉ ELEUTERIO PITÓN S.A. – ROVIAL S.A. – OBRING S.A.",
+     "fecha": "2026-10-13",
+     "tipo": "enviado",
+     "via": "outlook"
     }
    ],
    "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Chaco-Santa Fe de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación ",
-   "actualizado": "2026-10-13T15:32:00.121Z",
-   "jurisdiccion": "Nación",
-   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Chaco-Santa Fe"
+   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Chaco-Santa Fe",
+   "jurisdiccion": "Nación"
   },
   {
    "id": "l1nizzes-175xx0i",
    "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Mesopotámico",
-   "actualizado": "2026-10-13T15:25:50.869Z",
    "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Mesopotámico de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación y ",
+   "actualizado": "2026-10-13T15:25:50.869Z",
+   "registros": [
+    {
+     "email": "rrhh@iebc.com.ar",
+     "empresa": "IEB CONSTRUCCIONES S.A. – TRADING MRG S.A.U.",
+     "fecha": "2026-10-13",
+     "medio": "Mail",
+     "telefono": null,
+     "tipo": "enviado",
+     "via": "novedad"
+    }
+   ],
+   "jurisdiccion": "Nación"
+  },
+  {
+   "id": "l1vrkjv4-qg5v4c",
+   "registros": [
+    {
+     "email": "contactenos@fontananicastro.com.ar",
+     "empresa": "UT Fontana Nicastro S.A. de Construcciones - Martínez y de la Fuente S.A.",
+     "fecha": "2026-10-09",
+     "tipo": "abierto",
+     "via": "outlook"
+    }
+   ],
+   "jurisdiccion": "Buenos Aires",
+   "licitacion": "Licitación Pública N° 24/2026",
+   "actualizado": "2026-10-09T19:44:51.605Z",
+   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico"
+  },
+  {
+   "id": "l1wusyme-dikxyo",
    "jurisdiccion": "Nación",
    "registros": [
     {
+     "email": "recepcion@afema.com.ar",
+     "empresa": "AFEMA S.A. – PABLO FEDERICO E HIJOS S.A. – GUIDO MOGETTA S.A.",
+     "fecha": "2026-10-13",
+     "medio": "Mail",
      "telefono": null,
      "tipo": "enviado",
+     "via": "novedad"
+    }
+   ],
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación y manten",
+   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Centro",
+   "actualizado": "2026-10-13T15:15:32.730Z"
+  },
+  {
+   "id": "l3icid1-q9v7oh",
+   "objeto": "Construcción Costanera Centro de General Alvear, ribera del río Atuel: parque aéreo de aventura, paradores comerciales, SUM, infraestructura de servicios, calzadas, veredas, ciclovías, sector de turis",
+   "jurisdiccion": "Mendoza",
+   "licitacion": "Licitación Pública N° 1028/2026",
+   "actualizado": "2026-10-13T18:11:34.456Z",
+   "registros": [
+    {
+     "email": "contacto@constructorasanguillermo.com.ar",
+     "empresa": "San Guillermo SA",
      "fecha": "2026-10-13",
-     "empresa": "IEB CONSTRUCCIONES S.A. – TRADING MRG S.A.U.",
-     "email": "rrhh@iebc.com.ar",
-     "via": "novedad",
-     "medio": "Mail"
+     "tipo": "abierto",
+     "via": "outlook"
     }
    ]
   },
   {
-   "id": "l1vrkjv4-qg5v4c",
-   "licitacion": "Licitación Pública N° 24/2026",
-   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico",
-   "jurisdiccion": "Buenos Aires",
-   "registros": [
-    {
-     "fecha": "2026-10-09",
-     "empresa": "UT Fontana Nicastro S.A. de Construcciones - Martínez y de la Fuente S.A.",
-     "email": "contactenos@fontananicastro.com.ar",
-     "via": "outlook",
-     "tipo": "abierto"
-    }
-   ],
-   "actualizado": "2026-10-09T19:44:51.605Z"
-  },
-  {
-   "id": "l1wusyme-dikxyo",
-   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Centro",
-   "jurisdiccion": "Nación",
-   "actualizado": "2026-10-13T15:15:32.730Z",
-   "registros": [
-    {
-     "fecha": "2026-10-13",
-     "telefono": null,
-     "tipo": "enviado",
-     "empresa": "AFEMA S.A. – PABLO FEDERICO E HIJOS S.A. – GUIDO MOGETTA S.A.",
-     "email": "recepcion@afema.com.ar",
-     "medio": "Mail",
-     "via": "novedad"
-    }
-   ],
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación y manten"
-  },
-  {
-   "id": "l3icid1-q9v7oh",
-   "jurisdiccion": "Mendoza",
-   "actualizado": "2026-10-13T18:11:34.456Z",
-   "objeto": "Construcción Costanera Centro de General Alvear, ribera del río Atuel: parque aéreo de aventura, paradores comerciales, SUM, infraestructura de servicios, calzadas, veredas, ciclovías, sector de turis",
-   "registros": [
-    {
-     "empresa": "San Guillermo SA",
-     "fecha": "2026-10-13",
-     "email": "contacto@constructorasanguillermo.com.ar",
-     "tipo": "abierto",
-     "via": "outlook"
-    }
-   ],
-   "licitacion": "Licitación Pública N° 1028/2026"
-  },
-  {
    "id": "lavbvln-1yqj3zp",
+   "jurisdiccion": "Mendoza",
+   "actualizado": "2026-10-09T19:59:31.108Z",
+   "objeto": "Restauración y puesta en valor del Solar Histórico Hacienda del Libertador, Junín",
    "licitacion": "s/nro",
    "registros": [
     {
-     "tipo": "abierto",
-     "empresa": "Arener Ingeniería",
      "email": "arenering@gmail.com",
-     "via": "outlook",
-     "fecha": "2026-10-09"
+     "empresa": "Arener Ingeniería",
+     "fecha": "2026-10-09",
+     "tipo": "abierto",
+     "via": "outlook"
     },
     {
-     "fecha": "2026-10-09",
-     "via": "outlook",
-     "empresa": "Constructora San José",
      "email": "central@gruposanjose.biz",
-     "tipo": "abierto"
+     "empresa": "Constructora San José",
+     "fecha": "2026-10-09",
+     "tipo": "abierto",
+     "via": "outlook"
     }
-   ],
-   "objeto": "Restauración y puesta en valor del Solar Histórico Hacienda del Libertador, Junín",
-   "jurisdiccion": "Mendoza",
-   "actualizado": "2026-10-09T19:59:31.108Z"
+   ]
   },
   {
    "id": "lmxth55-u9aay9",
-   "actualizado": "2026-10-09T18:59:44.462Z",
-   "jurisdiccion": "San Juan",
+   "licitacion": "s/nro",
    "objeto": "Mejoramiento de aprox. 28 km de la Ruta Nacional 40 Norte, tramo Tucunuco - San Roque (Jáchal, San Juan): ensanche, pavimentación, banquinas y drenaje",
+   "actualizado": "2026-10-09T18:59:44.462Z",
    "registros": [
     {
+     "email": "info@lppietroboni.com.ar",
      "empresa": "Sigma S.A. - LLP Pietroboni S.A. (UT)",
      "fecha": "2026-10-09",
-     "via": "outlook",
-     "email": "info@lppietroboni.com.ar",
-     "tipo": "abierto"
+     "tipo": "abierto",
+     "via": "outlook"
     },
     {
-     "via": "outlook",
-     "tipo": "abierto",
-     "fecha": "2026-10-09",
+     "email": "info@dumandzic.com",
      "empresa": "Ivica y A. Dumandzic S.A.",
-     "email": "info@dumandzic.com"
+     "fecha": "2026-10-09",
+     "tipo": "abierto",
+     "via": "outlook"
     },
     {
-     "fecha": "2026-10-09",
-     "empresa": "Boetto y Buttigliengo Constructora (BBC)",
-     "tipo": "abierto",
      "email": "info@bbcsa.com.ar",
+     "empresa": "Boetto y Buttigliengo Constructora (BBC)",
+     "fecha": "2026-10-09",
+     "tipo": "abierto",
      "via": "outlook"
     }
    ],
-   "licitacion": "s/nro"
+   "jurisdiccion": "San Juan"
   },
   {
    "id": "lxbmggw-7y4uu",
+   "objeto": "Ordenamiento vial, conectividad, ampliación de capacidad y seguridad en Av. Presidente Juan Domingo Perón, Cipolletti",
+   "licitacion": "Licitación Pública N° 07-2026",
    "registros": [
     {
-     "tipo": "enviado",
-     "fecha": "2026-10-13",
-     "via": "outlook",
+     "email": "consultas@posesa.com.ar",
      "empresa": "POSE S.A.",
-     "email": "consultas@posesa.com.ar"
+     "fecha": "2026-10-13",
+     "tipo": "enviado",
+     "via": "outlook"
     }
    ],
-   "jurisdiccion": "Río Negro",
-   "licitacion": "Licitación Pública N° 07-2026",
    "actualizado": "2026-10-13T17:25:45.002Z",
-   "objeto": "Ordenamiento vial, conectividad, ampliación de capacidad y seguridad en Av. Presidente Juan Domingo Perón, Cipolletti"
+   "jurisdiccion": "Río Negro"
   }
  ],
  "novedades_vistas": [
   {
    "id": "l10vxh93-1d26c3f",
-   "clave": "sobres_abiertos|2026-10-01",
    "objeto": "Ingeniería, construcción y equipamiento de la Línea F de subterráneos (Barracas - Plaza Italia), 12 estaciones: obras civiles y sistemas de infraestructura nece",
-   "fecha": "2026-10-09T19:50:44.629Z"
+   "fecha": "2026-10-09T19:50:44.629Z",
+   "clave": "sobres_abiertos|2026-10-01"
   },
   {
    "id": "l15ig5yl-dbtqzz",
@@ -215,8 +215,8 @@
   },
   {
    "id": "l1d5kymr-56pmvj",
-   "clave": "nueva|2026-09-30",
    "fecha": "2026-10-09T20:07:18.444Z",
+   "clave": "nueva|2026-09-30",
    "objeto": "Refuncionalización del Dique Las Lomitas, Parte 1, Campo Quijano, Dpto. Rosario de Lerma"
   },
   {
@@ -227,62 +227,62 @@
   },
   {
    "id": "l1nizzes-175xx0i",
-   "fecha": "2026-10-13T15:25:50.443Z",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Mesopotámico de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración,",
    "clave": "adjudicada|2026-10-06",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Mesopotámico de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración,"
+   "fecha": "2026-10-13T15:25:50.443Z"
   },
   {
    "id": "l1vrkjv4-qg5v4c",
+   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico",
    "clave": "sobres_abiertos|2026-10-05",
-   "fecha": "2026-10-09T19:46:09.405Z",
-   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico"
+   "fecha": "2026-10-09T19:46:09.405Z"
   },
   {
    "id": "l1wusyme-dikxyo",
    "fecha": "2026-10-13T15:15:31.987Z",
-   "clave": "adjudicada|2026-10-06",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, repar"
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, repar",
+   "clave": "adjudicada|2026-10-06"
   },
   {
    "id": "l3icid1-q9v7oh",
+   "fecha": "2026-10-09T19:29:16.453Z",
    "clave": "sobres_abiertos|2026-10-06",
-   "objeto": "Construcción Costanera Centro de General Alvear, ribera del río Atuel: parque aéreo de aventura, paradores comerciales, SUM, infraestructura de servicios, calza",
-   "fecha": "2026-10-09T19:29:16.453Z"
+   "objeto": "Construcción Costanera Centro de General Alvear, ribera del río Atuel: parque aéreo de aventura, paradores comerciales, SUM, infraestructura de servicios, calza"
   },
   {
    "id": "l4b9116-lmyxss",
-   "objeto": "Venta del 90% del paquete accionario de Agua y Saneamientos Argentinos S.A. (AySA), con obligaciones de inversión en infraestructura de agua potable y saneamien",
    "fecha": "2026-10-09T18:51:33.280Z",
-   "clave": "preadjudicada|2026-10-08"
+   "clave": "preadjudicada|2026-10-08",
+   "objeto": "Venta del 90% del paquete accionario de Agua y Saneamientos Argentinos S.A. (AySA), con obligaciones de inversión en infraestructura de agua potable y saneamien"
   },
   {
    "id": "l93etv0-g84c3m",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro-Norte de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración,",
    "fecha": "2026-10-13T15:05:11.523Z",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro-Norte de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración,",
    "clave": "adjudicada|2026-10-06"
   },
   {
    "id": "lakoqbb-oupecz",
    "objeto": "Obra: Centro de Salud - Nuevo Edificio, Barrio Procrear, Zapala - Programa de Desarrollo Urbano y Mejora del Hábitat en la Provincia del Neuquén (AR-L1420 - BID",
-   "clave": "sobres_abiertos|2026-10-06",
-   "fecha": "2026-10-09T19:44:07.341Z"
+   "fecha": "2026-10-09T19:44:07.341Z",
+   "clave": "sobres_abiertos|2026-10-06"
   },
   {
    "id": "lavbvln-1yqj3zp",
+   "fecha": "2026-10-09T20:06:40.445Z",
    "objeto": "Restauración y puesta en valor del Solar Histórico Hacienda del Libertador, Junín",
-   "clave": "nueva|2026-09-30",
-   "fecha": "2026-10-09T20:06:40.445Z"
+   "clave": "nueva|2026-09-30"
   },
   {
    "id": "lmxth55-u9aay9",
+   "fecha": "2026-10-09T19:14:30.974Z",
    "clave": "sobres_abiertos|2026-10-07",
-   "objeto": "Mejoramiento de aprox. 28 km de la Ruta Nacional 40 Norte, tramo Tucunuco - San Roque (Jáchal, San Juan): ensanche, pavimentación, banquinas y drenaje",
-   "fecha": "2026-10-09T19:14:30.974Z"
+   "objeto": "Mejoramiento de aprox. 28 km de la Ruta Nacional 40 Norte, tramo Tucunuco - San Roque (Jáchal, San Juan): ensanche, pavimentación, banquinas y drenaje"
   },
   {
    "id": "lv24qyr-1e026s1",
-   "clave": "adjudicada|2026-08-24",
    "objeto": "Concesión por peaje del corredor de la Ruta Nacional 16 en Chaco (~211 km, desde el acceso al Puente General Belgrano hasta el empalme con la Ruta Nacional 89 e",
+   "clave": "adjudicada|2026-08-24",
    "fecha": "2026-10-09T19:31:17.845Z"
   }
  ]
