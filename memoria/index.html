@@ -236,7 +236,7 @@ function miembros(nombre){
 }
 
 /* ---------- estado ---------- */
-const S={tab:'empresas',desde:'',hasta:'',jur:'',mun:'',rub:'',sec:true,icc:true,q:'',empSort:['pres','desc'],empSel:null,grp:'org_rub',licQ:'',calcG:'',calcPO:'',cq:'',cf:'todas',co:'pres',rq:'',rt:'',rw:''};
+const S={tab:'empresas',desde:'',hasta:'',jur:'',mun:'',rub:'',sec:true,icc:true,q:'',empSort:['pres','desc'],empSel:null,grp:'org_rub',licQ:'',licE:'todas',calcG:'',calcPO:'',cq:'',cf:'todas',co:'pres',rq:'',rt:'',rw:''};
 try{Object.assign(S,JSON.parse(localStorage.getItem('memoria-lic-v1')||'{}'));S.empSel=null;}catch(e){}
 const save=()=>{try{const {tab,grp,sec,icc,empSort,cf,co}=S;localStorage.setItem('memoria-lic-v1',JSON.stringify({tab,grp,sec,icc,empSort,cf,co}))}catch(e){}};
 let R=[], ICC={}, ICCMETA={}, FUENTES=[], META={}, DB=null, CONT=[], CONTOK=false, PERS=[], PID={}, PKEY={};
@@ -543,19 +543,27 @@ function wireCalc(C){
 function renderLic(L){
   $('c-lic').textContent=L.length;
   const q=plain(S.licQ);
-  const list=L.filter(r=>!q||plain([r.objeto,r.organismo,r.numero,r.municipio,...(r.oferentes||[]).map(o=>o.empresa)].join(' ')).includes(q))
+  const LE=[['todas','Todas',r=>true],['adj','Adjudicadas',r=>r.estado==='adjudicada'],['pre','Preadjudicadas',r=>r.estado==='preadjudicada'],['sin','Sin adjudicar',r=>!['adjudicada','preadjudicada'].includes(r.estado)]];
+  const fe=(LE.find(x=>x[0]===S.licE)||LE[0])[2];
+  const hay=r=>plain([r.objeto,r.organismo,r.numero,r.expediente,r.municipio,r.jurisdiccion,r.estado,r.ganador&&r.ganador.empresa,r.ganador&&r.ganador.cuit,...(r.oferentes||[]).flatMap(o=>[o.empresa,o.cuit])].filter(Boolean).join(' '));
+  const base=L.filter(r=>!q||hay(r).includes(q));
+  const chipsE=LE.map(([k,t,fn])=>`<button class="chip" type="button" data-le="${k}" aria-pressed="${(S.licE||'todas')===k}">${t}<b>${base.filter(fn).length}</b></button>`).join('');
+  const fadj=r=>r.fecha_adjudicacion?`<div class="sub">${r.estado==='preadjudicada'?'preadjudicada':'adjudicada'} el ${fdate(r.fecha_adjudicacion)}${r.fecha_adjudicacion_aprox?' (aprox.)':''}</div>`:(['adjudicada','preadjudicada'].includes(r.estado)?'<div class="sub">fecha de adjudicación sin publicar</div>':'');
+  const fqual=r=>r.fecha_adjudicacion?'adjudicación':r.fecha_apertura?'apertura':r.fecha_publicacion?'publicación':'';
+  const list=base.filter(fe)
     .sort((a,b)=>String(b._fref||'').localeCompare(String(a._fref||'')));
   $('out').innerHTML=`<div class="panel">
-    <div class="ptools"><input type="search" id="lq" placeholder="Buscar obra, organismo, número o empresa…" value="${esc(S.licQ)}" aria-label="Buscar licitación" style="flex:1 1 260px">
+    <div class="ptools"><input type="search" id="lq" placeholder="Buscar obra, organismo, número, expediente, empresa o CUIT (oferente o ganador)…" value="${esc(S.licQ)}" aria-label="Buscar licitación" style="flex:1 1 260px"><div class="csum" role="group" aria-label="Filtrar por estado">${chipsE}</div>
     <span class="h">De la más reciente a la más antigua. La fuente marcada como secundaria es prensa: la rutina diaria intenta confirmarla en la fuente oficial.</span></div>
     ${list.length?`<div class="tw"><table><tr><th>Fecha</th><th>Licitación</th><th class="n">Presupuesto oficial</th><th>Ofertas</th><th>Resultado</th><th>Fuente</th></tr>
-    ${list.slice(0,500).map(r=>`<tr><td class="n">${fdate(r._fref)}</td>
+    ${list.slice(0,500).map(r=>`<tr><td class="n">${fdate(r._fref)}${r._fref?`<div class="sub">${fqual(r)}</div>`:''}</td>
       <td style="min-width:240px"><b>${esc(r.objeto)}</b><div class="sub">${esc(r.jurisdiccion)}${r.municipio?' · '+esc(r.municipio):''} · ${esc(r.organismo||'')}${r.numero?' · '+esc(r.numero):''}</div></td>
       <td class="n">${r.presupuesto_oficial?money(r.presupuesto_oficial,r.moneda)+(r.po_aprox?'<div class="sub">aprox.</div>':''):'—'}</td>
       <td style="min-width:220px">${r._ofs.length?`<div class="ofl">${r._ofs.slice().sort((a,b)=>(a.monto||9e18)-(b.monto||9e18)).map(o=>`<div class="r"><span>${r._g&&r._g.k===o.k?'<b>':''}${esc(o.empresa)}${r._g&&r._g.k===o.k?'</b>':''}${o.admitida===false?' <span class="pill sec">no admitida</span>':''}</span><span class="n" style="font-family:var(--mono)">${o.monto?money(o.monto,r.moneda):'—'}${o.d!=null?' · '+pct(o.d):''}</span></div>`).join('')}</div>`:'<span class="sub">Sin oferentes publicados</span>'}</td>
-      <td>${r._g?`<span class="pill win">${esc(r.estado)}</span><div class="sub">${esc(r._g.empresa)}</div>`:`<span class="pill">${esc(r.estado)}</span>`}</td>
+      <td>${r._g?`<span class="pill win">${esc(r.estado)}</span><div class="sub">${esc(r._g.empresa)}</div>`:`<span class="pill">${esc(r.estado)}</span>`}${fadj(r)}</td>
       <td>${r.fuente_url?`<a href="${esc(r.fuente_url)}" target="_blank" rel="noopener">abrir</a>`:'—'}<div>${r.fuente_tipo==='secundaria'?'<span class="pill sec">secundaria</span>':r.fuente_tipo==='prensa_oficial'?'<span class="pill po">prensa oficial</span>':'<span class="pill of">oficial</span>'}</div></td></tr>`).join('')}
     </table></div>`:'<div class="empty">No hay licitaciones con estos filtros.</div>'}</div>`;
+  $('out').querySelectorAll('[data-le]').forEach(b=>b.onclick=()=>{S.licE=b.dataset.le; render();});
   $('lq').oninput=e=>{S.licQ=e.target.value; const p=e.target.selectionStart; render(); const n=$('lq'); if(n){n.focus(); n.setSelectionRange(p,p);} };
 }
 
@@ -695,7 +703,7 @@ async function exportXls(){
   const L=filtered();
   if(typeof XLSX==='undefined'){ toast('No se pudo cargar el generador de Excel. Recargá la página.'); return; }
   const lic=L.map(r=>({Fecha:r._fref||'',Jurisdiccion:r.jurisdiccion,Municipio:r.municipio||'',Organismo:r.organismo||'',Numero:r.numero||'',Objeto:r.objeto,Rubro:r.rubro,
-    Moneda:r.moneda,Presupuesto_oficial:r.presupuesto_oficial||'',PO_aproximado:r.po_aprox?'sí':'',Mes_base_PO:r.fecha_base_po||'',Publicacion:r.fecha_publicacion||'',Apertura:r.fecha_apertura||'',Adjudicacion:r.fecha_adjudicacion||'',
+    Moneda:r.moneda,Presupuesto_oficial:r.presupuesto_oficial||'',PO_aproximado:r.po_aprox?'sí':'',Mes_base_PO:r.fecha_base_po||'',Publicacion:r.fecha_publicacion||'',Apertura:r.fecha_apertura||'',Adjudicacion:r.fecha_adjudicacion||'',Adjudicacion_aprox:r.fecha_adjudicacion_aprox?'sí':'',
     Estado:r.estado,Ganador:r._g?r._g.empresa:'',Monto_ganador:r._g&&r._g.monto||'',Oferentes:r._ofs.length,Ofertas_con_monto:r._priced.length,
     Ganador_vs_PO:r._dWin??'',Ganó_la_más_baja:r._winLow==null?'':(r._winLow?'sí':'no'),Margen_al_2do:r._margen??'',Fuente:r.fuente_url||'',Tipo_fuente:r.fuente_tipo,Notas:r.notas||''}));
   const of=[]; L.forEach(r=>r._ofs.forEach(o=>of.push({Fecha:r._fref||'',Jurisdiccion:r.jurisdiccion,Organismo:r.organismo||'',Objeto:r.objeto,Rubro:r.rubro,Empresa:o.empresa,Clave_empresa:o.k,
