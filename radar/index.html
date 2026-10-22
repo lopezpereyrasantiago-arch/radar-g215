@@ -486,7 +486,7 @@ function adjuntosDe(x){ return [ADJ.brochure, esVial(x)?ADJ.cvVial:ADJ.cv]; }
 function adjHtml(x){ return `<span class="h adjline">Adjuntar: <b>${esc(adjuntosDe(x).join(' + '))}</b>${esVial(x)?' \u00b7 obra vial, va el CV V8':''}</span>`; }
 /* Envío desde Outlook (Microsoft 365 de G215): abre Outlook en la web con el mensaje armado */
 const OL_CUENTA='slopez@g215.com.ar';
-const OL_COMPOSE='https://outlook.office.com/mail/deeplink/compose';
+const OL_COMPOSE='https://outlook.cloud.microsoft/mail/deeplink/compose'; /* Microsoft mudó Outlook web a outlook.cloud.microsoft; el dominio viejo pierde la sesión y pide elegir cuenta */
 const enc=s=>encodeURIComponent(s).replace(/%0A/g,'%0D%0A');
 function outlookUrl(to,subject,body){
   const q=[]; if(to) q.push('to='+encodeURIComponent(to).replace(/%40/g,'@').replace(/%2C/g,','));
@@ -685,7 +685,7 @@ function renderGm(i){
       <span class="gmnote">${pend.length} de ${rows.length} pendientes</span>
     </div>
     <div class="gmnote"><b>Por qué Outlook nunca guarda el borrador:</b> ningún link puede escribir en tu buzón. El deeplink de Microsoft sólo abre la ventana de redacción, y si la dirección le queda larga descarta el texto. Lo que sí funciona: dejá una pestaña de Outlook abierta y ya logueada, copiá desde acá y pegá allá. Outlook autoguarda el borrador solo.</div>
-    <div class="gmnote">Si Outlook abre con otra cuenta, cerrá sesión en outlook.office.com e ingresá con ${esc(OL_CUENTA)}.</div>
+    <div class="gmnote">Si Outlook abre con otra cuenta, cerrá sesión en outlook.cloud.microsoft e ingresá con ${esc(OL_CUENTA)}.</div>
     ${CAP.db?'':'<div class="gmnote">Desde esta vista no se puede guardar el registro de envíos.</div>'}`;
   host.querySelectorAll('[data-olsent]').forEach(c=>c.onchange=async()=>{ const r=rows[+c.dataset.olsent];
     const ok=await registrar(x,r.empresa,r.email,c.checked?'enviado':'pendiente');
