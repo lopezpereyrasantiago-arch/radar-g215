@@ -450,31 +450,76 @@ function fuenteHTML(f){
 }
 
 const TPL_DEF={
-  asunto:'Servicios ambientales \u2014 {obra_corta}',
+  asunto:'Servicios ambientales — {obra_corta}',
   cuerpo:`Estimados Sres. de {empresa}:
 
-Atentos a su presentaci\u00f3n en la {licitacion} de {organismo} \u2014{obra_corta} ({ubicacion})\u2014, me dirijo a ustedes en representaci\u00f3n de G215 S.A., consultora en ingenier\u00eda, ambiente y sostenibilidad, para ofrecerles nuestros servicios.
+Atentos a su presentación en {referencia}, me dirijo a ustedes en representación de G215 S.A., consultora en ingeniería, ambiente y sostenibilidad, para ofrecerles nuestros servicios.
 
-Desde hace m\u00e1s de 15 a\u00f1os acompa\u00f1amos a empresas constructoras y resolvemos los requerimientos ambientales de la obra de punta a punta: estudios y evaluaciones de impacto ambiental, l\u00edneas de base, planes de manejo y de gesti\u00f3n ambiental y social, monitoreos, capacitaciones en obra, presentaci\u00f3n de informes y tramitaci\u00f3n de permisos ante las autoridades de aplicaci\u00f3n.{frase_eia}
+Desde hace más de 15 años acompañamos a empresas constructoras y resolvemos los requerimientos ambientales de la obra de punta a punta: estudios y evaluaciones de impacto ambiental, líneas de base, planes de manejo y de gestión ambiental y social, monitoreos, capacitaciones en obra, presentación de informes y tramitación de permisos ante las autoridades de aplicación.{frase_eia}
 
-Les adjunto nuestro brochure institucional y el curr\u00edculum de obras de G215 S.A., con los proyectos en los que participamos.
+{parrafo_adjuntos}
 
-Si les resulta \u00fatil, podemos coordinar una breve reuni\u00f3n y enviarles una propuesta para esta obra.
+Si les resulta útil, podemos coordinar una breve reunión y enviarles una propuesta para esta obra.
 
-Gracias por su atenci\u00f3n.
+Gracias por su atención.
 
-Saludos cordiales,
-
-Santiago L\u00f3pez
-G215 S.A.`
+Atentamente,`
 };
 let TPL={...TPL_DEF};
-try{ const s=JSON.parse(localStorage.getItem('radar-tpl-v4')||'null'); if(s&&s.cuerpo) TPL={asunto:s.asunto||TPL_DEF.asunto,cuerpo:s.cuerpo}; }catch(e){}
+try{ const s=JSON.parse(localStorage.getItem('radar-tpl-v5')||'null'); if(s&&s.cuerpo) TPL={asunto:s.asunto||TPL_DEF.asunto,cuerpo:s.cuerpo}; }catch(e){}
+/* Nombre de la obra sin cortar con "…": entera si es corta; si es larga, se le sacan los paréntesis del final
+   y se corta en la última pausa natural (" - ", "; ", ", ") antes de los 140 caracteres. */
+function obraCorta(o){
+  let t=String(o||'').trim().replace(/^Obra\s*["“]([^"”]+)["”]\s*,?\s*/i,'$1, ').replace(/["“”]/g,"'").replace(/\s+/g,' ').replace(/[,;\s]+$/,'');
+  const MAX=140;
+  while(t.length>MAX&&/\s*\([^()]*\)\s*$/.test(t)) t=t.replace(/\s*\([^()]*\)\s*$/,'');
+  if(t.length>MAX){ let corte=-1;
+    for(const sep of [' - ',' – ','; ',', ']){ const k=t.lastIndexOf(sep,MAX); if(k>=50&&k>corte) corte=k; if(corte>=50) break; }
+    if(corte<50){ const k=t.lastIndexOf(' ',MAX); corte=k>50?k:MAX; }
+    t=t.slice(0,corte);
+    const ab=t.lastIndexOf('('); if(ab>40&&t.indexOf(')',ab)<0) t=t.slice(0,ab);
+  }
+  return t.replace(/[\s,;:\-–(]+$/,'').replace(/\s+(y|de|del|la|el|en|con|para|e|a)$/i,'');
+}
+/* Número de la licitación sin expedientes ni aclaraciones: "Licitación Pública 02/2026 DOSC-DCU (Expediente …)" → "Licitación Pública 02/2026 DOSC-DCU".
+   Si el dato no es un procedimiento (expediente, decreto, resolución), devuelve "". */
+function numLic(n){
+  let t=String(n||'').trim(); if(!t) return '';
+  t=t.replace(/^Licitacion Publica/i,'Licitación Pública').replace(/^LPN\b\s*/,'Licitación Pública Nacional ').replace(/^LPI\b\s*/,'Licitación Pública Internacional ').replace(/^LP\b\s*/,'Licitación Pública ');
+  t=t.replace(/\s*\([^()]*\)/g,'').replace(/\s+-\s+(EX-|Expte|Exp\.|Expediente).*$/i,'').replace(/\s+/g,' ').trim();
+  return /^(Licitaci[oó]n|Concurso|Contrataci[oó]n|Compulsa|Cotejo|Adjudicaci[oó]n|Gesti[oó]n|Subasta|Solicitud)/i.test(t)?t:'';
+}
+/* Organismo que convoca, sin dependencias internas ni aclaraciones largas (las siglas quedan). */
+function orgCorto(o){
+  return String(o||'').split(' - ')[0].replace(/\s*\(([^()]*)\)/g,(m,a)=>a.length<=12?m:'').replace(/\s+/g,' ').trim();
+}
+function conArticulo(org){
+  const w=(org.split(/\s+/)[0]||'');
+  if(/^(Municipalidad|Direcci[oó]n|Universidad|Empresa|Secretar[ií]a|Subsecretar[ií]a|Agencia|Corte|Administraci[oó]n|Comuna|Unidad|Armada|Corporaci[oó]n|Comisi[oó]n|Casa|Polic[ií]a|Superintendencia|Provincia|Cooperativa|Sociedad|Autoridad|Fundaci[oó]n|Entidad|Gerencia|Legislatura|C[aá]mara|Facultad|Fiscal[ií]a|Defensor[ií]a|Ciudad|Prefectura|Gendarmer[ií]a|Fuerza)$/i.test(w)) return 'de la '+org;
+  if(/^(Ministerio|Gobierno|Instituto|Poder|Consejo|Concejo|Departamento|Banco|Ej[eé]rcito|Consorcio|Ente|Fideicomiso|Municipio|Organismo|Superior|Tribunal|Servicio|Hospital|Registro|Fondo|Estado|Senado|Honorable|Comit[eé]|Centro|Programa|Proyecto)$/i.test(w)) return 'del '+org;
+  return 'de '+org;
+}
+/* "la Licitación Pública 02/2026 DOSC-DCU de la Universidad Nacional del Litoral, “Ordenamiento vehicular …”" */
+function referenciaLic(x,obra){
+  const num=numLic(x.numero), org=orgCorto(x.organismo);
+  const art=num?(/^(Concurso|Cotejo)/i.test(num)?'el ':'la '):'la ';
+  let r=art+(num||'licitación');
+  if(org) r+=' '+conArticulo(org);
+  if(obra) r+=', “'+obra+'”';
+  return r;
+}
+/* Links públicos (OneDrive de G215) del brochure y de los CV. Mientras estén vacíos, el texto dice "Les adjunto…". */
+const ADJ_LINK={brochure:'',cv:'',cvVial:''};
+function parrafoAdjuntos(x){
+  const cv=esVial(x)?ADJ_LINK.cvVial:ADJ_LINK.cv;
+  if(ADJ_LINK.brochure&&cv) return 'Les comparto nuestro brochure institucional y el currículum de obras de G215 S.A., con los proyectos en los que participamos:\nBrochure institucional: '+ADJ_LINK.brochure+'\nCurrículum de obras: '+cv;
+  return 'Les adjunto nuestro brochure institucional y el currículum de obras de G215 S.A., con los proyectos en los que participamos.';
+}
 function fillTpl(str,x,empresa){
   const fa=parseD(x.fecha_apertura);
-  const corta=x.objeto.length>70?x.objeto.slice(0,68).replace(/[\s,;:(-]+\S*$/,'').replace(/[\s,;:.\-\u2013\u2014(]+$/,'')+'…':x.objeto;
+  const corta=obraCorta(x.objeto);
   const eia=x.requiere_eia==='Sí'?' Esta obra tiene requerimientos ambientales (evaluación de impacto, línea de base o plan de manejo), así que podemos sumarnos desde la adjudicación.':(x.requiere_eia==='Probable'?' Es probable que esta obra tenga requerimientos ambientales (evaluación de impacto, línea de base o plan de manejo); podemos ayudarlos a confirmarlo y resolverlo.':'');
-  const v={empresa:empresa||'equipo',licitacion:x.numero||'licitación',organismo:(x.organismo||'').split(' - ')[0],obra:x.objeto,obra_corta:corta,ubicacion:x.ubicacion||x.jurisdiccion,fecha_apertura:fa?fa.long.replace(' · ',' a las '):'la fecha publicada',jurisdiccion:x.jurisdiccion,frase_eia:eia};
+  const v={empresa:empresa||'equipo',licitacion:numLic(x.numero)||'licitación',organismo:orgCorto(x.organismo),obra:x.objeto,obra_corta:corta,referencia:referenciaLic(x,corta),parrafo_adjuntos:parrafoAdjuntos(x),ubicacion:x.ubicacion||x.jurisdiccion,fecha_apertura:fa?fa.long.replace(' · ',' a las '):'la fecha publicada',jurisdiccion:x.jurisdiccion,frase_eia:eia};
   return str.replace(/\{(\w+)\}/g,(m,k)=>k in v?v[k]:m);
 }
 /* Adjuntos de cada correo: brochure siempre; CV de obras V8 para obra vial o concesión de DNV, el CV general para el resto */
@@ -570,7 +615,7 @@ function contactsSection(x){
     <details class="tplbox"><summary>Editar el texto del email</summary>
       <label for="tplAsunto" class="h">Asunto</label><input id="tplAsunto" value="${esc(TPL.asunto)}">
       <label for="tplCuerpo" class="h">Mensaje</label><textarea id="tplCuerpo">${esc(TPL.cuerpo)}</textarea>
-      <div class="h">Se completan solos: {empresa} {licitacion} {organismo} {obra} {obra_corta} {ubicacion} {fecha_apertura} {jurisdiccion} {frase_eia}. El texto queda guardado en este navegador. La firma de Outlook se agrega sola si la tenés configurada.</div>
+      <div class="h">Se completan solos: {empresa} {referencia} {licitacion} {organismo} {obra} {obra_corta} {ubicacion} {fecha_apertura} {jurisdiccion} {frase_eia} {parrafo_adjuntos}. El texto queda guardado en este navegador. Termina en “Atentamente,” porque Outlook agrega tu firma abajo.</div>
       <div class="row"><button class="btn sm" type="button" id="tplSave">Guardar texto</button><button class="btn sm" type="button" id="tplReset">Volver al texto original</button></div>
     </details>
   </div>`;
@@ -755,8 +800,8 @@ function wireContacts(i){
   if($('gmbody')) onCaps(()=>{ const x=items[i]; if(!x) return;
     envGet(x).then(()=>{ if($('gmbody')) renderGm(i); }, ()=>{ if($('gmbody')) renderGm(i); }); });
   const s=$('tplSave'), r=$('tplReset'); if(!s) return;
-  s.onclick=()=>{ TPL={asunto:$('tplAsunto').value,cuerpo:$('tplCuerpo').value}; try{localStorage.setItem('radar-tpl-v4',JSON.stringify(TPL))}catch(e){} detail(i); toast('Texto guardado'); };
-  r.onclick=()=>{ TPL={...TPL_DEF}; try{localStorage.removeItem('radar-tpl-v4')}catch(e){} detail(i); toast('Texto original restaurado'); };
+  s.onclick=()=>{ TPL={asunto:$('tplAsunto').value,cuerpo:$('tplCuerpo').value}; try{localStorage.setItem('radar-tpl-v5',JSON.stringify(TPL))}catch(e){} detail(i); toast('Texto guardado'); };
+  r.onclick=()=>{ TPL={...TPL_DEF}; try{localStorage.removeItem('radar-tpl-v5')}catch(e){} detail(i); toast('Texto original restaurado'); };
 }
 
 /* ---------- novedades: destacadas hasta que alguien tilde "Quitar novedad" ---------- */
