@@ -509,7 +509,9 @@ function referenciaLic(x,obra){
   return r;
 }
 /* Links públicos (OneDrive de G215) del brochure y de los CV. Mientras estén vacíos, el texto dice "Les adjunto…". */
-const ADJ_LINK={brochure:'',cv:'',cvVial:''};
+/* Links "Cualquier persona · Puede ver" en OneDrive de slopez@g215.com.ar, carpeta "Presentación G215 (público)" (22/10/2026).
+   Desde el 22/10/2026 hay un solo CV para todas las obras: el que incluye Vial 8 (Concesión Tramo Puntano). */
+const ADJ_LINK={brochure:'https://g215a-my.sharepoint.com/:b:/g/personal/slopez_g215_com_ar/IQAVC8Cd7oeqSoJq8W81PQgnAcRGzAEk3dXPRMuZjTtyEyk?e=jEYedZ',cv:'https://g215a-my.sharepoint.com/:b:/g/personal/slopez_g215_com_ar/IQDBc8q2rFg8TLNGtkDXVbCeAYfzOD91KWfh7SEf8FVixBo?e=jm6AYm',cvVial:'https://g215a-my.sharepoint.com/:b:/g/personal/slopez_g215_com_ar/IQDBc8q2rFg8TLNGtkDXVbCeAYfzOD91KWfh7SEf8FVixBo?e=jm6AYm'};
 function parrafoAdjuntos(x){
   const cv=esVial(x)?ADJ_LINK.cvVial:ADJ_LINK.cv;
   if(ADJ_LINK.brochure&&cv) return 'Les comparto nuestro brochure institucional y el currículum de obras de G215 S.A., con los proyectos en los que participamos:\nBrochure institucional: '+ADJ_LINK.brochure+'\nCurrículum de obras: '+cv;
@@ -523,12 +525,12 @@ function fillTpl(str,x,empresa){
   return str.replace(/\{(\w+)\}/g,(m,k)=>k in v?v[k]:m);
 }
 /* Adjuntos de cada correo: brochure siempre; CV de obras V8 para obra vial o concesión de DNV, el CV general para el resto */
-const ADJ={brochure:'Brochure G215 S.A. (liviano).pdf',cv:'Curriculum Viate de Obras G215 S.A..pdf',cvVial:'V8 Curriculum Viate de Obras G215 S.A..pdf'};
+const ADJ={brochure:'Brochure G215 S.A. (liviano).pdf',cv:'V8 Curriculum Viate de Obras G215 S.A..pdf',cvVial:'V8 Curriculum Viate de Obras G215 S.A..pdf'};
 function esVial(x){ const t=(x.organismo||'')+' '+(x.objeto||'');
   if(/vialidad|\bDNV\b|corredores viales|red federal de concesiones/i.test(t)) return true;
   return x.rubro==='Vial y transporte'&&!/ferro|\btren|ADIF|SOFSE|subte|SBASE|aeropuert|aeroparque|ORSNA|puerto/i.test(t); }
 function adjuntosDe(x){ return [ADJ.brochure, esVial(x)?ADJ.cvVial:ADJ.cv]; }
-function adjHtml(x){ return `<span class="h adjline">Adjuntar: <b>${esc(adjuntosDe(x).join(' + '))}</b>${esVial(x)?' \u00b7 obra vial, va el CV V8':''}</span>`; }
+function adjHtml(x){ return `<span class="h adjline">Adjuntar: <b>${esc(adjuntosDe(x).join(' + '))}</b></span>`; }
 /* Envío desde Outlook (Microsoft 365 de G215): abre Outlook en la web con el mensaje armado */
 const OL_CUENTA='slopez@g215.com.ar';
 const OL_COMPOSE='https://outlook.cloud.microsoft/mail/deeplink/compose'; /* Microsoft mudó Outlook web a outlook.cloud.microsoft; el dominio viejo pierde la sesión y pide elegir cuenta */
