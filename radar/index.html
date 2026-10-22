@@ -491,7 +491,7 @@ function numLic(n){
 }
 /* Organismo que convoca, sin dependencias internas ni aclaraciones largas (las siglas quedan). */
 function orgCorto(o){
-  return String(o||'').split(' - ')[0].replace(/\s*\(([^()]*)\)/g,(m,a)=>a.length<=12?m:'').replace(/\s+/g,' ').trim();
+  return String(o||'').split(' - ')[0].split(/\s+(?:junto\s+)?con\s+(?:la|el|los|las)\s+/i)[0].replace(/\s*\(([^()]*)\)/g,(m,a)=>a.length<=12?m:'').replace(/\s+/g,' ').trim();
 }
 function conArticulo(org){
   const w=(org.split(/\s+/)[0]||'');
