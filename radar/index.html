@@ -512,8 +512,12 @@ function referenciaLic(x,obra){
 /* Links "Cualquier persona · Puede ver" en OneDrive de slopez@g215.com.ar, carpeta "Presentación G215 (público)" (22/10/2026).
    Desde el 22/10/2026 hay un solo CV para todas las obras: el que incluye Vial 8 (Concesión Tramo Puntano). */
 const ADJ_LINK={brochure:'https://g215a-my.sharepoint.com/:b:/g/personal/slopez_g215_com_ar/IQAVC8Cd7oeqSoJq8W81PQgnAcRGzAEk3dXPRMuZjTtyEyk?e=jEYedZ',cv:'https://g215a-my.sharepoint.com/:b:/g/personal/slopez_g215_com_ar/IQDBc8q2rFg8TLNGtkDXVbCeAYfzOD91KWfh7SEf8FVixBo?e=jm6AYm',cvVial:'https://g215a-my.sharepoint.com/:b:/g/personal/slopez_g215_com_ar/IQDBc8q2rFg8TLNGtkDXVbCeAYfzOD91KWfh7SEf8FVixBo?e=jm6AYm'};
+const ADJ_EN_FIRMA=true;
 function parrafoAdjuntos(x){
   const cv=esVial(x)?ADJ_LINK.cvVial:ADJ_LINK.cv;
+  /* Desde el 22/10/2026 los links van como hipervínculos en la firma de Outlook (Firma G215) de slopez@g215.com.ar:
+     el link de redacción de Outlook solo acepta texto plano, así que el cuerpo remite a la firma. */
+  if(ADJ_EN_FIRMA) return 'Al pie de este correo encontrarán los enlaces a nuestro brochure institucional y al currículum de obras de G215 S.A., con los proyectos en los que participamos.';
   if(ADJ_LINK.brochure&&cv) return 'Les comparto nuestro brochure institucional y el currículum de obras de G215 S.A., con los proyectos en los que participamos:\nBrochure institucional: '+ADJ_LINK.brochure+'\nCurrículum de obras: '+cv;
   return 'Les adjunto nuestro brochure institucional y el currículum de obras de G215 S.A., con los proyectos en los que participamos.';
 }
