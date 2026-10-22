@@ -461,12 +461,10 @@ Desde hace más de 15 años acompañamos a empresas constructoras y resolvemos l
 
 Si les resulta útil, podemos coordinar una breve reunión y enviarles una propuesta para esta obra.
 
-Gracias por su atención.
-
-Atentamente,`
+Gracias por su atención.`
 };
 let TPL={...TPL_DEF};
-try{ const s=JSON.parse(localStorage.getItem('radar-tpl-v5')||'null'); if(s&&s.cuerpo) TPL={asunto:s.asunto||TPL_DEF.asunto,cuerpo:s.cuerpo}; }catch(e){}
+try{ const s=JSON.parse(localStorage.getItem('radar-tpl-v6')||'null'); if(s&&s.cuerpo) TPL={asunto:s.asunto||TPL_DEF.asunto,cuerpo:s.cuerpo}; }catch(e){}
 /* Nombre de la obra sin cortar con "…": entera si es corta; si es larga, se le sacan los paréntesis del final
    y se corta en la última pausa natural (" - ", "; ", ", ") antes de los 140 caracteres. */
 function obraCorta(o){
@@ -621,7 +619,7 @@ function contactsSection(x){
     <details class="tplbox"><summary>Editar el texto del email</summary>
       <label for="tplAsunto" class="h">Asunto</label><input id="tplAsunto" value="${esc(TPL.asunto)}">
       <label for="tplCuerpo" class="h">Mensaje</label><textarea id="tplCuerpo">${esc(TPL.cuerpo)}</textarea>
-      <div class="h">Se completan solos: {empresa} {referencia} {licitacion} {organismo} {obra} {obra_corta} {ubicacion} {fecha_apertura} {jurisdiccion} {frase_eia} {parrafo_adjuntos}. El texto queda guardado en este navegador. Termina en “Atentamente,” porque Outlook agrega tu firma abajo.</div>
+      <div class="h">Se completan solos: {empresa} {referencia} {licitacion} {organismo} {obra} {obra_corta} {ubicacion} {fecha_apertura} {jurisdiccion} {frase_eia} {parrafo_adjuntos}. El texto queda guardado en este navegador. Termina en “Gracias por su atención.”: los links al brochure y al CV, el “Atentamente,” y tu firma los agrega Outlook con la Firma G215.</div>
       <div class="row"><button class="btn sm" type="button" id="tplSave">Guardar texto</button><button class="btn sm" type="button" id="tplReset">Volver al texto original</button></div>
     </details>
   </div>`;
@@ -806,8 +804,8 @@ function wireContacts(i){
   if($('gmbody')) onCaps(()=>{ const x=items[i]; if(!x) return;
     envGet(x).then(()=>{ if($('gmbody')) renderGm(i); }, ()=>{ if($('gmbody')) renderGm(i); }); });
   const s=$('tplSave'), r=$('tplReset'); if(!s) return;
-  s.onclick=()=>{ TPL={asunto:$('tplAsunto').value,cuerpo:$('tplCuerpo').value}; try{localStorage.setItem('radar-tpl-v5',JSON.stringify(TPL))}catch(e){} detail(i); toast('Texto guardado'); };
-  r.onclick=()=>{ TPL={...TPL_DEF}; try{localStorage.removeItem('radar-tpl-v5')}catch(e){} detail(i); toast('Texto original restaurado'); };
+  s.onclick=()=>{ TPL={asunto:$('tplAsunto').value,cuerpo:$('tplCuerpo').value}; try{localStorage.setItem('radar-tpl-v6',JSON.stringify(TPL))}catch(e){} detail(i); toast('Texto guardado'); };
+  r.onclick=()=>{ TPL={...TPL_DEF}; try{localStorage.removeItem('radar-tpl-v6')}catch(e){} detail(i); toast('Texto original restaurado'); };
 }
 
 /* ---------- novedades: destacadas hasta que alguien tilde "Quitar novedad" ---------- */
