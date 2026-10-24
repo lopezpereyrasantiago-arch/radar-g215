@@ -2,9 +2,6 @@
  "envios": [
   {
    "id": "l100ewvw-1chc67i",
-   "actualizado": "2026-10-22T21:02:07.866Z",
-   "objeto": "Construcción Nuevo Hospital de Oliva - Dpto. Tercero Arriba",
-   "jurisdiccion": "Córdoba",
    "licitacion": "Licitación Pública Digital N° 2026/000109 (Cotización 2026/000109)",
    "registros": [
     {
@@ -28,13 +25,15 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "objeto": "Construcción Nuevo Hospital de Oliva - Dpto. Tercero Arriba",
+   "actualizado": "2026-10-22T21:02:07.866Z",
+   "jurisdiccion": "Córdoba"
   },
   {
    "id": "l10vxh93-1d26c3f",
-   "actualizado": "2026-10-09T19:46:47.637Z",
    "objeto": "Ingeniería, construcción y equipamiento de la Línea F de subterráneos (Barracas - Plaza Italia), 12 estaciones: obras civiles y sistemas de infraestructura necesarios para la operación",
-   "jurisdiccion": "CABA",
+   "actualizado": "2026-10-09T19:46:47.637Z",
    "licitacion": "Licitación Pública Nacional e Internacional N° 10241-0094-LPU25",
    "registros": [
     {
@@ -58,12 +57,15 @@
      "tipo": "abierto",
      "via": "outlook"
     }
-   ]
+   ],
+   "jurisdiccion": "CABA"
   },
   {
    "id": "l113u5jm-12i90ei",
-   "actualizado": "2026-10-09T19:54:20.389Z",
+   "licitacion": "s/nro",
    "objeto": "Pavimentación de hormigón de 20 cuadras de la ciudad (parte del plan de 140 cuadras)",
+   "actualizado": "2026-10-09T19:54:20.389Z",
+   "jurisdiccion": "Córdoba",
    "registros": [
     {
      "email": "tecnacsrl@gmail.com",
@@ -72,15 +74,13 @@
      "tipo": "abierto",
      "via": "outlook"
     }
-   ],
-   "licitacion": "s/nro",
-   "jurisdiccion": "Córdoba"
+   ]
   },
   {
    "id": "l12gg3zx-1yb8u7h",
    "objeto": "Reparación, bacheo y repavimentación de la Ruta Provincial 82 en Bariloche, seis tramos, aprox. 2.761 metros",
    "actualizado": "2026-10-22T21:03:35.313Z",
-   "jurisdiccion": "Río Negro",
+   "licitacion": "s/nro",
    "registros": [
     {
      "empresa": "RIMSOL S.A.",
@@ -104,11 +104,14 @@
      "via": "novedad"
     }
    ],
-   "licitacion": "s/nro"
+   "jurisdiccion": "Río Negro"
   },
   {
    "id": "l1430000-157wq0o",
+   "objeto": "Contratación de la gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones de cinco establecimientos hospitalarios del Grupo N° 1, incluida la ejecución de trabajos d",
+   "licitacion": "Licitación Pública de Obra Pública N° 401-0052-LPU26 (Grupo N° 1) - EX-2026-35758617-GCABA-DGACSA",
    "jurisdiccion": "CABA",
+   "actualizado": "2026-10-22T21:02:52.725Z",
    "registros": [
     {
      "empresa": "La Mantovana de Servicios Generales S.A.",
@@ -124,15 +127,12 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ],
-   "licitacion": "Licitación Pública de Obra Pública N° 401-0052-LPU26 (Grupo N° 1) - EX-2026-35758617-GCABA-DGACSA",
-   "actualizado": "2026-10-22T21:02:52.725Z",
-   "objeto": "Contratación de la gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones de cinco establecimientos hospitalarios del Grupo N° 1, incluida la ejecución de trabajos d"
+   ]
   },
   {
    "id": "l19x015n-vkmozz",
-   "objeto": "Ampliación de los talleres de la EPET N° 10 de Plaza Huincul: nuevo módulo educativo de 1.235 m² cubiertos con cuatro talleres (dos eléctricos, uno hidráulico, uno neumático), laboratorio, cocina didá",
    "licitacion": "s/nro",
+   "objeto": "Ampliación de los talleres de la EPET N° 10 de Plaza Huincul: nuevo módulo educativo de 1.235 m² cubiertos con cuatro talleres (dos eléctricos, uno hidráulico, uno neumático), laboratorio, cocina didá",
    "registros": [
     {
      "empresa": "Tecnobras Argentina S.A.",
@@ -175,10 +175,9 @@
   },
   {
    "id": "l1b9g2vu-maol44",
+   "actualizado": "2026-10-22T21:02:36.634Z",
    "jurisdiccion": "CABA",
    "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 7 (salud mental): Centro de Salud Mental CESAM 03 Dr. Arturo Ameghino, Hospital de Emergencias Ps",
-   "actualizado": "2026-10-22T21:02:36.634Z",
-   "licitacion": "Licitación Pública de Obra Pública N° 401-0058-LPU26 (Grupo N° 7) - EX-2026-36042751-GCABA-DGACSA",
    "registros": [
     {
      "empresa": "MIG S.A. (UT MIG S.A. - MH Construcciones y Servicios S.A.)",
@@ -208,11 +207,13 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "licitacion": "Licitación Pública de Obra Pública N° 401-0058-LPU26 (Grupo N° 7) - EX-2026-36042751-GCABA-DGACSA"
   },
   {
    "id": "l1e2cqmx-uuaft3",
    "actualizado": "2026-10-22T21:02:43.047Z",
+   "jurisdiccion": "CABA",
    "registros": [
     {
      "empresa": "LA MANTOVANA DE SERVICIOS GENERALES S.A.",
@@ -229,13 +230,11 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "CABA",
    "licitacion": "Licitación Pública de Obra Pública N° 401-0054-LPU26 (Grupo N° 3)",
    "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 3: Hospital de Odontología José Dueñas, Hospital de Oftalmología Santa Lucía, Hospital de Oncolog"
   },
   {
    "id": "l1fkb7bp-1bqfm25",
-   "licitacion": "Licitación Pública N° 09-2026",
    "registros": [
     {
      "empresa": "Calaco Construcciones S.R.L.",
@@ -266,15 +265,16 @@
      "via": "novedad"
     }
    ],
+   "objeto": "Refacción, restauración y puesta en valor de la Escuela N° 15 Normal \"Domingo Faustino Sarmiento\".",
    "jurisdiccion": "Entre Ríos",
    "actualizado": "2026-10-22T21:03:01.049Z",
-   "objeto": "Refacción, restauración y puesta en valor de la Escuela N° 15 Normal \"Domingo Faustino Sarmiento\"."
+   "licitacion": "Licitación Pública N° 09-2026"
   },
   {
    "id": "l1imdhci-154yqo",
-   "jurisdiccion": "Río Negro",
    "objeto": "Construcción de la nueva Plaza Las Hortensias (aprox. 4.811 m²: parquización, iluminación, mobiliario urbano, veredas perimetrales y senderos internos, juegos)",
-   "licitacion": "Licitación Pública N° 20/26",
+   "jurisdiccion": "Río Negro",
+   "actualizado": "2026-10-22T21:03:40.168Z",
    "registros": [
     {
      "empresa": "Cepiem SRL",
@@ -284,14 +284,10 @@
      "via": "novedad"
     }
    ],
-   "actualizado": "2026-10-22T21:03:40.168Z"
+   "licitacion": "Licitación Pública N° 20/26"
   },
   {
    "id": "l1in06id-zinoat",
-   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Chaco-Santa Fe",
-   "jurisdiccion": "Nación",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Chaco-Santa Fe de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación ",
-   "actualizado": "2026-10-13T15:32:00.121Z",
    "registros": [
     {
      "email": "info@jepitonsa.com.ar",
@@ -300,10 +296,16 @@
      "tipo": "enviado",
      "via": "outlook"
     }
-   ]
+   ],
+   "jurisdiccion": "Nación",
+   "actualizado": "2026-10-13T15:32:00.121Z",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Chaco-Santa Fe de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación ",
+   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Chaco-Santa Fe"
   },
   {
    "id": "l1j1q63-9buh6z",
+   "objeto": "Mantenimiento y reparación de puentes existentes en la red vial pavimentada de la Provincia de Córdoba",
+   "jurisdiccion": "Córdoba",
    "actualizado": "2026-10-22T21:02:21.736Z",
    "registros": [
     {
@@ -314,14 +316,12 @@
      "via": "novedad"
     }
    ],
-   "objeto": "Mantenimiento y reparación de puentes existentes en la red vial pavimentada de la Provincia de Córdoba",
-   "licitacion": "Licitación Pública Digital N° 2026/000113 (Expte. 0045-027674/2026)",
-   "jurisdiccion": "Córdoba"
+   "licitacion": "Licitación Pública Digital N° 2026/000113 (Expte. 0045-027674/2026)"
   },
   {
    "id": "l1kyyimp-1983t7j",
    "licitacion": "s/nro",
-   "objeto": "Construcción de 32 viviendas y un Centro Integral para adultos mayores en Plaza Huincul",
+   "actualizado": "2026-10-22T21:05:14.487Z",
    "registros": [
     {
      "tipo": "enviado",
@@ -338,14 +338,14 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "Neuquén",
-   "actualizado": "2026-10-22T21:05:14.487Z"
+   "objeto": "Construcción de 32 viviendas y un Centro Integral para adultos mayores en Plaza Huincul",
+   "jurisdiccion": "Neuquén"
   },
   {
    "id": "l1lybvlw-1xd42rc",
    "jurisdiccion": "Neuquén",
-   "actualizado": "2026-10-22T21:05:13.307Z",
    "licitacion": "Licitación Pública N° 07/2026",
+   "actualizado": "2026-10-22T21:05:13.307Z",
    "objeto": "Obra: Nuevo Natatorio Olímpico, Neuquén Capital - Plan 'Neuquén Vive'",
    "registros": [
     {
@@ -359,10 +359,10 @@
   },
   {
    "id": "l1nizzes-175xx0i",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Mesopotámico de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación y ",
    "jurisdiccion": "Nación",
    "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Mesopotámico",
    "actualizado": "2026-10-13T15:25:50.869Z",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Mesopotámico de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación y ",
    "registros": [
     {
      "email": "rrhh@iebc.com.ar",
@@ -377,6 +377,7 @@
   },
   {
    "id": "l1qcumif-988hmx",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 4: Hospital General de Agudos Dra. Cecilia Grierson, Hospital Donación Francisco Santojanni, Hosp",
    "registros": [
     {
      "empresa": "LA MANTOVANA DE SERVICIOS GENERALES S.A.",
@@ -395,14 +396,11 @@
    ],
    "actualizado": "2026-10-22T21:02:40.224Z",
    "licitacion": "Licitación Pública de Obra Pública N° 401-0055-LPU26 (Grupo N° 4)",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 4: Hospital General de Agudos Dra. Cecilia Grierson, Hospital Donación Francisco Santojanni, Hosp",
    "jurisdiccion": "CABA"
   },
   {
    "id": "l1uct6y-1mcz2as",
    "objeto": "Puente sobre Río Panaholma en la localidad de San Lorenzo - Dpto. San Alberto",
-   "licitacion": "Licitación Pública Digital N° 2026/000103 (Expte. 0045-027796/2026)",
-   "actualizado": "2026-10-22T21:02:37.783Z",
    "registros": [
     {
      "empresa": "Paschini S.A.",
@@ -426,10 +424,15 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "Córdoba"
+   "jurisdiccion": "Córdoba",
+   "actualizado": "2026-10-22T21:02:37.783Z",
+   "licitacion": "Licitación Pública Digital N° 2026/000103 (Expte. 0045-027796/2026)"
   },
   {
    "id": "l1vrkjv4-qg5v4c",
+   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico",
+   "jurisdiccion": "Buenos Aires",
+   "licitacion": "Licitación Pública N° 24/2026",
    "registros": [
     {
      "email": "contactenos@fontananicastro.com.ar",
@@ -439,16 +442,10 @@
      "via": "outlook"
     }
    ],
-   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico",
-   "licitacion": "Licitación Pública N° 24/2026",
-   "jurisdiccion": "Buenos Aires",
    "actualizado": "2026-10-09T19:44:51.605Z"
   },
   {
    "id": "l1wusyme-dikxyo",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación y manten",
-   "jurisdiccion": "Nación",
-   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Centro",
    "actualizado": "2026-10-13T15:15:32.730Z",
    "registros": [
     {
@@ -460,10 +457,16 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "licitacion": "Licitación Pública Nacional e Internacional 504-0001-LPU26 — Etapa III, Tramo Centro",
+   "jurisdiccion": "Nación",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, reparación, ampliación, conservación y manten"
   },
   {
    "id": "l1x9ik4f-1118n9p",
+   "jurisdiccion": "CABA",
+   "licitacion": "Licitación Pública de Obra Pública N° 401-0057-LPU26 (Grupo N° 6)",
+   "actualizado": "2026-10-22T21:02:18.018Z",
    "registros": [
     {
      "empresa": "La Mantovana de Servicios Generales S.A.",
@@ -480,16 +483,13 @@
      "via": "novedad"
     }
    ],
-   "licitacion": "Licitación Pública de Obra Pública N° 401-0057-LPU26 (Grupo N° 6)",
-   "jurisdiccion": "CABA",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 6: Hospital de Odontología B. Quinquela Martín, Hospital de Pediatría Dr. Pedro de Elizalde, Hosp",
-   "actualizado": "2026-10-22T21:02:18.018Z"
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 6: Hospital de Odontología B. Quinquela Martín, Hospital de Pediatría Dr. Pedro de Elizalde, Hosp"
   },
   {
    "id": "l1y892lm-t6bm5g",
-   "objeto": "Construcción de 24 unidades habitacionales (23 estándar + 1 adaptada para movilidad reducida) de 65 m² y dos dormitorios, con conexiones domiciliarias, en la Manzana 505a de Plaza Huincul",
    "licitacion": "Licitación Pública N° 005/2026 (ADUS)",
-   "jurisdiccion": "Neuquén",
+   "actualizado": "2026-10-22T21:03:02.754Z",
+   "objeto": "Construcción de 24 unidades habitacionales (23 estándar + 1 adaptada para movilidad reducida) de 65 m² y dos dormitorios, con conexiones domiciliarias, en la Manzana 505a de Plaza Huincul",
    "registros": [
     {
      "empresa": "Eco Sur Bahía S.A.",
@@ -513,13 +513,10 @@
      "via": "novedad"
     }
    ],
-   "actualizado": "2026-10-22T21:03:02.754Z"
+   "jurisdiccion": "Neuquén"
   },
   {
    "id": "l1yasjw4-vlm0wg",
-   "jurisdiccion": "Entre Ríos",
-   "licitacion": "s/nro",
-   "objeto": "Pavimentación de calles Laprida (entre Italia y Sara Neira) y Mario Gatto (entre Laprida y Monseñor Tavella): renovación de cañerías de agua, red colectora cloacal con conexiones, base de suelo cement",
    "registros": [
     {
      "via": "novedad",
@@ -536,13 +533,15 @@
      "fecha": "2026-10-22"
     }
    ],
-   "actualizado": "2026-10-22T21:05:15.351Z"
+   "objeto": "Pavimentación de calles Laprida (entre Italia y Sara Neira) y Mario Gatto (entre Laprida y Monseñor Tavella): renovación de cañerías de agua, red colectora cloacal con conexiones, base de suelo cement",
+   "jurisdiccion": "Entre Ríos",
+   "actualizado": "2026-10-22T21:05:15.351Z",
+   "licitacion": "s/nro"
   },
   {
    "id": "l2fbuyj-14k6c8",
-   "jurisdiccion": "Río Negro",
-   "objeto": "Construcción Unidad de Servicio Penitenciario - Anexo Cipolletti",
    "licitacion": "Licitación Pública N° 08/2026",
+   "jurisdiccion": "Río Negro",
    "registros": [
     {
      "empresa": "Saycon S.R.L.",
@@ -552,12 +551,13 @@
      "via": "novedad"
     }
    ],
-   "actualizado": "2026-10-22T21:03:22.676Z"
+   "actualizado": "2026-10-22T21:03:22.676Z",
+   "objeto": "Construcción Unidad de Servicio Penitenciario - Anexo Cipolletti"
   },
   {
    "id": "l2o8wm9-oqhpwt",
-   "actualizado": "2026-10-22T21:04:23.844Z",
    "jurisdiccion": "La Pampa",
+   "licitacion": "Licitación Privada N° 1839/2025",
    "registros": [
     {
      "empresa": "IACO",
@@ -567,15 +567,15 @@
      "via": "novedad"
     }
    ],
-   "licitacion": "Licitación Privada N° 1839/2025",
-   "objeto": "Construcción del nuevo edificio de atención al público y oficinas administrativas del Servicio Eléctrico (1.928,26 m² en tres niveles)"
+   "objeto": "Construcción del nuevo edificio de atención al público y oficinas administrativas del Servicio Eléctrico (1.928,26 m² en tres niveles)",
+   "actualizado": "2026-10-22T21:04:23.844Z"
   },
   {
    "id": "l3337hh-103gyzt",
-   "objeto": "Ampliación y refuerzo del sistema de agua potable de Villa Arelauquen y Los Coihues: cisterna de hormigón armado de 150 m³ en Los Coihues, acueducto a gravedad de PEAD 110 mm de 1.300 metros, nueva ci",
+   "jurisdiccion": "Río Negro",
    "actualizado": "2026-10-22T21:03:53.750Z",
    "licitacion": "Licitación Pública N° 25/26 (DPA)",
-   "jurisdiccion": "Río Negro",
+   "objeto": "Ampliación y refuerzo del sistema de agua potable de Villa Arelauquen y Los Coihues: cisterna de hormigón armado de 150 m³ en Los Coihues, acueducto a gravedad de PEAD 110 mm de 1.300 metros, nueva ci",
    "registros": [
     {
      "empresa": "EDIKO S.R.L.",
@@ -589,6 +589,7 @@
   {
    "id": "l335vpg-15scuw",
    "licitacion": "Licitación Pública N° 11-2026",
+   "actualizado": "2026-10-22T21:02:28.893Z",
    "registros": [
     {
      "empresa": "PETERSON ORLANDO JOSE MARIA",
@@ -598,12 +599,14 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "Entre Ríos",
-   "actualizado": "2026-10-22T21:02:28.893Z",
-   "objeto": "Refacción en Escuela N° 65 'Almirante Brown', Concordia"
+   "objeto": "Refacción en Escuela N° 65 'Almirante Brown', Concordia",
+   "jurisdiccion": "Entre Ríos"
   },
   {
    "id": "l3icid1-q9v7oh",
+   "objeto": "Construcción Costanera Centro de General Alvear, ribera del río Atuel: parque aéreo de aventura, paradores comerciales, SUM, infraestructura de servicios, calzadas, veredas, ciclovías, sector de turis",
+   "jurisdiccion": "Mendoza",
+   "actualizado": "2026-10-13T18:11:34.456Z",
    "registros": [
     {
      "email": "contacto@constructorasanguillermo.com.ar",
@@ -613,16 +616,11 @@
      "via": "outlook"
     }
    ],
-   "licitacion": "Licitación Pública N° 1028/2026",
-   "objeto": "Construcción Costanera Centro de General Alvear, ribera del río Atuel: parque aéreo de aventura, paradores comerciales, SUM, infraestructura de servicios, calzadas, veredas, ciclovías, sector de turis",
-   "actualizado": "2026-10-13T18:11:34.456Z",
-   "jurisdiccion": "Mendoza"
+   "licitacion": "Licitación Pública N° 1028/2026"
   },
   {
    "id": "l5f51un-1ggcdz9",
    "licitacion": "Licitación Pública de Obra Pública N° 401-0053-LPU26 (Grupo N° 2)",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 2: Hospital de Gastroenterología Dr. Carlos B. Udaondo, Hospital de Infecciosas Francisco Muñiz, ",
-   "jurisdiccion": "CABA",
    "registros": [
     {
      "empresa": "MIG S.A.",
@@ -639,14 +637,15 @@
      "via": "novedad"
     }
    ],
-   "actualizado": "2026-10-22T21:02:49.098Z"
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 2: Hospital de Gastroenterología Dr. Carlos B. Udaondo, Hospital de Infecciosas Francisco Muñiz, ",
+   "actualizado": "2026-10-22T21:02:49.098Z",
+   "jurisdiccion": "CABA"
   },
   {
    "id": "l7p8x2k-1ke4ptq",
+   "licitacion": "Licitación Pública N° 02/2026",
    "actualizado": "2026-10-22T21:04:12.722Z",
    "objeto": "Obra de Readecuación Funcional de las Oficinas para el Personal Técnico del E.P.R.E. - Etapa I (refacciones última planta, Mendoza 50 Sur)",
-   "licitacion": "Licitación Pública N° 02/2026",
-   "jurisdiccion": "San Juan",
    "registros": [
     {
      "empresa": "Terusi Construcciones S.A.",
@@ -655,13 +654,14 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "jurisdiccion": "San Juan"
   },
   {
    "id": "l9hikr7-1ee5m7f",
    "actualizado": "2026-10-22T21:04:02.945Z",
    "jurisdiccion": "San Juan",
-   "licitacion": "Licitación Pública N° 03/26",
+   "objeto": "Restitución del Río San Juan y obras complementarias del Proyecto Hidroenergético El Tambolar",
    "registros": [
     {
      "empresa": "Terusi Construcciones S.A.",
@@ -678,14 +678,14 @@
      "via": "novedad"
     }
    ],
-   "objeto": "Restitución del Río San Juan y obras complementarias del Proyecto Hidroenergético El Tambolar"
+   "licitacion": "Licitación Pública N° 03/26"
   },
   {
    "id": "lavbvln-1yqj3zp",
-   "licitacion": "s/nro",
    "objeto": "Restauración y puesta en valor del Solar Histórico Hacienda del Libertador, 1ª etapa",
-   "jurisdiccion": "Mendoza",
+   "licitacion": "s/nro",
    "actualizado": "2026-10-22T21:02:56.480Z",
+   "jurisdiccion": "Mendoza",
    "registros": [
     {
      "empresa": "Arener Ingeniería",
@@ -712,9 +712,7 @@
   },
   {
    "id": "lc910js-1etaidi",
-   "objeto": "Refuerzo y mejora del funcionamiento de la red de distribución de agua potable Área Centro, calle Alem entre Mengelle y Córdoba, Cipolletti",
    "jurisdiccion": "Río Negro",
-   "licitacion": "Licitación Pública N° 4/2026 (ARSA) - segundo llamado",
    "registros": [
     {
      "empresa": "Arideros S.R.L.",
@@ -724,14 +722,15 @@
      "via": "novedad"
     }
    ],
+   "licitacion": "Licitación Pública N° 4/2026 (ARSA) - segundo llamado",
+   "objeto": "Refuerzo y mejora del funcionamiento de la red de distribución de agua potable Área Centro, calle Alem entre Mengelle y Córdoba, Cipolletti",
    "actualizado": "2026-10-22T21:02:06.804Z"
   },
   {
    "id": "ldl1use-1ioibzg",
+   "jurisdiccion": "Entre Ríos",
    "actualizado": "2026-10-22T21:02:24.614Z",
    "objeto": "Recambio de cubierta y reparaciones en Escuela N° 92 'Congreso de Tucumán', Concepción del Uruguay",
-   "jurisdiccion": "Entre Ríos",
-   "licitacion": "Licitación Pública N° 12-2026",
    "registros": [
     {
      "empresa": "JCB Construcciones S.A.",
@@ -761,13 +760,15 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "licitacion": "Licitación Pública N° 12-2026"
   },
   {
    "id": "ldrlxvc-1j5hriq",
+   "objeto": "Pavimento a nivel definitivo Barrio Unión, Etapa 1 (34 cuadras)",
+   "licitacion": "Licitación Pública N° 27473/2026",
    "actualizado": "2026-10-22T21:03:30.808Z",
    "jurisdiccion": "Santa Fe",
-   "licitacion": "Licitación Pública N° 27473/2026",
    "registros": [
     {
      "empresa": "Conylog - Del Sol - Construcciones Tres U.T.",
@@ -825,12 +826,10 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ],
-   "objeto": "Pavimento a nivel definitivo Barrio Unión, Etapa 1 (34 cuadras)"
+   ]
   },
   {
    "id": "lew7q6p-60srih",
-   "objeto": "Sistema C.Re.Ma. 2022 - Malla 304: obras de recuperación y mantenimiento en las Rutas Nacionales N° 38 y N° 79, provincia de La Rioja",
    "actualizado": "2026-10-22T21:03:21.184Z",
    "registros": [
     {
@@ -863,12 +862,14 @@
     }
    ],
    "licitacion": "Licitación Pública Nacional 14/2026 (46-0014-LPU26) - EX-2026-24023783-APN-LYC#DNV",
-   "jurisdiccion": "Nación"
+   "jurisdiccion": "Nación",
+   "objeto": "Sistema C.Re.Ma. 2022 - Malla 304: obras de recuperación y mantenimiento en las Rutas Nacionales N° 38 y N° 79, provincia de La Rioja"
   },
   {
    "id": "lg3uszl-wccmif",
-   "objeto": "Reemplazo del colector cloacal de calle Naciones Unidas, zona norte de Cipolletti: 240 metros de cañería nueva, demolición y reconstrucción de pavimento, cuatro bocas de registro, empalmes con cámaras",
+   "jurisdiccion": "Río Negro",
    "actualizado": "2026-10-22T21:04:10.138Z",
+   "licitacion": "Licitación Pública N° 1/26 (ARSA)",
    "registros": [
     {
      "empresa": "Arideros S.R.L.",
@@ -878,11 +879,14 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "Río Negro",
-   "licitacion": "Licitación Pública N° 1/26 (ARSA)"
+   "objeto": "Reemplazo del colector cloacal de calle Naciones Unidas, zona norte de Cipolletti: 240 metros de cañería nueva, demolición y reconstrucción de pavimento, cuatro bocas de registro, empalmes con cámaras"
   },
   {
    "id": "lhq84xv-1gr7dcl",
+   "licitacion": "LPN N° 02/26 (BIRF 8736-AR)",
+   "actualizado": "2026-10-22T21:03:49.999Z",
+   "jurisdiccion": "Buenos Aires",
+   "objeto": "Recuperación Urbana Arroyo Güemes, Gral. San Martín",
    "registros": [
     {
      "empresa": "Construmex S.A.",
@@ -898,14 +902,11 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ],
-   "objeto": "Recuperación Urbana Arroyo Güemes, Gral. San Martín",
-   "actualizado": "2026-10-22T21:03:49.999Z",
-   "jurisdiccion": "Buenos Aires",
-   "licitacion": "LPN N° 02/26 (BIRF 8736-AR)"
+   ]
   },
   {
    "id": "lhvvgmu-k19buy",
+   "jurisdiccion": "Buenos Aires",
    "registros": [
     {
      "empresa": "Avinco Construcciones S.A.",
@@ -943,16 +944,12 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "Buenos Aires",
-   "licitacion": "s/nro",
+   "objeto": "Reparación de 7,5 km del paso urbano de la Ruta Nacional N° 33, tramo El Cholo",
    "actualizado": "2026-10-22T21:03:24.658Z",
-   "objeto": "Reparación de 7,5 km del paso urbano de la Ruta Nacional N° 33, tramo El Cholo"
+   "licitacion": "s/nro"
   },
   {
    "id": "li8q7x8-2fzznv",
-   "licitacion": "AR-MEYSP-509667-CS-QCBS-2",
-   "actualizado": "2026-10-20T15:58:41.198Z",
-   "objeto": "Consultoría: Proyecto Ejecutivo y Evaluación de Impacto Ambiental y Social de la planta de tratamiento de aguas residuales (líquidos cloacales) de San Antonio de los Cobres",
    "jurisdiccion": "Salta",
    "registros": [
     {
@@ -962,11 +959,13 @@
      "tipo": "abierto",
      "via": "outlook"
     }
-   ]
+   ],
+   "actualizado": "2026-10-20T15:58:41.198Z",
+   "licitacion": "AR-MEYSP-509667-CS-QCBS-2",
+   "objeto": "Consultoría: Proyecto Ejecutivo y Evaluación de Impacto Ambiental y Social de la planta de tratamiento de aguas residuales (líquidos cloacales) de San Antonio de los Cobres"
   },
   {
    "id": "lj3km1e-1t4vs6y",
-   "licitacion": "Licitación Pública Nacional N° 01/2026 (segundo llamado)",
    "registros": [
     {
      "empresa": "Estructuras Oeste S.A.",
@@ -976,12 +975,15 @@
      "via": "novedad"
     }
    ],
-   "objeto": "Construcción de 10 viviendas (dúplex), infraestructura y plan de reasentamiento en los barrios Pacífica, Morro y Juvenil",
+   "actualizado": "2026-10-22T21:02:54.887Z",
+   "licitacion": "Licitación Pública Nacional N° 01/2026 (segundo llamado)",
    "jurisdiccion": "Neuquén",
-   "actualizado": "2026-10-22T21:02:54.887Z"
+   "objeto": "Construcción de 10 viviendas (dúplex), infraestructura y plan de reasentamiento en los barrios Pacífica, Morro y Juvenil"
   },
   {
    "id": "lkios0n-drbj61",
+   "actualizado": "2026-10-22T21:02:01.376Z",
+   "licitacion": "s/nro",
    "registros": [
     {
      "empresa": "Incisa (Ingeniería y Construcciones Industriales S.A.)",
@@ -991,17 +993,13 @@
      "via": "novedad"
     }
    ],
-   "licitacion": "s/nro",
-   "actualizado": "2026-10-22T21:02:01.376Z",
    "jurisdiccion": "Córdoba",
    "objeto": "Construcción de doble calzada en avenida Reforma Universitaria, con mejora de rotondas e iluminación LED"
   },
   {
    "id": "ll74mc8-wjfrz0",
-   "licitacion": "Licitación Pública N° 13-2026",
-   "objeto": "Reparaciones varias en C.P.E.F. N° 3 'Profesor Hugo La Nasa', Concepción del Uruguay",
    "actualizado": "2026-10-22T21:02:27.957Z",
-   "jurisdiccion": "Entre Ríos",
+   "objeto": "Reparaciones varias en C.P.E.F. N° 3 'Profesor Hugo La Nasa', Concepción del Uruguay",
    "registros": [
     {
      "empresa": "Peterson Orlando José María",
@@ -1024,11 +1022,15 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "jurisdiccion": "Entre Ríos",
+   "licitacion": "Licitación Pública N° 13-2026"
   },
   {
    "id": "ll7bi9u-1huevoa",
+   "jurisdiccion": "Neuquén",
    "actualizado": "2026-10-22T21:03:42.886Z",
+   "licitacion": "Licitación Pública N° 003/2026",
    "registros": [
     {
      "empresa": "Desarrollos Inmobiliarios Australes",
@@ -1038,12 +1040,14 @@
      "via": "novedad"
     }
    ],
-   "licitacion": "Licitación Pública N° 003/2026",
-   "objeto": "Pavimentación de las calles Batilana y Otazúa (sector El Chacay): 601 metros lineales / 8.000 m2, con ciclovía, dársenas de estacionamiento, desagües pluviales y cloacas previas",
-   "jurisdiccion": "Neuquén"
+   "objeto": "Pavimentación de las calles Batilana y Otazúa (sector El Chacay): 601 metros lineales / 8.000 m2, con ciclovía, dársenas de estacionamiento, desagües pluviales y cloacas previas"
   },
   {
    "id": "lmxth55-u9aay9",
+   "actualizado": "2026-10-09T18:59:44.462Z",
+   "objeto": "Mejoramiento de aprox. 28 km de la Ruta Nacional 40 Norte, tramo Tucunuco - San Roque (Jáchal, San Juan): ensanche, pavimentación, banquinas y drenaje",
+   "jurisdiccion": "San Juan",
+   "licitacion": "s/nro",
    "registros": [
     {
      "email": "info@lppietroboni.com.ar",
@@ -1066,16 +1070,11 @@
      "tipo": "abierto",
      "via": "outlook"
     }
-   ],
-   "objeto": "Mejoramiento de aprox. 28 km de la Ruta Nacional 40 Norte, tramo Tucunuco - San Roque (Jáchal, San Juan): ensanche, pavimentación, banquinas y drenaje",
-   "actualizado": "2026-10-09T18:59:44.462Z",
-   "licitacion": "s/nro",
-   "jurisdiccion": "San Juan"
+   ]
   },
   {
    "id": "ln1db0d-1mnalfv",
-   "licitacion": "Licitación Pública de Obra Pública N° 401-0056-LPU26 (Grupo N° 5)",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 5: Hospital de Odontología Dr. Ramón Carrillo, Hospital de Quemados Dr. Arturo U. Illia, Hospital",
+   "jurisdiccion": "CABA",
    "registros": [
     {
      "empresa": "SES Sociedad Anónima",
@@ -1099,15 +1098,14 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "CABA",
-   "actualizado": "2026-10-22T21:02:19.251Z"
+   "licitacion": "Licitación Pública de Obra Pública N° 401-0056-LPU26 (Grupo N° 5)",
+   "actualizado": "2026-10-22T21:02:19.251Z",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 5: Hospital de Odontología Dr. Ramón Carrillo, Hospital de Quemados Dr. Arturo U. Illia, Hospital"
   },
   {
    "id": "lnaq4at-qak2s7",
    "actualizado": "2026-10-22T21:04:07.978Z",
-   "jurisdiccion": "Mendoza",
    "objeto": "Estación Transformadora Mendoza Norte 220/132 kV y obras complementarias (~11,7 km de línea aérea doble terna 132 kV y ~850 m de cable subterráneo hasta ET Las Heras)",
-   "licitacion": "s/nro",
    "registros": [
     {
      "empresa": "Distrocuyo S.A.",
@@ -1130,12 +1128,16 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "jurisdiccion": "Mendoza",
+   "licitacion": "s/nro"
   },
   {
    "id": "lpdq898-fm8ij0",
-   "licitacion": "Licitación Pública N° 2/2026 (IVUJ)",
+   "actualizado": "2026-10-22T21:04:22.029Z",
    "jurisdiccion": "Jujuy",
+   "objeto": "Obra \"45 Departamentos e Infraestructura Complejo El Carmen\" (demanda libre)",
+   "licitacion": "Licitación Pública N° 2/2026 (IVUJ)",
    "registros": [
     {
      "empresa": "Villanueva e Hijos S.A.",
@@ -1151,13 +1153,14 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ],
-   "actualizado": "2026-10-22T21:04:22.029Z",
-   "objeto": "Obra \"45 Departamentos e Infraestructura Complejo El Carmen\" (demanda libre)"
+   ]
   },
   {
    "id": "lqyzia1-1yzds4t",
    "jurisdiccion": "Mendoza",
+   "actualizado": "2026-10-22T21:02:10.481Z",
+   "licitacion": "Licitación Pública N° 02/26 (Expte. 2213-26)",
+   "objeto": "Colector Infanta Isabel - Colectora Máxima Noreste, Primera Etapa",
    "registros": [
     {
      "empresa": "UT Da Fre Obras Civiles S.A.",
@@ -1180,17 +1183,11 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ],
-   "objeto": "Colector Infanta Isabel - Colectora Máxima Noreste, Primera Etapa",
-   "actualizado": "2026-10-22T21:02:10.481Z",
-   "licitacion": "Licitación Pública N° 02/26 (Expte. 2213-26)"
+   ]
   },
   {
    "id": "ls5w8ph-c05z1n",
-   "actualizado": "2026-10-22T21:04:06.247Z",
    "licitacion": "s/nro",
-   "objeto": "Construcción Estación Transformadora Mendoza Norte 220/132 kV y obras complementarias",
-   "jurisdiccion": "Mendoza",
    "registros": [
     {
      "empresa": "José Cartellone Construcciones Civiles S.A. - Lesko S.A.C.I.F.I.A. UT",
@@ -1220,13 +1217,13 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "objeto": "Construcción Estación Transformadora Mendoza Norte 220/132 kV y obras complementarias",
+   "actualizado": "2026-10-22T21:04:06.247Z",
+   "jurisdiccion": "Mendoza"
   },
   {
    "id": "lsiixp1-ntvk51",
-   "jurisdiccion": "CABA",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico de 16 establecimientos extrahospitalarios (casas de medio camino, Centros de Salud y Acción Comunitaria y CESAM)",
-   "licitacion": "Licitación Pública de Obra Pública N° 401-0065-LPU26 (Extrahospitalarios Grupo N° 1) - EX-2026-38063331-GCABA-DGACSA",
    "registros": [
     {
      "empresa": "La Mantovana de Servicios Generales S.A.",
@@ -1236,10 +1233,17 @@
      "via": "novedad"
     }
    ],
-   "actualizado": "2026-10-22T21:02:03.003Z"
+   "licitacion": "Licitación Pública de Obra Pública N° 401-0065-LPU26 (Extrahospitalarios Grupo N° 1) - EX-2026-38063331-GCABA-DGACSA",
+   "actualizado": "2026-10-22T21:02:03.003Z",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico de 16 establecimientos extrahospitalarios (casas de medio camino, Centros de Salud y Acción Comunitaria y CESAM)",
+   "jurisdiccion": "CABA"
   },
   {
    "id": "lu2vj5u-18xm4sm",
+   "jurisdiccion": "Jujuy",
+   "licitacion": "Licitación Pública N° 1/2026 (IVUJ)",
+   "objeto": "Ejecución de 20 departamentos para la Asociación del Personal Legislativo (APL) Jujuy, barrio Alto Comedero",
+   "actualizado": "2026-10-22T21:04:15.483Z",
    "registros": [
     {
      "empresa": "Villanueva e Hijos S.A.",
@@ -1255,15 +1259,10 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ],
-   "objeto": "Ejecución de 20 departamentos para la Asociación del Personal Legislativo (APL) Jujuy, barrio Alto Comedero",
-   "jurisdiccion": "Jujuy",
-   "actualizado": "2026-10-22T21:04:15.483Z",
-   "licitacion": "Licitación Pública N° 1/2026 (IVUJ)"
+   ]
   },
   {
    "id": "lum5qhj-y6tfuz",
-   "objeto": "Reparación de techos, construcción de escalera de emergencia y mejoras de seguridad en la Escuela Primaria N° 16 (edificio histórico)",
    "registros": [
     {
      "empresa": "EDIKO S.R.L.",
@@ -1273,16 +1272,13 @@
      "via": "novedad"
     }
    ],
-   "licitacion": "Licitación Privada N° 09/2026 (Min. Educación)",
    "actualizado": "2026-10-22T21:03:17.256Z",
-   "jurisdiccion": "Río Negro"
+   "jurisdiccion": "Río Negro",
+   "objeto": "Reparación de techos, construcción de escalera de emergencia y mejoras de seguridad en la Escuela Primaria N° 16 (edificio histórico)",
+   "licitacion": "Licitación Privada N° 09/2026 (Min. Educación)"
   },
   {
    "id": "lw8v9g-1lszukq",
-   "jurisdiccion": "Río Negro",
-   "actualizado": "2026-10-22T21:03:37.879Z",
-   "licitacion": "Concurso de Precios N° 07/2026",
-   "objeto": "Ampliación de la red de gas natural del barrio La Defensa: 1.440 metros de cañería para 94 familias",
    "registros": [
     {
      "empresa": "CR Constructora S.R.L.",
@@ -1291,7 +1287,11 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ]
+   ],
+   "jurisdiccion": "Río Negro",
+   "actualizado": "2026-10-22T21:03:37.879Z",
+   "licitacion": "Concurso de Precios N° 07/2026",
+   "objeto": "Ampliación de la red de gas natural del barrio La Defensa: 1.440 metros de cañería para 94 familias"
   },
   {
    "id": "lxbmggw-7y4uu",
@@ -1318,15 +1318,15 @@
      "via": "novedad"
     }
    ],
-   "jurisdiccion": "Río Negro",
-   "licitacion": "Licitación Pública N° 07-2026",
    "objeto": "Ordenamiento vial, conectividad, ampliación de capacidad y seguridad en Av. Presidente Juan Domingo Perón, Cipolletti",
-   "actualizado": "2026-10-22T21:03:06.242Z"
+   "actualizado": "2026-10-22T21:03:06.242Z",
+   "licitacion": "Licitación Pública N° 07-2026",
+   "jurisdiccion": "Río Negro"
   },
   {
    "id": "lxlcl3g-ql7xvd",
    "actualizado": "2026-10-22T21:02:47.715Z",
-   "jurisdiccion": "Nación",
+   "objeto": "Segunda etapa de refuerzos en losas - Escuela Industrial Superior (EIS)",
    "registros": [
     {
      "empresa": "Schatzler, Rodolfo Esteban",
@@ -1350,12 +1350,11 @@
      "via": "novedad"
     }
    ],
-   "objeto": "Segunda etapa de refuerzos en losas - Escuela Industrial Superior (EIS)",
+   "jurisdiccion": "Nación",
    "licitacion": "Contratación Directa 04/26 DOSC-DCU"
   },
   {
    "id": "lxr96h8-13ktlcm",
-   "licitacion": "Licitación Pública N° 558-0045-LPU26",
    "registros": [
     {
      "empresa": "GUIGIVAN S.R.L.",
@@ -1407,13 +1406,13 @@
      "via": "novedad"
     }
    ],
-   "objeto": "Obra de ampliación del Polideportivo Polo Educativo Mataderos (D.E. N° 20), Murguiondo 2151",
    "jurisdiccion": "CABA",
-   "actualizado": "2026-10-22T21:04:00.222Z"
+   "actualizado": "2026-10-22T21:04:00.222Z",
+   "licitacion": "Licitación Pública N° 558-0045-LPU26",
+   "objeto": "Obra de ampliación del Polideportivo Polo Educativo Mataderos (D.E. N° 20), Murguiondo 2151"
   },
   {
    "id": "lxxyuip-mezxf9",
-   "actualizado": "2026-10-22T21:03:34.410Z",
    "registros": [
     {
      "empresa": "Ribeiro S.R.L.",
@@ -1423,12 +1422,14 @@
      "via": "novedad"
     }
    ],
+   "licitacion": "Resolución N° 631/2026",
+   "actualizado": "2026-10-22T21:03:34.410Z",
    "jurisdiccion": "La Pampa",
-   "objeto": "Demolición del puente existente y construcción de un nuevo puente carretero sobre el río Salado, más remodelación de accesos y travesía urbana de la Ruta Provincial N° 20",
-   "licitacion": "Resolución N° 631/2026"
+   "objeto": "Demolición del puente existente y construcción de un nuevo puente carretero sobre el río Salado, más remodelación de accesos y travesía urbana de la Ruta Provincial N° 20"
   },
   {
    "id": "lytxonc-1iiovzc",
+   "objeto": "Plan Director de Agua Potable de General Roca: nueva cisterna, ampliación de la planta potabilizadora de Stefenelli (+50% de capacidad de producción) y ampliación de la red con más de 22.000 metros de",
    "registros": [
     {
      "empresa": "Roque Mocciola S.A.",
@@ -1453,13 +1454,15 @@
     }
    ],
    "jurisdiccion": "Río Negro",
-   "licitacion": "Plan Director de Agua Potable de General Roca (N° no informado)",
    "actualizado": "2026-10-22T21:03:58.118Z",
-   "objeto": "Plan Director de Agua Potable de General Roca: nueva cisterna, ampliación de la planta potabilizadora de Stefenelli (+50% de capacidad de producción) y ampliación de la red con más de 22.000 metros de"
+   "licitacion": "Plan Director de Agua Potable de General Roca (N° no informado)"
   },
   {
    "id": "lztfqo-109jihq",
+   "licitacion": "Licitación Pública N° 5/26 (ARSA)",
+   "objeto": "Ejecución para refuerzo de red de agua potable zona noreste de Allen",
    "jurisdiccion": "Río Negro",
+   "actualizado": "2026-10-22T21:03:45.590Z",
    "registros": [
     {
      "empresa": "Arideros S.R.L.",
@@ -1468,18 +1471,15 @@
      "tipo": "enviado",
      "via": "novedad"
     }
-   ],
-   "licitacion": "Licitación Pública N° 5/26 (ARSA)",
-   "objeto": "Ejecución para refuerzo de red de agua potable zona noreste de Allen",
-   "actualizado": "2026-10-22T21:03:45.590Z"
+   ]
   }
  ],
  "novedades_vistas": [
   {
    "id": "l100ewvw-1chc67i",
-   "fecha": "2026-10-22T21:02:06.786Z",
    "objeto": "Construcción Nuevo Hospital de Oliva - Dpto. Tercero Arriba",
-   "clave": "sobres_abiertos|2026-10-16"
+   "clave": "sobres_abiertos|2026-10-16",
+   "fecha": "2026-10-22T21:02:06.786Z"
   },
   {
    "id": "l10vxh93-1d26c3f",
@@ -1489,45 +1489,45 @@
   },
   {
    "id": "l12gg3zx-1yb8u7h",
-   "clave": "sobres_abiertos|2026-09-17",
+   "fecha": "2026-10-22T21:03:34.395Z",
    "objeto": "Reparación, bacheo y repavimentación de la Ruta Provincial 82 en Bariloche, seis tramos, aprox. 2.761 metros",
-   "fecha": "2026-10-22T21:03:34.395Z"
+   "clave": "sobres_abiertos|2026-09-17"
   },
   {
    "id": "l1430000-157wq0o",
-   "fecha": "2026-10-22T21:02:50.181Z",
    "objeto": "Contratación de la gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones de cinco establecimientos hospitalarios del Grupo N",
-   "clave": "sobres_abiertos|2026-10-05"
+   "clave": "sobres_abiertos|2026-10-05",
+   "fecha": "2026-10-22T21:02:50.181Z"
   },
   {
    "id": "l15ig5yl-dbtqzz",
-   "fecha": "2026-10-09T18:54:14.805Z",
    "objeto": "Servicio de mantenimiento edilicio para diversas dependencias del Ministerio de Infraestructura y Servicios Públicos",
+   "fecha": "2026-10-09T18:54:14.805Z",
    "clave": "nueva|2026-10-08"
   },
   {
    "id": "l19x015n-vkmozz",
    "clave": "sobres_abiertos|2026-09-18",
-   "objeto": "Ampliación de los talleres de la EPET N° 10 de Plaza Huincul: nuevo módulo educativo de 1.235 m² cubiertos con cuatro talleres (dos eléctricos, uno hidráulico, ",
-   "fecha": "2026-10-22T21:03:26.270Z"
+   "fecha": "2026-10-22T21:03:26.270Z",
+   "objeto": "Ampliación de los talleres de la EPET N° 10 de Plaza Huincul: nuevo módulo educativo de 1.235 m² cubiertos con cuatro talleres (dos eléctricos, uno hidráulico, "
   },
   {
    "id": "l1b9g2vu-maol44",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 7 (salud mental): Centro de Salud Mental CESAM 03 Dr. Art",
    "fecha": "2026-10-22T21:02:33.906Z",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 7 (salud mental): Centro de Salud Mental CESAM 03 Dr. Art",
    "clave": "sobres_abiertos|2026-10-13"
   },
   {
    "id": "l1d5kymr-56pmvj",
-   "clave": "nueva|2026-09-30",
    "objeto": "Refuncionalización del Dique Las Lomitas, Parte 1, Campo Quijano, Dpto. Rosario de Lerma",
+   "clave": "nueva|2026-09-30",
    "fecha": "2026-10-09T20:07:18.444Z"
   },
   {
    "id": "l1e2cqmx-uuaft3",
    "fecha": "2026-10-22T21:02:42.042Z",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 3: Hospital de Odontología José Dueñas, Hospital de Oftal",
-   "clave": "sobres_abiertos|2026-10-07"
+   "clave": "sobres_abiertos|2026-10-07",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 3: Hospital de Odontología José Dueñas, Hospital de Oftal"
   },
   {
    "id": "l1fkb7bp-1bqfm25",
@@ -1543,9 +1543,9 @@
   },
   {
    "id": "l1in06id-zinoat",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Chaco-Santa Fe de la Red Federal de Concesiones — Etapa III: construcción, explotación, administració",
    "fecha": "2026-10-13T15:31:59.763Z",
-   "clave": "adjudicada|2026-10-06",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Chaco-Santa Fe de la Red Federal de Concesiones — Etapa III: construcción, explotación, administració"
+   "clave": "adjudicada|2026-10-06"
   },
   {
    "id": "l1j1q63-9buh6z",
@@ -1555,8 +1555,8 @@
   },
   {
    "id": "l1kyyimp-1983t7j",
-   "fecha": "2026-10-22T21:02:31.195Z",
    "clave": "sobres_abiertos|2026-10-13",
+   "fecha": "2026-10-22T21:02:31.195Z",
    "objeto": "Construcción de 32 viviendas y un Centro Integral para adultos mayores en Plaza Huincul"
   },
   {
@@ -1568,74 +1568,74 @@
   {
    "id": "l1nizzes-175xx0i",
    "fecha": "2026-10-13T15:25:50.443Z",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Mesopotámico de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración,",
-   "clave": "adjudicada|2026-10-06"
+   "clave": "adjudicada|2026-10-06",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Mesopotámico de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración,"
   },
   {
    "id": "l1qcumif-988hmx",
-   "clave": "sobres_abiertos|2026-10-07",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 4: Hospital General de Agudos Dra. Cecilia Grierson, Hosp",
    "fecha": "2026-10-22T21:02:39.332Z",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 4: Hospital General de Agudos Dra. Cecilia Grierson, Hosp"
+   "clave": "sobres_abiertos|2026-10-07"
   },
   {
    "id": "l1uct6y-1mcz2as",
-   "clave": "sobres_abiertos|2026-10-08",
    "objeto": "Puente sobre Río Panaholma en la localidad de San Lorenzo - Dpto. San Alberto",
-   "fecha": "2026-10-22T21:02:36.622Z"
-  },
-  {
-   "id": "l1vrkjv4-qg5v4c",
-   "fecha": "2026-10-09T19:46:09.405Z",
-   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico",
-   "clave": "sobres_abiertos|2026-10-05"
-  },
-  {
-   "id": "l1wusyme-dikxyo",
-   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, repar",
-   "clave": "adjudicada|2026-10-06",
-   "fecha": "2026-10-13T15:15:31.987Z"
-  },
-  {
-   "id": "l1x9ik4f-1118n9p",
-   "fecha": "2026-10-22T21:02:14.928Z",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 6: Hospital de Odontología B. Quinquela Martín, Hospital ",
+   "fecha": "2026-10-22T21:02:36.622Z",
    "clave": "sobres_abiertos|2026-10-08"
   },
   {
+   "id": "l1vrkjv4-qg5v4c",
+   "clave": "sobres_abiertos|2026-10-05",
+   "fecha": "2026-10-09T19:46:09.405Z",
+   "objeto": "Construcción del paso bajo nivel en el cruce de la calle General Otero con las vías del Ferrocarril General Roca, Villa Domínico"
+  },
+  {
+   "id": "l1wusyme-dikxyo",
+   "clave": "adjudicada|2026-10-06",
+   "fecha": "2026-10-13T15:15:31.987Z",
+   "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración, repar"
+  },
+  {
+   "id": "l1x9ik4f-1118n9p",
+   "clave": "sobres_abiertos|2026-10-08",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 6: Hospital de Odontología B. Quinquela Martín, Hospital ",
+   "fecha": "2026-10-22T21:02:14.928Z"
+  },
+  {
    "id": "l1y892lm-t6bm5g",
+   "objeto": "Construcción de 24 unidades habitacionales (23 estándar + 1 adaptada para movilidad reducida) de 65 m² y dos dormitorios, con conexiones domiciliarias, en la Ma",
    "fecha": "2026-10-22T21:03:01.031Z",
-   "clave": "sobres_abiertos|2026-09-24",
-   "objeto": "Construcción de 24 unidades habitacionales (23 estándar + 1 adaptada para movilidad reducida) de 65 m² y dos dormitorios, con conexiones domiciliarias, en la Ma"
+   "clave": "sobres_abiertos|2026-09-24"
   },
   {
    "id": "l1yasjw4-vlm0wg",
-   "fecha": "2026-10-22T21:03:50.675Z",
+   "objeto": "Pavimentación de calles Laprida (entre Italia y Sara Neira) y Mario Gatto (entre Laprida y Monseñor Tavella): renovación de cañerías de agua, red colectora cloa",
    "clave": "sobres_abiertos|2026-09-09",
-   "objeto": "Pavimentación de calles Laprida (entre Italia y Sara Neira) y Mario Gatto (entre Laprida y Monseñor Tavella): renovación de cañerías de agua, red colectora cloa"
+   "fecha": "2026-10-22T21:03:50.675Z"
   },
   {
    "id": "l2fbuyj-14k6c8",
-   "clave": "preadjudicada|2026-09-22",
+   "objeto": "Construcción Unidad de Servicio Penitenciario - Anexo Cipolletti",
    "fecha": "2026-10-22T21:03:20.837Z",
-   "objeto": "Construcción Unidad de Servicio Penitenciario - Anexo Cipolletti"
+   "clave": "preadjudicada|2026-09-22"
   },
   {
    "id": "l2o8wm9-oqhpwt",
-   "fecha": "2026-10-22T21:04:20.517Z",
    "objeto": "Construcción del nuevo edificio de atención al público y oficinas administrativas del Servicio Eléctrico (1.928,26 m² en tres niveles)",
-   "clave": "sobres_abiertos|2026-01-30"
+   "clave": "sobres_abiertos|2026-01-30",
+   "fecha": "2026-10-22T21:04:20.517Z"
   },
   {
    "id": "l3337hh-103gyzt",
-   "fecha": "2026-10-22T21:03:53.385Z",
    "clave": "sobres_abiertos|2026-08-28",
-   "objeto": "Ampliación y refuerzo del sistema de agua potable de Villa Arelauquen y Los Coihues: cisterna de hormigón armado de 150 m³ en Los Coihues, acueducto a gravedad "
+   "objeto": "Ampliación y refuerzo del sistema de agua potable de Villa Arelauquen y Los Coihues: cisterna de hormigón armado de 150 m³ en Los Coihues, acueducto a gravedad ",
+   "fecha": "2026-10-22T21:03:53.385Z"
   },
   {
    "id": "l335vpg-15scuw",
    "fecha": "2026-10-22T21:02:28.487Z",
-   "clave": "sobres_abiertos|2026-10-13",
-   "objeto": "Refacción en Escuela N° 65 'Almirante Brown', Concordia"
+   "objeto": "Refacción en Escuela N° 65 'Almirante Brown', Concordia",
+   "clave": "sobres_abiertos|2026-10-13"
   },
   {
    "id": "l3icid1-q9v7oh",
@@ -1645,123 +1645,123 @@
   },
   {
    "id": "l4b9116-lmyxss",
-   "clave": "preadjudicada|2026-10-08",
    "objeto": "Venta del 90% del paquete accionario de Agua y Saneamientos Argentinos S.A. (AySA), con obligaciones de inversión en infraestructura de agua potable y saneamien",
+   "clave": "preadjudicada|2026-10-08",
    "fecha": "2026-10-09T18:51:33.280Z"
   },
   {
    "id": "l5f51un-1ggcdz9",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 2: Hospital de Gastroenterología Dr. Carlos B. Udaondo, H",
+   "fecha": "2026-10-22T21:02:47.466Z",
    "clave": "sobres_abiertos|2026-10-05",
-   "fecha": "2026-10-22T21:02:47.466Z"
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 2: Hospital de Gastroenterología Dr. Carlos B. Udaondo, H"
   },
   {
    "id": "l7p8x2k-1ke4ptq",
-   "objeto": "Obra de Readecuación Funcional de las Oficinas para el Personal Técnico del E.P.R.E. - Etapa I (refacciones última planta, Mendoza 50 Sur)",
+   "fecha": "2026-10-22T21:04:12.385Z",
    "clave": "sobres_abiertos|2026-04-30",
-   "fecha": "2026-10-22T21:04:12.385Z"
+   "objeto": "Obra de Readecuación Funcional de las Oficinas para el Personal Técnico del E.P.R.E. - Etapa I (refacciones última planta, Mendoza 50 Sur)"
   },
   {
    "id": "l93etv0-g84c3m",
-   "fecha": "2026-10-13T15:05:11.523Z",
+   "clave": "adjudicada|2026-10-06",
    "objeto": "Concesión de obra pública por peaje (Ley 17.520) del Tramo Centro-Norte de la Red Federal de Concesiones — Etapa III: construcción, explotación, administración,",
-   "clave": "adjudicada|2026-10-06"
+   "fecha": "2026-10-13T15:05:11.523Z"
   },
   {
    "id": "l9hikr7-1ee5m7f",
    "fecha": "2026-10-22T21:04:01.530Z",
-   "clave": "sobres_abiertos|2026-08-14",
-   "objeto": "Restitución del Río San Juan y obras complementarias del Proyecto Hidroenergético El Tambolar"
+   "objeto": "Restitución del Río San Juan y obras complementarias del Proyecto Hidroenergético El Tambolar",
+   "clave": "sobres_abiertos|2026-08-14"
   },
   {
    "id": "lakoqbb-oupecz",
-   "fecha": "2026-10-09T19:44:07.341Z",
+   "clave": "sobres_abiertos|2026-10-06",
    "objeto": "Obra: Centro de Salud - Nuevo Edificio, Barrio Procrear, Zapala - Programa de Desarrollo Urbano y Mejora del Hábitat en la Provincia del Neuquén (AR-L1420 - BID",
-   "clave": "sobres_abiertos|2026-10-06"
+   "fecha": "2026-10-09T19:44:07.341Z"
   },
   {
    "id": "lavbvln-1yqj3zp",
-   "objeto": "Restauración y puesta en valor del Solar Histórico Hacienda del Libertador, 1ª etapa",
    "clave": "sobres_abiertos|2026-09-30",
-   "fecha": "2026-10-22T21:02:55.605Z"
+   "fecha": "2026-10-22T21:02:55.605Z",
+   "objeto": "Restauración y puesta en valor del Solar Histórico Hacienda del Libertador, 1ª etapa"
   },
   {
    "id": "lc910js-1etaidi",
    "objeto": "Refuerzo y mejora del funcionamiento de la red de distribución de agua potable Área Centro, calle Alem entre Mengelle y Córdoba, Cipolletti",
-   "clave": "sobres_abiertos|2026-10-16",
-   "fecha": "2026-10-22T21:02:04.071Z"
+   "fecha": "2026-10-22T21:02:04.071Z",
+   "clave": "sobres_abiertos|2026-10-16"
   },
   {
    "id": "ldl1use-1ioibzg",
-   "clave": "sobres_abiertos|2026-10-13",
    "objeto": "Recambio de cubierta y reparaciones en Escuela N° 92 'Congreso de Tucumán', Concepción del Uruguay",
+   "clave": "sobres_abiertos|2026-10-13",
    "fecha": "2026-10-22T21:02:23.071Z"
   },
   {
    "id": "ldrlxvc-1j5hriq",
-   "clave": "sobres_abiertos|2026-09-17",
    "fecha": "2026-10-22T21:03:28.975Z",
-   "objeto": "Pavimento a nivel definitivo Barrio Unión, Etapa 1 (34 cuadras)"
+   "objeto": "Pavimento a nivel definitivo Barrio Unión, Etapa 1 (34 cuadras)",
+   "clave": "sobres_abiertos|2026-09-17"
   },
   {
    "id": "lew7q6p-60srih",
-   "clave": "sobres_abiertos|2026-09-23",
+   "fecha": "2026-10-22T21:03:18.127Z",
    "objeto": "Sistema C.Re.Ma. 2022 - Malla 304: obras de recuperación y mantenimiento en las Rutas Nacionales N° 38 y N° 79, provincia de La Rioja",
-   "fecha": "2026-10-22T21:03:18.127Z"
+   "clave": "sobres_abiertos|2026-09-23"
   },
   {
    "id": "lg3uszl-wccmif",
-   "fecha": "2026-10-22T21:04:09.665Z",
    "objeto": "Reemplazo del colector cloacal de calle Naciones Unidas, zona norte de Cipolletti: 240 metros de cañería nueva, demolición y reconstrucción de pavimento, cuatro",
-   "clave": "preadjudicada|2026-07-23"
+   "clave": "preadjudicada|2026-07-23",
+   "fecha": "2026-10-22T21:04:09.665Z"
   },
   {
    "id": "lhq84xv-1gr7dcl",
-   "objeto": "Recuperación Urbana Arroyo Güemes, Gral. San Martín",
    "clave": "sobres_abiertos|2026-09-09",
-   "fecha": "2026-10-22T21:03:47.967Z"
+   "fecha": "2026-10-22T21:03:47.967Z",
+   "objeto": "Recuperación Urbana Arroyo Güemes, Gral. San Martín"
   },
   {
    "id": "lhvvgmu-k19buy",
    "objeto": "Reparación de 7,5 km del paso urbano de la Ruta Nacional N° 33, tramo El Cholo",
-   "clave": "sobres_abiertos|2026-09-21",
-   "fecha": "2026-10-22T21:03:23.555Z"
+   "fecha": "2026-10-22T21:03:23.555Z",
+   "clave": "sobres_abiertos|2026-09-21"
   },
   {
    "id": "lj3km1e-1t4vs6y",
    "fecha": "2026-10-22T21:02:52.895Z",
-   "clave": "sobres_abiertos|2026-09-30",
-   "objeto": "Construcción de 10 viviendas (dúplex), infraestructura y plan de reasentamiento en los barrios Pacífica, Morro y Juvenil"
+   "objeto": "Construcción de 10 viviendas (dúplex), infraestructura y plan de reasentamiento en los barrios Pacífica, Morro y Juvenil",
+   "clave": "sobres_abiertos|2026-09-30"
   },
   {
    "id": "lkios0n-drbj61",
-   "clave": "sobres_abiertos|2026-10-20",
    "objeto": "Construcción de doble calzada en avenida Reforma Universitaria, con mejora de rotondas e iluminación LED",
+   "clave": "sobres_abiertos|2026-10-20",
    "fecha": "2026-10-22T21:01:58.636Z"
   },
   {
    "id": "ll74mc8-wjfrz0",
-   "fecha": "2026-10-22T21:02:25.781Z",
    "clave": "sobres_abiertos|2026-10-13",
+   "fecha": "2026-10-22T21:02:25.781Z",
    "objeto": "Reparaciones varias en C.P.E.F. N° 3 'Profesor Hugo La Nasa', Concepción del Uruguay"
   },
   {
    "id": "ll7bi9u-1huevoa",
    "fecha": "2026-10-22T21:03:42.542Z",
-   "clave": "sobres_abiertos|2026-09-15",
-   "objeto": "Pavimentación de las calles Batilana y Otazúa (sector El Chacay): 601 metros lineales / 8.000 m2, con ciclovía, dársenas de estacionamiento, desagües pluviales "
+   "objeto": "Pavimentación de las calles Batilana y Otazúa (sector El Chacay): 601 metros lineales / 8.000 m2, con ciclovía, dársenas de estacionamiento, desagües pluviales ",
+   "clave": "sobres_abiertos|2026-09-15"
   },
   {
    "id": "lmxth55-u9aay9",
-   "objeto": "Mejoramiento de aprox. 28 km de la Ruta Nacional 40 Norte, tramo Tucunuco - San Roque (Jáchal, San Juan): ensanche, pavimentación, banquinas y drenaje",
+   "fecha": "2026-10-09T19:14:30.974Z",
    "clave": "sobres_abiertos|2026-10-07",
-   "fecha": "2026-10-09T19:14:30.974Z"
+   "objeto": "Mejoramiento de aprox. 28 km de la Ruta Nacional 40 Norte, tramo Tucunuco - San Roque (Jáchal, San Juan): ensanche, pavimentación, banquinas y drenaje"
   },
   {
    "id": "ln1db0d-1mnalfv",
-   "clave": "sobres_abiertos|2026-10-08",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 5: Hospital de Odontología Dr. Ramón Carrillo, Hospital d",
    "fecha": "2026-10-22T21:02:17.640Z",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico, edificios e instalaciones del Grupo N° 5: Hospital de Odontología Dr. Ramón Carrillo, Hospital d"
+   "clave": "sobres_abiertos|2026-10-08"
   },
   {
    "id": "lnaq4at-qak2s7",
@@ -1772,8 +1772,8 @@
   {
    "id": "lpdq898-fm8ij0",
    "objeto": "Obra \"45 Departamentos e Infraestructura Complejo El Carmen\" (demanda libre)",
-   "clave": "sobres_abiertos|2026-03-03",
-   "fecha": "2026-10-22T21:04:17.802Z"
+   "fecha": "2026-10-22T21:04:17.802Z",
+   "clave": "sobres_abiertos|2026-03-03"
   },
   {
    "id": "lqyzia1-1yzds4t",
@@ -1783,15 +1783,15 @@
   },
   {
    "id": "ls5w8ph-c05z1n",
-   "fecha": "2026-10-22T21:04:04.241Z",
+   "objeto": "Construcción Estación Transformadora Mendoza Norte 220/132 kV y obras complementarias",
    "clave": "sobres_abiertos|2026-08-13",
-   "objeto": "Construcción Estación Transformadora Mendoza Norte 220/132 kV y obras complementarias"
+   "fecha": "2026-10-22T21:04:04.241Z"
   },
   {
    "id": "lsiixp1-ntvk51",
+   "objeto": "Gestión, operación y mantenimiento integral del recurso físico de 16 establecimientos extrahospitalarios (casas de medio camino, Centros de Salud y Acción Comun",
    "fecha": "2026-10-22T21:02:01.354Z",
-   "clave": "sobres_abiertos|2026-10-16",
-   "objeto": "Gestión, operación y mantenimiento integral del recurso físico de 16 establecimientos extrahospitalarios (casas de medio camino, Centros de Salud y Acción Comun"
+   "clave": "sobres_abiertos|2026-10-16"
   },
   {
    "id": "lu2vj5u-18xm4sm",
@@ -1801,56 +1801,56 @@
   },
   {
    "id": "lum5qhj-y6tfuz",
+   "objeto": "Reparación de techos, construcción de escalera de emergencia y mejoras de seguridad en la Escuela Primaria N° 16 (edificio histórico)",
    "clave": "preadjudicada|2026-09-24",
-   "fecha": "2026-10-22T21:03:15.415Z",
-   "objeto": "Reparación de techos, construcción de escalera de emergencia y mejoras de seguridad en la Escuela Primaria N° 16 (edificio histórico)"
+   "fecha": "2026-10-22T21:03:15.415Z"
   },
   {
    "id": "lv24qyr-1e026s1",
-   "fecha": "2026-10-09T19:31:17.845Z",
+   "objeto": "Concesión por peaje del corredor de la Ruta Nacional 16 en Chaco (~211 km, desde el acceso al Puente General Belgrano hasta el empalme con la Ruta Nacional 89 e",
    "clave": "adjudicada|2026-08-24",
-   "objeto": "Concesión por peaje del corredor de la Ruta Nacional 16 en Chaco (~211 km, desde el acceso al Puente General Belgrano hasta el empalme con la Ruta Nacional 89 e"
+   "fecha": "2026-10-09T19:31:17.845Z"
   },
   {
    "id": "lw8v9g-1lszukq",
-   "objeto": "Ampliación de la red de gas natural del barrio La Defensa: 1.440 metros de cañería para 94 familias",
+   "clave": "sobres_abiertos|2026-09-16",
    "fecha": "2026-10-22T21:03:37.116Z",
-   "clave": "sobres_abiertos|2026-09-16"
+   "objeto": "Ampliación de la red de gas natural del barrio La Defensa: 1.440 metros de cañería para 94 familias"
   },
   {
    "id": "lxbmggw-7y4uu",
-   "fecha": "2026-10-22T21:03:03.748Z",
+   "clave": "sobres_abiertos|2026-09-24",
    "objeto": "Ordenamiento vial, conectividad, ampliación de capacidad y seguridad en Av. Presidente Juan Domingo Perón, Cipolletti",
-   "clave": "sobres_abiertos|2026-09-24"
+   "fecha": "2026-10-22T21:03:03.748Z"
   },
   {
    "id": "lxlcl3g-ql7xvd",
-   "clave": "sobres_abiertos|2026-10-07",
    "objeto": "Segunda etapa de refuerzos en losas - Escuela Industrial Superior (EIS)",
+   "clave": "sobres_abiertos|2026-10-07",
    "fecha": "2026-10-22T21:02:44.755Z"
   },
   {
    "id": "lxr96h8-13ktlcm",
    "objeto": "Obra de ampliación del Polideportivo Polo Educativo Mataderos (D.E. N° 20), Murguiondo 2151",
-   "clave": "preadjudicada|2026-09-01",
-   "fecha": "2026-10-22T21:03:58.812Z"
+   "fecha": "2026-10-22T21:03:58.812Z",
+   "clave": "preadjudicada|2026-09-01"
   },
   {
    "id": "lxxyuip-mezxf9",
-   "fecha": "2026-10-22T21:03:31.679Z",
    "clave": "sobres_abiertos|2026-09-17",
+   "fecha": "2026-10-22T21:03:31.679Z",
    "objeto": "Demolición del puente existente y construcción de un nuevo puente carretero sobre el río Salado, más remodelación de accesos y travesía urbana de la Ruta Provin"
   },
   {
    "id": "lytxonc-1iiovzc",
-   "fecha": "2026-10-22T21:03:56.094Z",
    "objeto": "Plan Director de Agua Potable de General Roca: nueva cisterna, ampliación de la planta potabilizadora de Stefenelli (+50% de capacidad de producción) y ampliaci",
-   "clave": "sobres_abiertos|2026-09-07"
+   "clave": "sobres_abiertos|2026-09-07",
+   "fecha": "2026-10-22T21:03:56.094Z"
   },
   {
    "id": "lztfqo-109jihq",
-   "fecha": "2026-10-22T21:03:45.254Z",
    "clave": "sobres_abiertos|2026-09-10",
+   "fecha": "2026-10-22T21:03:45.254Z",
    "objeto": "Ejecución para refuerzo de red de agua potable zona noreste de Allen"
   }
  ]
