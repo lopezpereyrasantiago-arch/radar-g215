@@ -151,6 +151,42 @@ details.pp[open] summary::before{transform:rotate(90deg)}
 .pf{font:11px var(--mono);color:var(--muted)}
 .linkbtn{appearance:none;border:0;background:none;padding:0;color:var(--accent);font:13px var(--body);cursor:pointer;text-decoration:underline}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:8px;font-size:14px;z-index:20}
+/* análisis ampliado de precios */
+.stripbtn{appearance:none;border:1px solid transparent;background:none;padding:2px 4px;border-radius:6px;cursor:zoom-in;display:flex;flex-direction:column;align-items:flex-start;gap:1px;color:inherit}
+.stripbtn:hover{border-color:var(--line);background:var(--sunk)}
+.stripbtn .zl{font:500 10.5px var(--mono);color:var(--accent);letter-spacing:.04em}
+.glink{appearance:none;border:0;background:none;padding:0;text-align:left;font:700 14px var(--body);color:var(--ink);cursor:pointer}
+.glink:hover{color:var(--accent);text-decoration:underline}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.box h3{font:700 14px var(--display);text-transform:uppercase;letter-spacing:.07em;margin:0;color:var(--muted)}
+.box .bh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.seg button{appearance:none;border:0;border-right:1px solid var(--line);background:var(--surface);color:var(--muted);font:500 12px/1 var(--mono);padding:7px 10px;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.chartwrap{overflow-x:auto;min-width:0}
+.chartwrap svg{display:block}
+.viz text{font:11px var(--mono);fill:var(--muted)}
+.viz text.lab{fill:var(--ink);font:12px var(--body)}
+.viz text.lab.dim{fill:var(--muted)}
+.viz text.strong{fill:var(--ink);font-weight:500}
+.viz .hit{fill:transparent;cursor:crosshair}
+.viz .row:hover .rowbg{fill:var(--sunk)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);align-items:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend i.ln{width:16px;height:2px;border-radius:1px;vertical-align:3px}
+.legend i.bd{width:16px;height:10px;border-radius:2px}
+.tip{position:fixed;z-index:30;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.18);padding:8px 10px;font-size:13px;line-height:1.35;max-width:320px}
+.tip b{font-weight:700}
+.tip .m{font:12px var(--mono);color:var(--muted)}
+.gkpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.gkpis div{background:var(--surface);padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.gkpis .l{font:500 10.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.gkpis .v{font:500 19px var(--mono);font-variant-numeric:tabular-nums}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}
+.full:fullscreen{background:var(--surface);padding:20px;overflow:auto}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+@media (max-width:600px){.gkpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:720px){
   .calc{grid-template-columns:1fr}
   .meta{text-align:left}.hright{align-items:flex-start}.hbtns{justify-content:flex-start}
@@ -236,9 +272,9 @@ function miembros(nombre){
 }
 
 /* ---------- estado ---------- */
-const S={tab:'empresas',desde:'',hasta:'',jur:'',mun:'',rub:'',sec:true,icc:true,q:'',empSort:['pres','desc'],empSel:null,grp:'org_rub',licQ:'',licE:'todas',calcG:'',calcPO:'',cq:'',cf:'todas',co:'pres',rq:'',rt:'',rw:''};
-try{Object.assign(S,JSON.parse(localStorage.getItem('memoria-lic-v1')||'{}'));S.empSel=null;}catch(e){}
-const save=()=>{try{const {tab,grp,sec,icc,empSort,cf,co}=S;localStorage.setItem('memoria-lic-v1',JSON.stringify({tab,grp,sec,icc,empSort,cf,co}))}catch(e){}};
+const S={tab:'empresas',desde:'',hasta:'',jur:'',mun:'',rub:'',sec:true,icc:true,q:'',empSort:['pres','desc'],empSel:null,grp:'org_rub',licQ:'',licE:'todas',calcG:'',calcPO:'',cq:'',cf:'todas',co:'pres',grpSel:null,rng:'datos',per:'mes',rq:'',rt:'',rw:''};
+try{Object.assign(S,JSON.parse(localStorage.getItem('memoria-lic-v1')||'{}'));S.empSel=null;S.grpSel=null;}catch(e){}
+const save=()=>{try{const {tab,grp,sec,icc,empSort,cf,co,rng,per}=S;localStorage.setItem('memoria-lic-v1',JSON.stringify({tab,grp,sec,icc,empSort,cf,co,rng,per}))}catch(e){}};
 let R=[], ICC={}, ICCMETA={}, FUENTES=[], META={}, DB=null, CONT=[], CONTOK=false, PERS=[], PID={}, PKEY={};
 
 /* ---------- índice de costo de la construcción ---------- */
@@ -458,6 +494,196 @@ function renderContactos(){
   $('out').querySelectorAll('.linkbtn[data-k]').forEach(b=>b.onclick=()=>{S.tab='empresas'; S.empSel=b.dataset.k; save(); render(); window.scrollTo(0,0);});
 }
 
+/* ---------- análisis ampliado: distribución, histograma y tendencia ---------- */
+let TIP=null;
+function tipShow(ev,html){ if(!TIP){TIP=document.createElement('div');TIP.className='tip';TIP.setAttribute('role','status');document.body.appendChild(TIP);}
+  TIP.innerHTML=html; TIP.hidden=false; const pad=14, w=TIP.offsetWidth, h=TIP.offsetHeight;
+  let x=ev.clientX+pad, y=ev.clientY+pad; if(x+w>innerWidth-8) x=ev.clientX-w-pad; if(y+h>innerHeight-8) y=ev.clientY-h-pad;
+  TIP.style.left=Math.max(8,x)+'px'; TIP.style.top=Math.max(8,y)+'px'; }
+function tipHide(){ if(TIP) TIP.hidden=true; }
+function bindTips(root,get){
+  root.querySelectorAll('[data-tip]').forEach(el=>{
+    const h=()=>get(el.dataset.tip);
+    el.addEventListener('pointerenter',e=>tipShow(e,h())); el.addEventListener('pointermove',e=>tipShow(e,h()));
+    el.addEventListener('pointerleave',tipHide);
+    el.setAttribute('tabindex','0');
+    el.addEventListener('focus',()=>{const b=el.getBoundingClientRect(); tipShow({clientX:b.right,clientY:b.bottom},h());});
+    el.addEventListener('blur',tipHide);
+  });
+}
+const pctAxis=d=>d===0?'0':(d>0?'+':'−')+Math.round(Math.abs(d*100))+'%';
+function niceStep(span){ const raw=span/6, p=Math.pow(10,Math.floor(Math.log10(raw))); const m=raw/p; return (m<1.5?1:m<3.5?2:m<7.5?5:10)*p; }
+function ticks(lo,hi){ const s=niceStep(hi-lo), out=[]; for(let v=Math.ceil(lo/s)*s; v<=hi+1e-9; v+=s) out.push(Math.round(v*1000)/1000); return out; }
+function rangeFor(ds,mode){
+  if(mode==='20') return [-0.2,0.2]; if(mode==='40') return [-0.4,0.4]; if(mode==='80') return [-0.6,1.0];
+  if(!ds.length) return [-0.4,0.4];
+  let lo=Math.min(...ds,0), hi=Math.max(...ds,0); const pad=Math.max(0.02,(hi-lo)*0.06); return [lo-pad,hi+pad];
+}
+function perKey(f,per){ const m=mes(f); if(!m) return null; if(per==='mes') return m; const [y,mm]=m.split('-').map(Number); return y+'-T'+(Math.floor((mm-1)/3)+1); }
+const perLabel=k=>{ if(/T/.test(k)){const [y,t]=k.split('-T'); return t+'T '+y.slice(2);} const [y,m]=k.split('-'); return ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][+m-1]+' '+y.slice(2); };
+
+/* distribución ampliada: una fila por licitación, un punto por oferta */
+function drawDist(el,lics,opts){
+  const rows=[...lics].filter(r=>r._ofs.some(o=>o.d!=null||o.out)).sort((a,b)=>String(b._fref||'').localeCompare(String(a._fref||'')));
+  const all=rows.flatMap(r=>r._ofs.filter(o=>o.d!=null).map(o=>o.d));
+  const [lo,hi]=rangeFor(all,opts.rng);
+  const cw=Math.max(el.clientWidth||900,620), narrow=cw<760;
+  const LW=narrow?170:300, RW=16, top=34, RH=24, W=cw, H=top+rows.length*RH+30;
+  const X=d=>LW+(Math.max(lo,Math.min(hi,d))-lo)/(hi-lo)*(W-LW-RW);
+  const q1=quant(all,.25), q3=quant(all,.75), md=median(all);
+  const T=[]; const tip=[];
+  const tk=ticks(lo,hi);
+  let s=`<svg class="viz" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Distribución de ofertas por licitación respecto del presupuesto oficial">`;
+  if(q1!=null) s+=`<rect x="${X(q1)}" y="${top-6}" width="${Math.max(1,X(q3)-X(q1))}" height="${rows.length*RH+8}" fill="var(--dot-soft)" opacity=".45"/>`;
+  tk.forEach(v=>{ s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${top-6}" y2="${H-26}" stroke="var(--line)"/><text x="${X(v)}" y="${top-14}" text-anchor="middle">${pctAxis(v)}</text><text x="${X(v)}" y="${H-10}" text-anchor="middle">${pctAxis(v)}</text>`; });
+  s+=`<line x1="${X(0)}" x2="${X(0)}" y1="${top-6}" y2="${H-26}" stroke="var(--ink)" stroke-width="1.5"/><text x="${X(0)+4}" y="${top-24}" class="strong">Presupuesto oficial</text>`;
+  if(md!=null) s+=`<line x1="${X(md)}" x2="${X(md)}" y1="${top-6}" y2="${H-26}" stroke="var(--dot)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  rows.forEach((r,i)=>{
+    const y=top+i*RH+RH/2;
+    const ofs=r._ofs.filter(o=>o.d!=null||o.out);
+    const ds=ofs.filter(o=>o.d!=null).map(o=>o.d);
+    const label=`${fdate(r._fref).slice(0,6)}${String(r._fref||'').slice(2,4)} · ${r.objeto||''}`;
+    const maxc=narrow?24:46; const lt=label.length>maxc?label.slice(0,maxc-1)+'…':label;
+    s+=`<g class="row"><rect class="rowbg" x="0" y="${y-RH/2}" width="${W}" height="${RH}" fill="transparent"/>`;
+    s+=`<text class="lab${r._decided?'':' dim'}" x="4" y="${y+4}" data-tip="L${i}">${esc(lt)}</text>`;
+    tip['L'+i]=`<b>${esc(r.objeto)}</b><div class="m">${esc(r.jurisdiccion)}${r.municipio?' · '+esc(r.municipio):''} · ${esc(r.organismo||'')}</div><div class="m">${esc(r.numero||'')} · ${fdate(r._fref)}</div><div>Presupuesto oficial: ${money(r._po,r.moneda)}${r._fx.f!==1?' (ajustado ×'+nf1.format(r._fx.f)+')':''}</div><div>${ds.length} oferta${ds.length!==1?'s':''} con monto · ${r._g?'ganó '+esc(r._g.empresa):'sin adjudicar'}</div>`;
+    if(ds.length>1) s+=`<line x1="${X(Math.min(...ds))}" x2="${X(Math.max(...ds))}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="2"/>`;
+    const lowK=r._priced.length?r._priced[0].k:null;
+    ofs.sort((a,b)=>(a.d??0)-(b.d??0)).forEach((o,j)=>{
+      const w=r._g&&r._g.k===o.k&&(r.estado==='adjudicada'||r.estado==='preadjudicada');
+      const id=`O${i}_${j}`;
+      tip[id]=`<b>${esc(o.empresa)}</b>${w?' · <span class="pill win">Ganó</span>':''}${o.k===lowK?' · <span class="pill of">Más baja</span>':''}<div class="m">${money(o.monto,r.moneda)} · ${o.d!=null?pct(o.d)+' vs. oficial':'fuera de escala (posible error de carga o base distinta)'}</div><div class="m">${esc(r.objeto).slice(0,90)}</div>`;
+      if(o.d==null){ const xe=W-RW+2; s+=`<path d="M${xe-8},${y-5} L${xe},${y} L${xe-8},${y+5}Z" fill="var(--warn)"/><rect class="hit" x="${xe-14}" y="${y-9}" width="16" height="18" data-tip="${id}"/>`; return; }
+      const cx=X(o.d), clipped=o.d<lo||o.d>hi;
+      if(clipped){ const dir=o.d<lo?-1:1; s+=`<path d="M${cx+dir*6},${y} L${cx},${y-5} L${cx},${y+5}Z" fill="var(--muted)"/>`; }
+      else s+=`<circle cx="${cx.toFixed(1)}" cy="${y}" r="${w?6:4.5}" fill="${w?'var(--ocre)':'var(--dot-soft)'}" stroke="${w?'var(--surface)':'var(--dot)'}" stroke-width="${w?2:1.2}"/>`;
+      s+=`<circle class="hit" cx="${cx.toFixed(1)}" cy="${y}" r="10" data-tip="${id}"/>`;
+    });
+    s+=`</g>`;
+  });
+  s+=`</svg>`;
+  el.innerHTML=s; bindTips(el,k=>tip[k]);
+  return {n:rows.length,all};
+}
+/* histograma de desvíos: ganadores apilados en ocre */
+function drawHist(el,lics,rng){
+  const pts=[]; lics.forEach(r=>r._ofs.forEach(o=>{ if(o.d==null) return; pts.push({d:o.d,w:r._g&&r._g.k===o.k&&(r.estado==='adjudicada'||r.estado==='preadjudicada')}); }));
+  const [lo,hi]=rangeFor(pts.map(p=>p.d),rng);
+  const bw=(hi-lo)>0.9?0.1:0.05; const b0=Math.floor(lo/bw)*bw, nb=Math.ceil((hi-b0)/bw);
+  const B=Array.from({length:nb},(_,i)=>({a:b0+i*bw,b:b0+(i+1)*bw,o:0,w:0}));
+  pts.forEach(p=>{ const i=Math.min(nb-1,Math.max(0,Math.floor((p.d-b0)/bw))); B[i][p.w?'w':'o']++; });
+  const W=Math.max(el.clientWidth||420,300), H=230, ml=34, mr=10, mt=12, mb=30;
+  const mx=Math.max(1,...B.map(b=>b.o+b.w)); const yt=ticks(0,mx).filter(v=>Number.isInteger(v));
+  const X=v=>ml+(v-b0)/(nb*bw)*(W-ml-mr), Y=v=>mt+(1-v/mx)*(H-mt-mb);
+  let s=`<svg class="viz" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Cantidad de ofertas por tramo de desvío">`;
+  yt.forEach(v=>{ s+=`<line x1="${ml}" x2="${W-mr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${v}</text>`; });
+  const tip={};
+  B.forEach((b,i)=>{ const x=X(b.a)+1, w=Math.max(1,X(b.b)-X(b.a)-2);
+    if(b.o){ s+=`<rect x="${x}" y="${Y(b.o+b.w)}" width="${w}" height="${Math.max(1,Y(b.w)-Y(b.o+b.w)-(b.w?2:0))}" fill="var(--dot)" opacity=".75"/>`; }
+    if(b.w){ s+=`<rect x="${x}" y="${Y(b.w)}" width="${w}" height="${Y(0)-Y(b.w)}" fill="var(--ocre)"/>`; }
+    tip['H'+i]=`<b>${pctAxis(b.a)} a ${pctAxis(b.b)}</b><div class="m">${b.o+b.w} oferta${b.o+b.w!==1?'s':''}${b.w?' · '+b.w+' ganadora'+(b.w>1?'s':''):''}</div>`;
+    s+=`<rect class="hit" x="${X(b.a)}" y="${mt}" width="${X(b.b)-X(b.a)}" height="${H-mt-mb}" data-tip="H${i}"/>`; });
+  ticks(b0,b0+nb*bw).forEach(v=>{ s+=`<text x="${X(v)}" y="${H-10}" text-anchor="middle">${pctAxis(v)}</text>`; });
+  if(0>=b0&&0<=b0+nb*bw) s+=`<line x1="${X(0)}" x2="${X(0)}" y1="${mt}" y2="${H-mb}" stroke="var(--ink)" stroke-width="1.5"/>`;
+  s+=`<line x1="${ml}" x2="${W-mr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--muted)"/></svg>`;
+  el.innerHTML=s; bindTips(el,k=>tip[k]);
+}
+/* tendencia: banda P25–P75, mediana de todas las ofertas y mediana del ganador por período */
+function periods(lics,per){
+  const P={};
+  lics.forEach(r=>{ const k=perKey(r._fref,per); if(!k) return; const ds=r._ofs.filter(o=>o.d!=null).map(o=>o.d); if(!ds.length) return;
+    const p=P[k]||(P[k]={k,ds:[],win:[],low:[],nof:[],n:0,wl:[]}); p.n++; p.ds.push(...ds); p.nof.push(r._priced.length);
+    if(r._dWin!=null) p.win.push(r._dWin); if(r._dMin!=null&&r._priced.length>=2) p.low.push(r._dMin); if(r._winLow!=null) p.wl.push(r._winLow?1:0); });
+  return Object.values(P).sort((a,b)=>a.k.localeCompare(b.k)).map(p=>({...p,md:median(p.ds),q1:quant(p.ds,.25),q3:quant(p.ds,.75),mw:median(p.win),ml:median(p.low),mo:mean(p.nof)}));
+}
+function drawTrend(el,elN,lics,per){
+  const P=periods(lics,per);
+  if(P.length<2){ el.innerHTML=`<div class="note">Hace falta más de un ${per==='mes'?'mes':'trimestre'} con ofertas comparables para ver una tendencia. Probá agrupar por ${per==='mes'?'trimestre o ampliá el período':'mes'} o quitá filtros.</div>`; if(elN) elN.innerHTML=''; return; }
+  const W=Math.max(el.clientWidth||600,320), H=250, ml=46, mr=88, mt=14, mb=40;
+  const vals=P.flatMap(p=>[p.q1,p.q3,p.md,p.mw].filter(v=>v!=null)); let lo=Math.min(0,...vals), hi=Math.max(0,...vals); const pd=Math.max(.02,(hi-lo)*.08); lo-=pd; hi+=pd;
+  const step=(W-ml-mr)/(P.length-1||1), X=i=>ml+i*step, Y=v=>mt+(hi-v)/(hi-lo)*(H-mt-mb);
+  const yt=ticks(lo,hi); const tip={};
+  let s=`<svg class="viz" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Evolución de las ofertas respecto del presupuesto oficial">`;
+  yt.forEach(v=>{ s+=`<line x1="${ml}" x2="${W-mr}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v===0?'var(--ink)':'var(--line)'}" stroke-width="${v===0?1.5:1}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${pctAxis(v)}</text>`; });
+  const band=P.map((p,i)=>`${X(i)},${Y(p.q3)}`).join(' L')+' L'+[...P].map((p,i)=>[i,p]).reverse().map(([i,p])=>`${X(i)},${Y(p.q1)}`).join(' L');
+  s+=`<path d="M${band}Z" fill="var(--dot-soft)" opacity=".7"/>`;
+  const line=(key,col,w,dash)=>{ let d='',on=false; P.forEach((p,i)=>{ if(p[key]==null){on=false;return;} d+=(on?'L':'M')+X(i)+','+Y(p[key]); on=true; }); return `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}"${dash?` stroke-dasharray="${dash}"`:''} stroke-linejoin="round"/>`; };
+  s+=line('md','var(--dot)',2)+line('mw','var(--ocre)',2,'5 3');
+  const every=Math.max(1,Math.ceil(48/step));
+  P.forEach((p,i)=>{ const op=p.n<3?' opacity=".45"':'';
+    if(p.md!=null) s+=`<circle cx="${X(i)}" cy="${Y(p.md)}" r="4" fill="var(--dot)" stroke="var(--surface)" stroke-width="2"${op}/>`;
+    if(p.mw!=null) s+=`<circle cx="${X(i)}" cy="${Y(p.mw)}" r="4" fill="var(--ocre)" stroke="var(--surface)" stroke-width="2"${op}/>`;
+    if((P.length-1-i)%every===0) s+=`<text x="${X(i)}" y="${H-22}" text-anchor="middle" class="strong">${perLabel(p.k)}</text><text x="${X(i)}" y="${H-8}" text-anchor="middle">${p.n} lic.</text>`;
+    tip['T'+i]=`<b>${perLabel(p.k)}</b> · ${p.n} licitación${p.n>1?'es':''}, ${p.ds.length} ofertas<div>Mediana de las ofertas: ${pct(p.md)}</div><div class="m">P25 a P75: ${pct(p.q1)} a ${pct(p.q3)}</div><div>Mediana del ganador: ${pct(p.mw)}${p.win.length?' ('+p.win.length+')':''}</div><div>Mediana de la más baja: ${pct(p.ml)}</div><div class="m">Oferentes por licitación: ${nf1.format(p.mo||0)}${p.wl.length?' · ganó la más baja en '+Math.round(mean(p.wl)*100)+' %':''}</div>`;
+    s+=`<rect class="hit" x="${X(i)-step/2}" y="${mt}" width="${step}" height="${H-mt-mb}" data-tip="T${i}"/>`; });
+  const last=P.length-1, lp=P[last];
+  const lab=[]; if(lp.md!=null) lab.push({y:Y(lp.md),t:'Ofertas '+pct(lp.md,0),c:'var(--dot)'}); if(lp.mw!=null) lab.push({y:Y(lp.mw),t:'Ganador '+pct(lp.mw,0),c:'var(--ocre)'});
+  lab.sort((a,b)=>a.y-b.y); if(lab.length===2&&lab[1].y-lab[0].y<14){ lab[1].y=lab[0].y+14; }
+  lab.forEach(l=>{ s+=`<text x="${X(last)+10}" y="${l.y+4}" class="strong">${l.t}</text>`; });
+  s+=`</svg>`; el.innerHTML=s; bindTips(el,k=>tip[k]);
+  if(elN){ // oferentes por licitación
+    const H2=126, mt2=18, mb2=22, mx=Math.max(1,...P.map(p=>p.mo||0)); const Y2=v=>mt2+(1-v/mx)*(H2-mt2-mb2); const bw=Math.min(36,step*.55);
+    let t=`<svg class="viz" width="${W}" height="${H2}" viewBox="0 0 ${W} ${H2}" role="img" aria-label="Oferentes promedio por licitación">`;
+    t+=`<line x1="${ml}" x2="${W-mr}" y1="${Y2(0)}" y2="${Y2(0)}" stroke="var(--muted)"/>`;
+    P.forEach((p,i)=>{ const lb=(P.length-1-i)%every===0; t+=`<path d="M${X(i)-bw/2},${Y2(0)} V${Y2(p.mo||0)+Math.min(4,bw/2)} q0,-4 4,-4 h${Math.max(0,bw-8)} q4,0 4,4 V${Y2(0)}Z" fill="var(--accent)" opacity=".8"><title>${perLabel(p.k)}: ${nf1.format(p.mo||0)} oferentes</title></path>${lb?`<text x="${X(i)}" y="${Y2(p.mo||0)-4}" text-anchor="middle">${nf1.format(p.mo||0)}</text><text x="${X(i)}" y="${H2-6}" text-anchor="middle">${perLabel(p.k)}</text>`:''}`; });
+    t+=`</svg>`; elN.innerHTML=t;
+  }
+}
+/* vista ampliada de un grupo */
+function fichaGrupo(g){
+  const lics=g.lics, all=g.ds;
+  const sorted=[...lics].sort((a,b)=>String(b._fref||'').localeCompare(String(a._fref||'')));
+  $('out').innerHTML=`<div class="panel">
+    <div class="ptools"><button class="btn" id="gback" type="button">← Todos los grupos</button>
+      <span class="h">Cada punto es una oferta medida contra el presupuesto oficial${S.icc?' ajustado por el costo de la construcción':''}. Pasá el cursor (o tocá) un punto o una licitación para ver el detalle.</span></div>
+    <div class="ficha" style="gap:10px"><div><div class="eyebrow">Análisis de precios · ${esc(GRP[S.grp].t)}</div><h2>${esc(g.k)}</h2></div>
+      <div class="gkpis">
+        <div><span class="l">Licitaciones</span><span class="v">${lics.length}</span></div>
+        <div><span class="l">Ofertas con monto</span><span class="v">${all.length}</span></div>
+        <div><span class="l">Mediana vs. oficial</span><span class="v">${pctc(median(all))}</span></div>
+        <div><span class="l">P25 a P75</span><span class="v">${pct(quant(all,.25),0)} · ${pct(quant(all,.75),0)}</span></div>
+        <div><span class="l">Oferta más baja (med.)</span><span class="v">${pctc(median(g.dmin))}</span></div>
+        <div><span class="l">Ganador (med.)</span><span class="v">${pctc(median(g.dwin))}</span></div>
+        <div><span class="l">Ganó la más baja</span><span class="v">${g.wl.length?Math.round(mean(g.wl)*100)+' %':'—'}</span></div>
+        <div><span class="l">Margen al 2º (med.)</span><span class="v">${g.marg.length?pct(median(g.marg)):'—'}</span></div>
+      </div>
+      ${lics.length<5?'<div class="note"><b>Muestra chica:</b> menos de 5 licitaciones. Tomalo como referencia.</div>':''}
+    </div>
+    <section class="box full" id="distBox"><div class="bh"><h3>Distribución por licitación</h3>
+      <div class="hbtns"><div class="seg" role="group" aria-label="Escala del eje">${[['datos','Ajustar'],['20','±20 %'],['40','±40 %'],['80','−60/+100 %']].map(([k,t])=>`<button type="button" data-rng="${k}" aria-pressed="${S.rng===k}">${t}</button>`).join('')}</div>
+      <button class="btn" type="button" id="fsBtn">Pantalla completa</button></div></div>
+      <div class="legend"><span><i style="background:var(--dot-soft);border:1.5px solid var(--dot)"></i>Oferta</span><span><i style="background:var(--ocre)"></i>Ganador</span><span><i class="ln" style="background:var(--ink)"></i>Presupuesto oficial</span><span><i class="ln" style="background:var(--dot)"></i>Mediana del grupo</span><span><i class="bd" style="background:var(--dot-soft)"></i>Mitad central (P25 a P75)</span><span><i style="background:var(--warn);border-radius:1px"></i>Fuera de escala</span></div>
+      <div class="chartwrap" id="distC"></div>
+      <div class="note">Una fila por licitación, de la más reciente a la más antigua. La línea gris de cada fila va de la oferta más baja a la más alta. Las licitaciones en gris todavía no están resueltas.</div></section>
+    <div class="two">
+      <section class="box"><div class="bh"><h3>Tendencia en el tiempo</h3><div class="seg" role="group" aria-label="Período">${[['mes','Mes'],['tri','Trimestre']].map(([k,t])=>`<button type="button" data-per="${k}" aria-pressed="${S.per===k}">${t}</button>`).join('')}</div></div>
+        <div class="legend"><span><i class="ln" style="background:var(--dot)"></i>Mediana de las ofertas</span><span><i class="ln" style="background:var(--ocre)"></i>Mediana del ganador</span><span><i class="bd" style="background:var(--dot-soft)"></i>P25 a P75</span></div>
+        <div class="chartwrap" id="trC"></div>
+        <h3 style="margin-top:4px">Oferentes por licitación (promedio)</h3><div class="chartwrap" id="trN"></div></section>
+      <section class="box"><h3>Cuántas ofertas caen en cada tramo</h3>
+        <div class="legend"><span><i class="bd" style="background:var(--dot)"></i>Ofertas</span><span><i class="bd" style="background:var(--ocre)"></i>Ganadoras</span></div>
+        <div class="chartwrap" id="hiC"></div><div class="note">Tramos de 5 puntos (10 si la escala es amplia) respecto del presupuesto oficial.</div></section>
+    </div>
+    <div class="tw"><table><tr><th>Fecha</th><th>Licitación</th><th class="n">Presupuesto oficial</th><th class="n">Ofertas</th><th class="n">Más baja</th><th class="n">Ganador</th><th>Resultado</th></tr>
+      ${sorted.map(r=>`<tr><td class="n">${fdate(r._fref)}</td><td style="min-width:240px"><b>${esc(r.objeto)}</b><div class="sub">${esc(r.jurisdiccion)}${r.municipio?' · '+esc(r.municipio):''} · ${esc(r.numero||'')}</div></td>
+        <td class="n">${money(r._po,r.moneda)}</td><td class="n">${r._priced.length}</td><td class="n">${pctc(r._dMin)}</td><td class="n">${pctc(r._dWin)}</td>
+        <td>${r._g&&(r.estado==='adjudicada'||r.estado==='preadjudicada')?`<span class="pill win">${esc(r._g.empresa)}</span>`:`<span class="pill">${esc(r.estado||'sin resolver')}</span>`}</td></tr>`).join('')}
+    </table></div>
+  </div>`;
+  const draw=()=>{ drawDist($('distC'),lics,{rng:S.rng}); drawHist($('hiC'),lics,S.rng==='datos'?'datos':S.rng); drawTrend($('trC'),$('trN'),lics,S.per); };
+  draw(); GDRAW=draw;
+  $('gback').onclick=()=>{S.grpSel=null; tipHide(); render();};
+  $('out').querySelectorAll('[data-rng]').forEach(b=>b.onclick=()=>{S.rng=b.dataset.rng; save(); $('out').querySelectorAll('[data-rng]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.rng===S.rng)); draw();});
+  $('out').querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{S.per=b.dataset.per; save(); $('out').querySelectorAll('[data-per]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.per===S.per)); draw();});
+  const fb=$('fsBtn'), box=$('distBox');
+  if(!box.requestFullscreen) fb.hidden=true;
+  fb.onclick=async()=>{ try{ if(document.fullscreenElement) await document.exitFullscreen(); else await box.requestFullscreen(); }catch(e){ fb.hidden=true; toast('Este visor no permite pantalla completa.'); } };
+}
+let GDRAW=null, RZT=null;
+document.addEventListener('fullscreenchange',()=>{ const fb=$('fsBtn'); if(fb) fb.textContent=document.fullscreenElement?'Salir de pantalla completa':'Pantalla completa'; if(GDRAW) setTimeout(GDRAW,60); });
+window.addEventListener('resize',()=>{ clearTimeout(RZT); RZT=setTimeout(()=>{ if(S.tab==='precios'){ if(S.grpSel&&GDRAW) GDRAW(); else if(TDRAW) TDRAW(); } },150); });
+let TDRAW=null;
+
 /* ---------- precios ---------- */
 const GRP={org_rub:{t:'Organismo y rubro',f:r=>(r.organismo||'Sin organismo')+' · '+r.rubro},org:{t:'Organismo',f:r=>r.organismo||'Sin organismo'},rub:{t:'Rubro',f:r=>r.rubro},jur:{t:'Jurisdicción',f:r=>r.jurisdiccion},jur_rub:{t:'Jurisdicción y rubro',f:r=>r.jurisdiccion+' · '+r.rubro}};
 function grupos(L){
@@ -481,16 +707,21 @@ function strip(g){
 }
 function renderPrecios(L){
   const G=grupos(L); $('c-precios').textContent=G.reduce((s,g)=>s+g.lics.length,0);
+  GDRAW=null; TDRAW=null;
+  if(S.grpSel){ const g=G.find(x=>x.k===S.grpSel); if(g) return fichaGrupo(g); S.grpSel=null; }
   const opts=Object.entries(GRP).map(([k,v])=>`<option value="${k}"${S.grp===k?' selected':''}>${v.t}</option>`).join('');
   const calcable=G.filter(g=>g.dmin.length>=3);
   if(!calcable.some(g=>g.k===S.calcG)) S.calcG=calcable[0]?calcable[0].k:'';
   $('out').innerHTML=`<div class="panel">
     <div class="ptools"><div class="f"><label for="grp">Agrupar por</label><select id="grp">${opts}</select></div>
-      <span class="h">Cada punto es una oferta, medida contra el presupuesto oficial${S.icc?' ajustado por el costo de la construcción':''}. El punto ocre es el ganador. Debajo de 5 licitaciones la muestra es chica: tomala como referencia, no como regla.</span></div>
+      <span class="h">Cada punto es una oferta, medida contra el presupuesto oficial${S.icc?' ajustado por el costo de la construcción':''}. El punto ocre es el ganador. Tocá un grupo o su distribución para ampliarla, con la tendencia en el tiempo y el detalle de cada oferta. Debajo de 5 licitaciones la muestra es chica: tomala como referencia, no como regla.</span></div>
+    ${G.length?`<section class="box"><div class="bh"><h3>Tendencia de todas las licitaciones con precios</h3><div class="seg" role="group" aria-label="Período">${[['mes','Mes'],['tri','Trimestre']].map(([k,t])=>`<button type="button" data-per="${k}" aria-pressed="${S.per===k}">${t}</button>`).join('')}</div></div>
+      <div class="legend"><span><i class="ln" style="background:var(--dot)"></i>Mediana de las ofertas</span><span><i class="ln" style="background:var(--ocre)"></i>Mediana del ganador</span><span><i class="bd" style="background:var(--dot-soft)"></i>P25 a P75</span><span>Debajo de cada período, cuántas licitaciones lo forman; los puntos claros tienen menos de 3 y pesan poco.</span></div>
+      <div class="chartwrap" id="trAll"></div></section>`:''}
     ${G.length?`<div class="tw"><table>
       <tr><th>Grupo</th><th class="n">Licitaciones</th><th class="n">Ofertas</th><th>Distribución</th><th class="n">Mediana</th><th class="n">P25 a P75</th><th class="n">Oferta más baja</th><th class="n">Ganador</th><th class="n">Oferentes</th><th class="n">Ganó la más baja</th><th class="n">Margen al 2º</th></tr>
-      ${G.map(g=>`<tr><td><b>${esc(g.k)}</b>${g.lics.length<5?' <span class="pill small">muestra chica</span>':''}</td>
-        <td class="n">${g.lics.length}</td><td class="n">${g.ds.length}</td><td>${strip(g)}</td>
+      ${G.map(g=>`<tr><td><button class="glink" type="button" data-g="${esc(g.k)}">${esc(g.k)}</button>${g.lics.length<5?' <span class="pill small">muestra chica</span>':''}</td>
+        <td class="n">${g.lics.length}</td><td class="n">${g.ds.length}</td><td><button class="stripbtn" type="button" data-g="${esc(g.k)}" aria-label="Ampliar la distribución de ${esc(g.k)}">${strip(g)}<span class="zl">Ampliar ⤢</span></button></td>
         <td class="n">${pctc(median(g.ds))}</td><td class="n">${pct(quant(g.ds,.25))}<br>${pct(quant(g.ds,.75))}</td>
         <td class="n">${pctc(median(g.dmin))}</td><td class="n">${pctc(median(g.dwin))}</td>
         <td class="n">${nf1.format(mean(g.nof)||0)}</td><td class="n">${g.wl.length?Math.round(mean(g.wl)*100)+' %':'—'}</td>
@@ -500,6 +731,9 @@ function renderPrecios(L){
   </div>`;
   $('grp').onchange=e=>{S.grp=e.target.value; save(); render();};
   if(calcable.length) wireCalc(calcable);
+  $('out').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{S.grpSel=b.dataset.g; render(); window.scrollTo(0,0);});
+  if($('trAll')){ const LL=G.flatMap(g=>g.lics); TDRAW=()=>drawTrend($('trAll'),null,LL,S.per); TDRAW();
+    $('out').querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{S.per=b.dataset.per; save(); $('out').querySelectorAll('[data-per]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.per===S.per)); TDRAW();}); }
 }
 function calcHTML(C){
   return `<div class="calc"><div class="ins">
@@ -625,7 +859,7 @@ function render(){
   if(CONTOK) $('c-contactos').textContent=CONT.length;
   ({empresas:renderEmpresas,contactos:renderContactos,precios:renderPrecios,lic:renderLic,fuentes:renderFuentes,metodo:renderMetodo,registro:renderRegistro})[S.tab](L);
 }
-document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{S.tab=t.dataset.t; S.empSel=null; save(); render();});
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{S.tab=t.dataset.t; S.empSel=null; S.grpSel=null; save(); render();});
 $('fDesde').onchange=e=>{S.desde=e.target.value; render();};
 $('fHasta').onchange=e=>{S.hasta=e.target.value; render();};
 $('fJur').onchange=e=>{S.jur=e.target.value; selects(); render();};
