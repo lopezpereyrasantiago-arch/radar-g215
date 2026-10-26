@@ -90,7 +90,7 @@ reps = [
      '<button class="tab" role="tab" data-t="registro" aria-selected="false">Registro<span id="c-registro"></span></button>\n    <button class="tab" role="tab" data-t="metodo" aria-selected="false">Método</button>'),
     ('Cargando la base histórica. Si no aparece nada, abrí esta página desde claude.ai con tu cuenta.', 'Cargando la base histórica…'),
     ('Esta vista no puede leer la base histórica. Abrí la página desde claude.ai con tu cuenta.', 'No se pudo leer la base histórica. Recargá la página.'),
-    ("cq:'',cf:'todas',co:'pres'};", "cq:'',cf:'todas',co:'pres',rq:'',rt:'',rw:''};"),
+    ("cq:'',cf:'todas',co:'pres',grpSel:null,rng:'datos',per:'mes'};", "cq:'',cf:'todas',co:'pres',grpSel:null,rng:'datos',per:'mes',rq:'',rt:'',rw:''};"),
     ('const cs=(c.contactos||[]).slice().sort(', 'const cs=mergeLive(c).sort('),
     ("${x.casilla_compartida?' <span class=\"pill small\">casilla compartida</span>':''}",
      "${x.casilla_compartida?' <span class=\"pill small\">casilla compartida</span>':''}${x._live?' <span class=\"pill small\">desde el Radar, en vivo</span>':''}"),
