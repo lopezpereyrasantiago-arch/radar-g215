@@ -3,7 +3,7 @@
   "items": 633,
   "personas": 142,
   "generado": "2026-10-26T10:37:00-03:00",
-  "codigo_actualizado": true
+  "codigo_actualizado": false
  },
  "memoria": {
   "licitaciones": 389,
@@ -12,11 +12,11 @@
   "fuentes": 25,
   "config": 3
  },
- "publicado": "2026-10-26T13:37:48+00:00",
+ "publicado": "2026-10-26T14:01:11+00:00",
  "radar_codigo": "c8bc714cf9080c0c",
- "memoria_codigo": "1ff9d1536705ab19",
+ "memoria_codigo": "81dd3b7d0b05cff4",
  "avisos": [],
  "memoria_html": {
-  "codigo_actualizado": false
+  "codigo_actualizado": true
  }
 }
