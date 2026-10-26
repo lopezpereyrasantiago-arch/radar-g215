@@ -1,22 +1,22 @@
 {
  "radar": {
-  "items": 633,
+  "items": 628,
   "personas": 142,
-  "generado": "2026-10-26T10:37:00-03:00",
+  "generado": "2026-10-26T12:05:00-03:00",
   "codigo_actualizado": false
  },
  "memoria": {
-  "licitaciones": 389,
+  "licitaciones": 391,
   "contactos": 13,
   "personas": 2,
   "fuentes": 25,
   "config": 3
  },
- "publicado": "2026-10-26T14:26:37+00:00",
+ "publicado": "2026-10-26T15:03:56+00:00",
  "radar_codigo": "c8bc714cf9080c0c",
  "memoria_codigo": "bfb8d69323b73ac2",
  "avisos": [],
  "memoria_html": {
-  "codigo_actualizado": true
+  "codigo_actualizado": false
  }
 }
