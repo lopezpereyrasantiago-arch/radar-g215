@@ -655,26 +655,16 @@ function fichaGrupo(g){
       <div class="legend"><span><i style="background:var(--dot-soft);border:1.5px solid var(--dot)"></i>Oferta</span><span><i style="background:var(--ocre)"></i>Ganador</span><span><i class="ln" style="background:var(--ink)"></i>Presupuesto oficial</span><span><i class="ln" style="background:var(--dot)"></i>Mediana del grupo</span><span><i class="bd" style="background:var(--dot-soft)"></i>Mitad central (P25 a P75)</span><span><i style="background:var(--warn);border-radius:1px"></i>Fuera de escala</span></div>
       <div class="chartwrap" id="distC"></div>
       <div class="note">Una fila por licitación, de la más reciente a la más antigua. La línea gris de cada fila va de la oferta más baja a la más alta. Las licitaciones en gris todavía no están resueltas.</div></section>
-    <div class="two">
-      <section class="box"><div class="bh"><h3>Tendencia en el tiempo</h3><div class="seg" role="group" aria-label="Período">${[['mes','Mes'],['tri','Trimestre']].map(([k,t])=>`<button type="button" data-per="${k}" aria-pressed="${S.per===k}">${t}</button>`).join('')}</div></div>
-        <div class="legend"><span><i class="ln" style="background:var(--dot)"></i>Mediana de las ofertas</span><span><i class="ln" style="background:var(--ocre)"></i>Mediana del ganador</span><span><i class="bd" style="background:var(--dot-soft)"></i>P25 a P75</span></div>
-        <div class="chartwrap" id="trC"></div>
-        <h3 style="margin-top:4px">Oferentes por licitación (promedio)</h3><div class="chartwrap" id="trN"></div></section>
-      <section class="box"><h3>Cuántas ofertas caen en cada tramo</h3>
-        <div class="legend"><span><i class="bd" style="background:var(--dot)"></i>Ofertas</span><span><i class="bd" style="background:var(--ocre)"></i>Ganadoras</span></div>
-        <div class="chartwrap" id="hiC"></div><div class="note">Tramos de 5 puntos (10 si la escala es amplia) respecto del presupuesto oficial.</div></section>
-    </div>
     <div class="tw"><table><tr><th>Fecha</th><th>Licitación</th><th class="n">Presupuesto oficial</th><th class="n">Ofertas</th><th class="n">Más baja</th><th class="n">Ganador</th><th>Resultado</th></tr>
       ${sorted.map(r=>`<tr><td class="n">${fdate(r._fref)}</td><td style="min-width:240px"><b>${esc(r.objeto)}</b><div class="sub">${esc(r.jurisdiccion)}${r.municipio?' · '+esc(r.municipio):''} · ${esc(r.numero||'')}</div></td>
         <td class="n">${money(r._po,r.moneda)}</td><td class="n">${r._priced.length}</td><td class="n">${pctc(r._dMin)}</td><td class="n">${pctc(r._dWin)}</td>
         <td>${r._g&&(r.estado==='adjudicada'||r.estado==='preadjudicada')?`<span class="pill win">${esc(r._g.empresa)}</span>`:`<span class="pill">${esc(r.estado||'sin resolver')}</span>`}</td></tr>`).join('')}
     </table></div>
   </div>`;
-  const draw=()=>{ drawDist($('distC'),lics,{rng:S.rng}); drawHist($('hiC'),lics,S.rng==='datos'?'datos':S.rng); drawTrend($('trC'),$('trN'),lics,S.per); };
+  const draw=()=>{ drawDist($('distC'),lics,{rng:S.rng}); };
   draw(); GDRAW=draw;
   $('gback').onclick=()=>{S.grpSel=null; tipHide(); render();};
   $('out').querySelectorAll('[data-rng]').forEach(b=>b.onclick=()=>{S.rng=b.dataset.rng; save(); $('out').querySelectorAll('[data-rng]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.rng===S.rng)); draw();});
-  $('out').querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{S.per=b.dataset.per; save(); $('out').querySelectorAll('[data-per]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.per===S.per)); draw();});
   const fb=$('fsBtn'), box=$('distBox');
   if(!box.requestFullscreen) fb.hidden=true;
   fb.onclick=async()=>{ try{ if(document.fullscreenElement) await document.exitFullscreen(); else await box.requestFullscreen(); }catch(e){ fb.hidden=true; toast('Este visor no permite pantalla completa.'); } };
@@ -714,10 +704,7 @@ function renderPrecios(L){
   if(!calcable.some(g=>g.k===S.calcG)) S.calcG=calcable[0]?calcable[0].k:'';
   $('out').innerHTML=`<div class="panel">
     <div class="ptools"><div class="f"><label for="grp">Agrupar por</label><select id="grp">${opts}</select></div>
-      <span class="h">Cada punto es una oferta, medida contra el presupuesto oficial${S.icc?' ajustado por el costo de la construcción':''}. El punto ocre es el ganador. Tocá un grupo o su distribución para ampliarla, con la tendencia en el tiempo y el detalle de cada oferta. Debajo de 5 licitaciones la muestra es chica: tomala como referencia, no como regla.</span></div>
-    ${G.length?`<section class="box"><div class="bh"><h3>Tendencia de todas las licitaciones con precios</h3><div class="seg" role="group" aria-label="Período">${[['mes','Mes'],['tri','Trimestre']].map(([k,t])=>`<button type="button" data-per="${k}" aria-pressed="${S.per===k}">${t}</button>`).join('')}</div></div>
-      <div class="legend"><span><i class="ln" style="background:var(--dot)"></i>Mediana de las ofertas</span><span><i class="ln" style="background:var(--ocre)"></i>Mediana del ganador</span><span><i class="bd" style="background:var(--dot-soft)"></i>P25 a P75</span><span>Debajo de cada período, cuántas licitaciones lo forman; los puntos claros tienen menos de 3 y pesan poco.</span></div>
-      <div class="chartwrap" id="trAll"></div></section>`:''}
+      <span class="h">Cada punto es una oferta, medida contra el presupuesto oficial${S.icc?' ajustado por el costo de la construcción':''}. El punto ocre es el ganador. Tocá un grupo o su distribución para ampliarla y ver el detalle de cada oferta. Debajo de 5 licitaciones la muestra es chica: tomala como referencia, no como regla.</span></div>
     ${G.length?`<div class="tw"><table>
       <tr><th>Grupo</th><th class="n">Licitaciones</th><th class="n">Ofertas</th><th>Distribución</th><th class="n">Mediana</th><th class="n">P25 a P75</th><th class="n">Oferta más baja</th><th class="n">Ganador</th><th class="n">Oferentes</th><th class="n">Ganó la más baja</th><th class="n">Margen al 2º</th></tr>
       ${G.map(g=>`<tr><td><button class="glink" type="button" data-g="${esc(g.k)}">${esc(g.k)}</button>${g.lics.length<5?' <span class="pill small">muestra chica</span>':''}</td>
@@ -732,8 +719,6 @@ function renderPrecios(L){
   $('grp').onchange=e=>{S.grp=e.target.value; save(); render();};
   if(calcable.length) wireCalc(calcable);
   $('out').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{S.grpSel=b.dataset.g; render(); window.scrollTo(0,0);});
-  if($('trAll')){ const LL=G.flatMap(g=>g.lics); TDRAW=()=>drawTrend($('trAll'),null,LL,S.per); TDRAW();
-    $('out').querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{S.per=b.dataset.per; save(); $('out').querySelectorAll('[data-per]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.per===S.per)); TDRAW();}); }
 }
 function calcHTML(C){
   return `<div class="calc"><div class="ins">
