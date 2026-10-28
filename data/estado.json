@@ -3,7 +3,7 @@
   "items": 715,
   "personas": 142,
   "generado": "2026-10-28T15:19:00-03:00",
-  "codigo_actualizado": false
+  "codigo_actualizado": true
  },
  "memoria": {
   "licitaciones": 429,
@@ -12,8 +12,8 @@
   "fuentes": 25,
   "config": 3
  },
- "publicado": "2026-10-28T18:19:40+00:00",
- "radar_codigo": "c8bc714cf9080c0c",
+ "publicado": "2026-10-28T20:51:53+00:00",
+ "radar_codigo": "125107136df92baa",
  "memoria_codigo": "bfb8d69323b73ac2",
  "avisos": [],
  "memoria_html": {
