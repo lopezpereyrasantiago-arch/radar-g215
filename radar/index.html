@@ -813,7 +813,19 @@ const NOVTXT={nueva:'Nueva',sobres_abiertos:'Sobres abiertos',adjudicada:'Adjudi
 const VISTOS={}; let LOCALV={};
 try{ LOCALV=JSON.parse(localStorage.getItem('radar-nov-vistas')||'{}')||{}; }catch(e){ LOCALV={}; }
 const novKey=x=>x.novedad?(x.novedad.tipo+'|'+(x.novedad.fecha||'')):null;
-function isNov(x){ const k=novKey(x); if(!k) return false; const id=idOf(x); return VISTOS[id]!==k && LOCALV[id]!==k; }
+/* Regla de Santiago (28/10/2026): una novedad existe solo cuando el HECHO es reciente, con la fecha real del hecho y no la del día en que el radar lo relevó:
+   nueva = fecha de publicación del llamado; sobres abiertos = fecha de apertura; adjudicada/preadjudicada = fecha del acto; prórroga/circular = fecha de la prórroga.
+   Un hecho viejo que se detecta tarde NO se destaca como novedad. */
+const NOV_DIAS=7;
+function fechaReal(x){ const n=x.novedad; if(!n) return null; const d=s=>(s&&/^\d{4}-\d\d-\d\d/.test(String(s)))?String(s).slice(0,10):null;
+  switch(n.tipo){
+    case 'nueva': return d(x.fecha_publicacion)||d(n.fecha);
+    case 'sobres_abiertos': return d(x.fecha_apertura)||d(n.fecha);
+    case 'adjudicada': case 'preadjudicada': return d(x.fecha_adjudicacion)||d(n.fecha);
+    default: return d(n.fecha); } }
+function novVigente(x){ const f=fechaReal(x); if(!f||f>HOYS) return false; return (Date.parse(HOYS)-Date.parse(f))/864e5<=NOV_DIAS; }
+const fNov=x=>{ const f=fechaReal(x); return f?' · '+esc(f.split('-').reverse().join('/')):''; };
+function isNov(x){ const k=novKey(x); if(!k||!novVigente(x)) return false; const id=idOf(x); return VISTOS[id]!==k && LOCALV[id]!==k; }
 function contactables(x){
   return oferentesC(x).map(r=>({empresa:r.o.empresa,email:firstEmail(r.c.email)})).filter(r=>r.email);
 }
@@ -848,7 +860,7 @@ async function quitarNov(x,on){
 }
 const novLbl=x=>{ const n=contactables(x).length; return n?`Quitar novedad y marcar mails enviados (${n})`:'Quitar novedad'; };
 function novBar(x){ if(!isNov(x)) return '';
-  const n=x.novedad; return `<div class="novbar"><span>${esc(NOVTXT[n.tipo]||'Novedad')}${n.fecha?' · '+esc(n.fecha.split('-').reverse().join('/')):''}${n.detalle?' · '+esc(n.detalle):''}</span><label><input type="checkbox" data-nov="${x._i}"> ${esc(novLbl(x))}</label></div>`; }
+  const n=x.novedad; return `<div class="novbar"><span>${esc(NOVTXT[n.tipo]||'Novedad')}${fNov(x)}${n.detalle?' · '+esc(n.detalle):''}</span><label><input type="checkbox" data-nov="${x._i}"> ${esc(novLbl(x))}</label></div>`; }
 onCaps(async()=>{ if(!CAP.db) return; try{ const s=await CAP.db.collection('novedades_vistas').limit(1000).get(); s.docs.forEach(d=>{const v=d.data(); if(v&&v.clave) VISTOS[d.id]=v.clave;}); }catch(e){} rerender(); });
 function rerender(){ if(!$('detail').hidden&&lastOpen!=null){ detail(lastOpen); } else { header(); render(); } }
 document.addEventListener('change',async e=>{ const c=e.target.closest&&e.target.closest('[data-nov]'); if(!c) return; const x=items[+c.dataset.nov]; if(!x) return;
@@ -968,7 +980,7 @@ function detail(i){
         ${x.monto_tipo?`<div class="x">${esc(x.monto_tipo)}</div>`:''}
       </div>
     </div>
-    ${isNov(x)?`<div class="novdet"><span>${esc(NOVTXT[x.novedad.tipo]||'Novedad')}${x.novedad.fecha?' · '+esc(x.novedad.fecha.split('-').reverse().join('/')):''}${x.novedad.detalle?' · '+esc(x.novedad.detalle):''}</span><label><input type="checkbox" data-nov="${x._i}"> ${esc(novLbl(x))}</label></div>`:''}
+    ${isNov(x)?`<div class="novdet"><span>${esc(NOVTXT[x.novedad.tipo]||'Novedad')}${fNov(x)}${x.novedad.detalle?' · '+esc(x.novedad.detalle):''}</span><label><input type="checkbox" data-nov="${x._i}"> ${esc(novLbl(x))}</label></div>`:''}
     ${pliegoBox(p)}
     ${g&&g.empresa?`<div class="sec"><h3>${esc(g.tipo||'Ganador')}${x.fecha_adjudicacion?' · '+esc(x.fecha_adjudicacion.split('-').reverse().join('/'))+(x.fecha_adjudicacion_aprox?' (aprox.)':''):''}</h3><div class="winner">
       <div class="who"><div class="name">${gc.web?`<a href="${esc(/^https?:/i.test(gc.web)?gc.web:"https://"+gc.web.replace(/^\/+/,""))}" target="_blank" rel="noopener">${esc(g.empresa)}</a>`:esc(g.empresa)}</div>${g.monto!=null?`<div style="font-family:var(--mono)">${full(g.monto,x.moneda)}</div>`:''}</div>
@@ -1037,7 +1049,7 @@ function foot(){
    <div><h3>Fuentes y método</h3>
     <p>Portales oficiales de compras y obras, boletines oficiales y prensa regional. Los datos de contacto son institucionales y públicos. Verificá siempre en el pliego oficial antes de presentarte.</p>
     <p>Primero las fuentes oficiales (boletines, portales de compras, actas y prensa de gobierno); la prensa regional solo cuando no hay fuente oficial, marcada como secundaria.</p>
-    <p>Se actualiza todos los días a las 10:00 (hora de Buenos Aires), con relevamiento profundo los lunes. Las novedades quedan destacadas en rojo hasta que alguien tilda “Quitar novedad”; al tildarla, todos los oferentes con email de esa licitación quedan registrados con mail enviado (los que solo tienen teléfono no se marcan) (destildarla deshace ese registro). Cada apertura y adjudicación se guarda en la <a href="../memoria/" target="_blank" rel="noopener">Memoria de licitaciones</a>.</p></div>`;
+    <p>Se actualiza todos los días a las 10:00 (hora de Buenos Aires), con relevamiento profundo los lunes. Las novedades se destacan en rojo solo cuando el hecho es de los últimos 7 días, con su fecha real: licitación nueva (fecha de publicación), apertura de sobres (fecha de apertura), prórroga o circular, y adjudicación o preadjudicación (fecha del acto); un hecho viejo que el radar detecta tarde no se destaca. Quedan destacadas hasta que alguien tilda “Quitar novedad” o hasta que pasan los 7 días; al tildarla, todos los oferentes con email de esa licitación quedan registrados con mail enviado (los que solo tienen teléfono no se marcan) (destildarla deshace ese registro). Cada apertura y adjudicación se guarda en la <a href="../memoria/" target="_blank" rel="noopener">Memoria de licitaciones</a>.</p></div>`;
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{st.cat=t.dataset.k; st.rubro=null; save(); render();});
 $('chips').onclick=e=>{const b=e.target.closest('.chip'); if(!b) return; st.rubro=b.dataset.r||null; render();};
