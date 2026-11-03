@@ -1,19 +1,19 @@
 {
  "radar": {
-  "items": 803,
+  "items": 817,
   "personas": 142,
-  "generado": "2026-11-02T12:05:00-03:00",
-  "codigo_actualizado": false
+  "generado": "2026-11-03T10:27:00-03:00",
+  "codigo_actualizado": true
  },
  "memoria": {
-  "licitaciones": 494,
+  "licitaciones": 496,
   "contactos": 16,
   "personas": 2,
   "fuentes": 25,
   "config": 3
  },
- "publicado": "2026-11-02T15:03:00+00:00",
- "radar_codigo": "125107136df92baa",
+ "publicado": "2026-11-03T13:30:50+00:00",
+ "radar_codigo": "d81b7d58238305f7",
  "memoria_codigo": "bfb8d69323b73ac2",
  "avisos": [],
  "memoria_html": {
