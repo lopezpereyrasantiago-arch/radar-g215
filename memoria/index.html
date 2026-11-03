@@ -762,7 +762,7 @@ function wireCalc(C){
 function renderLic(L){
   $('c-lic').textContent=L.length;
   const q=plain(S.licQ);
-  const LE=[['todas','Todas',r=>true],['adj','Adjudicadas',r=>r.estado==='adjudicada'],['pre','Preadjudicadas',r=>r.estado==='preadjudicada'],['sin','Sin adjudicar',r=>!['adjudicada','preadjudicada'].includes(r.estado)]];
+  const LE=[['todas','Todas',r=>true],['adj','Adjudicadas',r=>r.estado==='adjudicada'],['pre','Preadjudicadas',r=>r.estado==='preadjudicada'],['sin','Sin adjudicar',r=>!['adjudicada','preadjudicada','abierta'].includes(r.estado)],['abi','Abiertas (para presentarse)',r=>r.estado==='abierta']];
   const fe=(LE.find(x=>x[0]===S.licE)||LE[0])[2];
   const hay=r=>plain([r.objeto,r.organismo,r.numero,r.expediente,r.municipio,r.jurisdiccion,r.estado,r.ganador&&r.ganador.empresa,r.ganador&&r.ganador.cuit,...(r.oferentes||[]).flatMap(o=>[o.empresa,o.cuit])].filter(Boolean).join(' '));
   const base=L.filter(r=>!q||hay(r).includes(q));
@@ -956,12 +956,25 @@ async function exportXls(){
 $('xlsBtn').onclick=exportXls;
 
 /* ---------- carga desde la base ---------- */
+/* 03/11/2026: la colección "licitaciones" pasó los 1000 documentos (tope de una lectura). Se lee por tramos del campo "id"
+   (más una lectura sin filtro para los documentos que no lo tengan) y se unen sin repetir. */
+async function leerTodas(db,name){
+  const col=db.collection(name);
+  if(typeof col.where!=='function') return {docs:(await col.limit(100000).get()).docs};
+  const C=['l1','l1i','l2','la','ll','m'];
+  const qs=[col.where('id','<',C[0])]; for(let i=0;i<C.length-1;i++) qs.push(col.where('id','>=',C[i]).where('id','<',C[i+1]));
+  qs.push(col.where('id','>=',C[C.length-1])); qs.push(col);
+  const snaps=await Promise.all(qs.map(q=>q.limit(1000).get()));
+  if(snaps.slice(0,-1).some(s=>s.docs.length>=1000)) console.warn('[Memoria] un tramo de "'+name+'" llegó a 1000 documentos: hay que partirlo en leerTodas()');
+  const seen=new Set(), docs=[]; snaps.forEach(s=>s.docs.forEach(d=>{ if(!seen.has(d.id)){ seen.add(d.id); docs.push(d); } }));
+  return {docs};
+}
 async function load(){
   let db=null; try{ db=window.claude&&window.claude.use?await window.claude.use('db'):null; }catch(e){ db=null; }
   if(!db){ $('meta').textContent='Sin conexión con la base'; $('out').innerHTML='<div class="empty">No se pudo leer la base histórica. Recargá la página.</div>'; return; }
   DB=db;
   try{
-    const [lic,cfg,fu]=await Promise.all([db.collection('licitaciones').limit(1000).get(),db.doc('config/indices').get(),db.collection('fuentes').limit(100).get()]);
+    const [lic,cfg,fu]=await Promise.all([leerTodas(db,'licitaciones'),db.doc('config/indices').get(),db.collection('fuentes').limit(100).get()]);
     R=lic.docs.map(d=>({id:d.id,...d.data()}));
     if(cfg.exists){ const c=cfg.data(); ICC=c.icc||{}; ICCMETA=c; }
     FUENTES=fu.docs.map(d=>d.data());
