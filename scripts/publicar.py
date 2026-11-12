@@ -8,6 +8,8 @@ Uso:
                el resto de radar/index.html (versión pública) no se toca salvo que cambie el código.
 --memoria-html (opcional) el HTML actual del artefacto "Memoria de Licitaciones" (Artifact action read).
                Si su código cambió desde la última publicación, se regenera memoria/index.html.
+--futuras     el HTML actual del artefacto "Licitaciones a futuro" (trae sus datos adentro).
+               Se regenera futuras/index.html completo en cada corrida (scripts/armar_futuras.py).
 --memoria-dir  carpeta con la base de la Memoria bajada con ArtifactData (list con out_dir):
                <dir>/licitaciones/*.json, <dir>/contactos/*.json, <dir>/personas/*.json, <dir>/fuentes/*.json, <dir>/config/*.json
                Genera data/memoria.json (la colección "empresas" no se publica).
@@ -55,6 +57,7 @@ def rearmar(script, src, dst, avisos):
                           f'({(r.stdout + r.stderr).strip()[:200]}). Se mantuvo la versión pública anterior con los datos nuevos: '
                           f'hay que pedirle a Claude que actualice scripts/{script}.')
             return False
+        dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(tmp.read_text(encoding='utf-8'), encoding='utf-8')
         return True
 
@@ -99,6 +102,14 @@ def memoria_html(src, estado, avisos):
     return {'codigo_actualizado': ok}
 
 
+def futuras(src, avisos):
+    s = pathlib.Path(src).read_text(encoding='utf-8')
+    a, b = bloque(s)
+    d = json.loads(s[a:b].replace('<\\/', '</'))
+    ok = rearmar('armar_futuras.py', src, RAIZ / 'futuras' / 'index.html', avisos)
+    return {'anuncios': len(d.get('futuras', [])), 'generado': d.get('generado'), 'actualizado': ok}
+
+
 def memoria(carpeta):
     base = pathlib.Path(carpeta)
     cols = {}
@@ -126,6 +137,7 @@ if __name__ == '__main__':
     ap.add_argument('--radar')
     ap.add_argument('--memoria-dir')
     ap.add_argument('--memoria-html')
+    ap.add_argument('--futuras')
     a = ap.parse_args()
     est = RAIZ / 'data' / 'estado.json'
     est.parent.mkdir(exist_ok=True)
@@ -135,6 +147,8 @@ if __name__ == '__main__':
         res['radar'] = radar(a.radar, prev, avisos)
     if a.memoria_html:
         res['memoria_html'] = memoria_html(a.memoria_html, prev, avisos)
+    if a.futuras:
+        res['futuras'] = futuras(a.futuras, avisos)
     if a.memoria_dir:
         res['memoria'] = memoria(a.memoria_dir)
     res['avisos'] = avisos
