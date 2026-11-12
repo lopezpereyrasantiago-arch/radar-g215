@@ -12,11 +12,16 @@
   "fuentes": 25,
   "config": 3
  },
- "publicado": "2026-11-12T20:46:02+00:00",
- "radar_codigo": "94d8bdad38e06e8d",
+ "publicado": "2026-11-12T21:07:41+00:00",
+ "radar_codigo": "2c8226339936664b",
  "memoria_codigo": "77eba6cfe13778e4",
  "avisos": [],
  "memoria_html": {
   "codigo_actualizado": false
+ },
+ "futuras": {
+  "anuncios": 25,
+  "generado": "2026-11-12T21:30:00-03:00",
+  "actualizado": true
  }
 }
