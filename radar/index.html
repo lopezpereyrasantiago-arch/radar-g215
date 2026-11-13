@@ -318,6 +318,7 @@ const D = JSON.parse(document.getElementById('data').textContent);
 const RUBROS = ["Energía","Vial y transporte","Agua y saneamiento","Hidráulica","Arquitectura y edificios públicos","Vivienda y urbanismo","Ambiental y residuos","Consultoría e ingeniería","Otros"];
 const st = {cat:'abierta', rubro:null, jur:'', com:'', q:'', orden:'reciente', agrupar:false, concontacto:false, solonov:false};
 try{ const s=JSON.parse(localStorage.getItem('radar-lic-v3')||'{}'); Object.assign(st, s); }catch(e){}
+if(st.cat!=='abierta'&&st.cat!=='apertura') st.cat='abierta'; /* pestaña guardada que ya no existe */
 const save=()=>{try{localStorage.setItem('radar-lic-v3',JSON.stringify({cat:st.cat,orden:st.orden,agrupar:st.agrupar}))}catch(e){}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
