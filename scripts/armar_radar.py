@@ -27,7 +27,6 @@ onCaps(()=>{ const db=CAP.db; if(!db||!db.live) return;
 reps = [
     ('</head>', HEAD + '</head>'),
     ('https://claude.ai/artifact/TaetpDjgkuFVwtb1hcC2wF', '../memoria/'),
-    ('https://claude.ai/artifact/QS9Ump4nCc5C8K3Wxnp4dV', '../futuras/'),
     ('header(); render(); foot(); route();\n})();', 'header(); render(); foot(); route();\n' + LIVE + '})();'),
 ]
 for a, b in reps:
