@@ -332,6 +332,16 @@ function parseD(s){ if(!s) return null; const m=s.match(/(\d{4})-(\d{2})-(\d{2})
   return {d:new Date(+m[1],m[2]-1,+m[3]), txt:`${m[3]}/${m[2]}`+(m[4]?` ${m[4]}:${m[5]} h`:''), long:`${m[3]}/${m[2]}/${m[1]}`+(m[4]?` · ${m[4]}:${m[5]} h`:'')}; }
 function rel(d){ const n=Math.round((d-today)/864e5); if(n===0) return 'hoy'; if(n===1) return 'mañana'; if(n>0) return `en ${n} días`; if(n===-1) return 'ayer'; return `hace ${-n} días`; }
 const items=D.items.map((x,i)=>Object.assign({_i:i},x));
+/* 13/11/2026 (Santiago): fecha del llamado = día en que se hizo público el llamado, leída del documento oficial del que sale el pliego
+   (acto que llama o primera publicación del aviso). NO es el día en que el radar lo encontró.
+   x.fecha_llamado / x.acto_llamado / x.fecha_llamado_fuente; mientras falten, se muestra la fecha del aviso oficial (fecha_publicacion) aclarándolo. */
+function llamadoInfo(x){
+  const f=parseD(x.fecha_llamado);
+  if(f) return {f, acto:x.acto_llamado||'', src:x.fecha_llamado_fuente||x.fuente_url||'', de:'acto'};
+  const p=x.fuente_tipo==='oficial'?parseD(x.fecha_publicacion):null;
+  if(p) return {f:p, acto:x.acto_llamado||'', src:x.fuente_url||'', de:'aviso'};
+  return null;
+}
 /* 12/11/2026: filtro por comitente (organismo que licita) */
 const comMatch=x=>!st.com||norm(x.organismo||'').includes(norm(st.com));
 /* 03/11/2026 (Santiago): en "Sobres abiertos" solo se muestran las licitaciones con fecha de apertura y oferentes (o ganador) publicados.
@@ -402,6 +412,8 @@ function tagsFor(x){
   const fa=parseD(x.fecha_apertura), t=[];
   if(fa){ const soon=x.categoria==='abierta' && (fa.d-today)/864e5<=7 && fa.d>=today;
     t.push(`<span class="tag${soon?' soon':''}">Apertura ${fa.txt} · ${rel(fa.d)}</span>`);} else t.push(`<span class="tag">Apertura sin fecha publicada</span>`);
+  if(x.categoria==='abierta'){ const L=llamadoInfo(x);
+    t.push(L?`<span class="tag" title="${esc((L.acto?L.acto+' · ':'')+(L.de==='aviso'?'Fecha del aviso oficial de llamado':'Fecha del acto de llamado'))}">Llamado ${L.f.long.split(' · ')[0]}</span>`:`<span class="tag">Fecha de llamado sin relevar</span>`); }
   if(x.semana_previa) t.push(`<span class="tag prev">Anterior a la ventana</span>`);
   if(x.requiere_eia==='Sí') t.push(`<span class="tag eia">Requerimiento ambiental</span>`); else if(x.requiere_eia==='Probable') t.push(`<span class="tag eia">Req. ambiental probable</span>`);
   if(incompletaSA(x)) t.push(`<span class="tag sec">Sin datos del acta: ${!x.fecha_apertura?'falta la fecha de apertura':''}${!x.fecha_apertura&&!completa({...x,fecha_apertura:'x'})?' y ':''}${!completa({...x,fecha_apertura:'x'})?'faltan los oferentes':''}</span>`);
@@ -1049,6 +1061,7 @@ function detail(i){
     ${contactsSection(x)}
     <div class="sec"><h3>Ficha</h3><dl class="facts">
       ${fact('Apertura de sobres', fa?`${fa.long} <span class="rel">· ${rel(fa.d)}</span>`:'Sin fecha publicada')}
+      ${(()=>{ const L=llamadoInfo(x); return fact('Llamado (día en que se hizo público)', L?`${L.f.long.split(' · ')[0]}${L.acto?' · '+esc(L.acto):''}${L.de==='aviso'?' <span class="rel">· fecha del aviso oficial</span>':''}${L.src?` · <a href="${esc(L.src)}" target="_blank" rel="noopener">documento</a>`:''}`:'Sin relevar (no es la fecha en que el radar la detectó)',true); })()}
       ${fact('Publicada', fp?fp.long:'—')}
       ${fact('Plazo de obra', esc(x.plazo_obra||'—'))}
       ${fact('Requerimiento ambiental', esc(x.requiere_eia||'—'))}
