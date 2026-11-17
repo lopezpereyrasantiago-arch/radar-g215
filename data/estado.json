@@ -1,18 +1,18 @@
 {
  "radar": {
-  "items": 899,
+  "items": 906,
   "personas": 142,
-  "generado": "2026-11-17T10:38:00-03:00",
+  "generado": "2026-11-17T15:03:00-03:00",
   "codigo_actualizado": false
  },
  "memoria": {
-  "licitaciones": 1224,
+  "licitaciones": 1232,
   "contactos": 18,
   "personas": 2,
   "fuentes": 25,
   "config": 4
  },
- "publicado": "2026-11-17T13:45:01+00:00",
+ "publicado": "2026-11-17T18:04:42+00:00",
  "radar_codigo": "1cec04bf4cde282c",
  "memoria_codigo": "77eba6cfe13778e4",
  "avisos": [],
