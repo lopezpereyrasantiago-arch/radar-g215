@@ -1,8 +1,8 @@
 {
  "radar": {
-  "items": 987,
+  "items": 986,
   "personas": 142,
-  "generado": "2026-11-19T10:45:40-03:00",
+  "generado": "2026-11-19T10:53:49-03:00",
   "codigo_actualizado": false
  },
  "memoria": {
@@ -12,7 +12,7 @@
   "fuentes": 25,
   "config": 6
  },
- "publicado": "2026-11-19T13:49:56+00:00",
+ "publicado": "2026-11-19T13:54:08+00:00",
  "radar_codigo": "1cec04bf4cde282c",
  "memoria_codigo": "77eba6cfe13778e4",
  "avisos": [],
